@@ -34,13 +34,13 @@ const certifications = [
 ];
 
 const projects = [
+  { category: "web", title: "Vitality Tracker", desc: "A vitality tracking application I built to monitor and manage health data, focusing on performance, structure, and a smooth user experience across platforms.", img: Vitality, fallback: "https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?auto=format&fit=crop&q=80&w=800", link: "https://egunalucasandrei-droid.github.io/Vitality-Health-Tracker/", linkText: "Visit Site" },
+  { category: "web", title: "AI Chat", desc: "An AI-powered chat application I built to deliver fast and seamless conversations. It uses a separate backend for API security and a clean, responsive frontend for a smooth user experience.", img: aiChat, fallback: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&q=80&w=800", link: "https://ai-chat-snowy-mu.vercel.app", linkText: "Visit Site" },
   { category: "uiux", title: "Fit Tracker", desc: "Modern Figma UI design focusing on clean user experience for fitness tracking.", img: figma1, fallback: "https://images.unsplash.com/photo-1616198814651-e71f960c3180?auto=format&fit=crop&q=80&w=800", link: "https://www.figma.com/proto/d97Fr5Pdx8UFmAHHVpwVXv/FINAL-PROJECT?node-id=52-105&starting-point-node-id=52%3A105&t=QsXVjRp6wbDnW84U-1", linkText: "View Design" },
   { category: "uiux", title: "Rise Fit", desc: "Intuitive mobile interface designed in Figma for health enthusiasts.", img: figma2, fallback: "https://images.unsplash.com/photo-1526506114642-54bc55e2d56a?auto=format&fit=crop&q=80&w=800", link: "https://www.figma.com/proto/GfaYaASRaaXXHHvDMdbAqc/final-project?node-id=1-2", linkText: "View Design" },
   { category: "uiux", title: "Shape Your Body", desc: "A structured and visually appealing fitness application prototype.", img: figma3, fallback: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=800", link: "https://www.figma.com/proto/UbQv3hR8SUTIilNiI2o8XW/Final-Project?node-id=21-32", linkText: "View Design" },
   { category: "uiux", title: "Health Tracker", desc: "Comprehensive health monitoring dashboard UI crafted with minimalism.", img: figma4, fallback: "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&q=80&w=800", link: "https://www.figma.com/proto/PkBZ1D9v60sZGZbBe9jpoA/HEALTH-TRACKER?node-id=60-48", linkText: "View Design" },
   { category: "web", title: "NIKE Mockup", desc: "A Nike-inspired front-end project I built to explore modern UI design and responsive layouts. Focused on creating a clean, visually engaging interface while practicing component-based development using React and Tailwind CSS.", img: nike1, fallback: "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&q=80&w=800", link: "https://egunalucasandrei-droid.github.io/NIKE-WEBSITE/", linkText: "Visit Site" },
-  { category: "web", title: "AI Chat", desc: "An AI-powered chat application I built to deliver fast and seamless conversations. It uses a separate backend for API security and a clean, responsive frontend for a smooth user experience.", img: aiChat, fallback: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&q=80&w=800", link: "https://ai-chat-snowy-mu.vercel.app", linkText: "Visit Site" },
-  { category: "web", title: "Vitality Tracker", desc: "A vitality tracking application I built to monitor and manage health data, focusing on performance, structure, and a smooth user experience across platforms.", img: Vitality, fallback: "https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?auto=format&fit=crop&q=80&w=800", link: "https://egunalucasandrei-droid.github.io/Vitality-Health-Tracker/", linkText: "Visit Site" },
   { category: "web", title: "ROGSTRIX mockup", desc: "A ROG Strix–inspired design project focused on creating a bold and futuristic interface. Built to explore modern UI styling, layout composition, and visually striking design elements.", img: rog, fallback: "https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?auto=format&fit=crop&q=80&w=800", link: "https://egunalucasandrei-droid.github.io/ROG-WEBSITE/", linkText: "Visit Site" },
   { category: "video", title: "She's Dating The Gangster (Trailer)", desc: "Creative storytelling and high-impact editing for a cinematic trailer.", img: film1, fallback: "https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&q=80&w=800", link: "https://youtu.be/CrDVxN9pC1A?si=R42Hjhf-Se8hM5Xc", linkText: "Watch Video", isVideo: true },
   { category: "video", title: "She's Dating The Gangster (Short Film)", desc: "Detailed recreation showcasing cinematography and editing skills.", img: film7, fallback: "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?auto=format&fit=crop&q=80&w=800", link: "https://youtu.be/60wxaOO0sbg?si=AIzBobI2oPGjK-dw", linkText: "Watch Video", isVideo: true },
@@ -174,10 +174,6 @@ export default function App() {
     } catch (e) {}
     return linkText;
   };
-
-  // ----------------------------------------------------
-  // SUB-COMPONENTS FOR FULL SCREEN VIEWS
-  // ----------------------------------------------------
   
   const renderAllProjects = () => (
     <div className="w-full max-w-5xl mx-auto px-5 py-12 fade-up">
@@ -270,9 +266,6 @@ export default function App() {
     </div>
   );
 
-  // ----------------------------------------------------
-  // MAIN RENDER
-  // ----------------------------------------------------
   return (
     <div className={`min-h-screen w-full transition-colors duration-300 font-sans pb-16 ${theme === 'dark' ? 'bg-black text-white selection:bg-white selection:text-black' : 'bg-zinc-50 text-zinc-900 selection:bg-zinc-900 selection:text-white'}`}>
       <GlobalStyles />
