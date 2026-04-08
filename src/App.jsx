@@ -148,12 +148,13 @@ export default function App() {
   };
 
   const [theme, setTheme] = useState(getInitialTheme);
-  const [activeFilter, setActiveFilter] = useState('all');
-  const [displayFilter, setDisplayFilter] = useState('all');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalImg, setModalImg] = useState('');
   const [showAllCerts, setShowAllCerts] = useState(false);
   const [certVisible, setCertVisible] = useState(false);
+  
+  // Controls the Projects view toggle (Recent vs All)
+  const [showAllProjects, setShowAllProjects] = useState(false);
 
   useEffect(() => {
     try {
@@ -183,14 +184,6 @@ export default function App() {
 
     return () => observer.disconnect();
   }, []);
-
-  // Project Filtering Logic
-  const handleFilterChange = (filter) => {
-    setActiveFilter(filter);
-    setTimeout(() => {
-      setDisplayFilter(filter);
-    }, 400);
-  };
 
   const openModal = (imgSrc) => {
     setModalImg(imgSrc);
@@ -647,51 +640,75 @@ export default function App() {
 
       {/* PROJECTS SECTION */}
       <section id="projects" className="py-32 border-b border-(--border) transition-colors duration-300">
-        <div className="w-full max-w-250 mx-auto px-6">
-          <h2 className="text-[1.75rem] font-bold tracking-[-0.04em] mb-12 text-(--text-main) fade-up pl-6">PROJECTS</h2>
+        <div className="w-full max-w-212.5 mx-auto px-6">
           
-          <div className="flex gap-6 mb-14 flex-wrap fade-up pl-6">
-            <button className={`bg-transparent border-none text-[0.95rem] font-medium cursor-pointer pb-1.5 border-b-2 transition-all duration-300 hover:text-(--text-main) ${activeFilter === 'all' ? 'text-(--text-main) border-(--text-main)' : 'text-(--text-muted) border-transparent'}`} onClick={() => handleFilterChange('all')}>All</button>
-            <button className={`bg-transparent border-none text-[0.95rem] font-medium cursor-pointer pb-1.5 border-b-2 transition-all duration-300 hover:text-(--text-main) ${activeFilter === 'uiux' ? 'text-(--text-main) border-(--text-main)' : 'text-(--text-muted) border-transparent'}`} onClick={() => handleFilterChange('uiux')}>UI/UX</button>
-            <button className={`bg-transparent border-none text-[0.95rem] font-medium cursor-pointer pb-1.5 border-b-2 transition-all duration-300 hover:text-(--text-main) ${activeFilter === 'web' ? 'text-(--text-main) border-(--text-main)' : 'text-(--text-muted) border-transparent'}`} onClick={() => handleFilterChange('web')}>Websites</button>
-            <button className={`bg-transparent border-none text-[0.95rem] font-medium cursor-pointer pb-1.5 border-b-2 transition-all duration-300 hover:text-(--text-main) ${activeFilter === 'video' ? 'text-(--text-main) border-(--text-main)' : 'text-(--text-muted) border-transparent'}`} onClick={() => handleFilterChange('video')}>Videos</button>
+          {/* Header */}
+          <div className="flex justify-between items-center mb-8 fade-up">
+            <div className="flex items-center gap-3">
+              {showAllProjects && (
+                <button 
+                  onClick={() => {
+                    setShowAllProjects(false);
+                    document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="bg-transparent border-none text-[#a1a1aa] text-[0.85rem] font-medium cursor-pointer flex items-center gap-1.5 hover:text-white transition-colors"
+                >
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                  </svg>
+                  Back to Home
+                </button>
+              )}
+              <h2 className="text-[1.5rem] md:text-[1.75rem] font-bold tracking-[-0.02em] text-white">
+                {showAllProjects ? "All Projects" : "Recent Projects"}
+              </h2>
+            </div>
+            
+            {!showAllProjects && (
+              <button 
+                onClick={() => setShowAllProjects(true)}
+                className="bg-transparent border-none text-[0.85rem] font-bold cursor-pointer inline-flex items-center gap-1 text-white hover:text-[#a1a1aa] transition-colors group"
+              >
+                View All
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5 mt-px transition-transform duration-300 group-hover:translate-x-1">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </button>
+            )}
           </div>
 
-          <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-y-16 gap-x-10 px-6 fade-up">
-            {projects.map((proj, idx) => {
-              const isDisplayed = displayFilter === 'all' || proj.category === displayFilter;
-              const isVisible = activeFilter === 'all' || proj.category === activeFilter;
+          {/* Projects Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 fade-up">
+            {(showAllProjects ? projects : projects.slice(0, 4)).map((proj, idx) => {
+              let domainText = proj.linkText;
+              try {
+                if (proj.link && proj.link.startsWith('http')) {
+                  domainText = new URL(proj.link).hostname.replace('www.', '');
+                }
+              } catch (e) {}
 
               return (
-                <div 
+                <a 
                   key={idx} 
-                  className="flex flex-col group"
-                  style={{
-                    display: isDisplayed ? 'flex' : 'none',
-                    opacity: isVisible ? 1 : 0,
-                    transform: isVisible ? 'translateY(0)' : 'translateY(15px)',
-                    transition: 'opacity 0.4s ease, transform 0.4s ease'
-                  }}
+                  href={proj.link}
+                  target="_blank" 
+                  rel="noreferrer"
+                  className="flex flex-col p-6 rounded-md bg-[#0a0a0a] hover:bg-[#111111] transition-all duration-300 no-underline"
                 >
-                  <a href={proj.link} target="_blank" rel="noreferrer" className="w-full aspect-16/10 overflow-hidden bg-(--hover-bg) rounded-lg mb-6 border border-(--border) transition-colors duration-300">
-                    <img src={proj.img} alt={proj.title} className="w-full h-full object-cover transition-transform duration-600 cubic-bezier(0.16, 1, 0.3, 1) group-hover:scale-105" onError={(e) => { e.target.onerror = null; e.target.src = proj.fallback; }} />
-                  </a>
-                  <div>
-                    <h3 className="text-[1.15rem] font-semibold tracking-[-0.02em] mb-2 text-(--text-main)">{proj.title}</h3>
-                    <p className="text-(--text-muted) text-[0.95rem] mb-5 leading-normal">{proj.desc}</p>
-                    <a href={proj.link} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 font-medium text-[0.875rem] text-(--text-main) group/link">
-                      {proj.linkText}
-                      {proj.isVideo ? (
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5 transition-transform duration-300 group-hover/link:translate-x-1 group-hover/link:-translate-y-1"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-                      ) : (
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5 transition-transform duration-300 group-hover/link:translate-x-1 group-hover/link:-translate-y-1"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
-                      )}
-                    </a>
+                  <h3 className="text-[1.1rem] font-bold text-white mb-1.5 tracking-tight">{proj.title}</h3>
+                  <p className="text-[#a1a1aa] text-[0.85rem] leading-normal mb-5">{proj.desc}</p>
+                  
+                  <div className="mt-auto flex items-start">
+                    <span className="inline-block px-2.5 py-1 bg-[#000000] text-[#e4e4e7] font-mono text-[0.75rem] font-medium leading-none rounded-[3px]">
+                      {domainText}
+                    </span>
                   </div>
-                </div>
+                </a>
               );
             })}
           </div>
+          
         </div>
       </section>
 
