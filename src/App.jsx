@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import cert1 from './images/Introduction to Network Defense certificate.png';
 import cert2 from './images/Introduction to Networks Certificate.png';
 import cert3 from './images/HTML certificate.png';
+import cert4 from './images/Introduction to Data Science Certificate_Eguna.png';
+import cert5 from './images/AI fundamentals IBM skillsbuild certificate_Eguna.png';
 import figma1 from './images/Figma1.png';
 import figma2 from './images/figma2.png';
 import figma3 from './images/figma3.png';
@@ -30,7 +32,10 @@ import resumeDoc from './images/My Resume - Eguna.png';
 const certifications = [
   { title: "Introduction to Network Defense", issuer: "Cisco", image: cert1 },
   { title: "Introduction to Networks", issuer: "Cisco", image: cert2 },
+  { title: "AI Fundamentals IBM Skill Build", issuer: "Cisco", image: cert5 },
   { title: "HTML Developer", issuer: "W3schools", image: cert3 },
+  { title: "Introduction to Data Science", issuer: "Cisco", image: cert4 },
+  { title: "AI Fundamentals IBM Skill Build", issuer: "Cisco", image: cert5 },
 ];
 
 const projects = [
