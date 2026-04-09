@@ -19,16 +19,16 @@ import film3 from './images/film3.png';
 import film2 from './images/film2.png';
 import film4 from './images/film4.png';
 import film5 from './images/Film5.png';
-
-// Renamed imports so they don't clash
 import me1 from './images/me1.png';
 import me2 from './images/me2.png';
 import me3 from './images/me3.png';
 import me4 from './images/me4.png';
 
+//profile
 import profileImg from './images/profile-removebg-preview.png';
 import resumeDoc from './images/My Resume - Eguna.png';
 
+//certificates
 const certifications = [
   { title: "Introduction to Network Defense", issuer: "Cisco", image: cert1 },
   { title: "Introduction to Networks", issuer: "Cisco", image: cert2 },
@@ -38,6 +38,7 @@ const certifications = [
   { title: "AI Fundamentals IBM Skill Build", issuer: "Cisco", image: cert5 },
 ];
 
+//projects
 const projects = [
   { category: "web", title: "Vitality Tracker", desc: "A vitality tracking application I built to monitor and manage health data, focusing on performance, structure, and a smooth user experience across platforms.", img: Vitality, fallback: "https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?auto=format&fit=crop&q=80&w=800", link: "https://egunalucasandrei-droid.github.io/Vitality-Health-Tracker/", linkText: "Visit Site" },
   { category: "web", title: "AI Chat", desc: "An AI-powered chat application I built to deliver fast and seamless conversations. It uses a separate backend for API security and a clean, responsive frontend for a smooth user experience.", img: aiChat, fallback: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&q=80&w=800", link: "https://ai-chat-snowy-mu.vercel.app", linkText: "Visit Site" },
@@ -56,6 +57,7 @@ const projects = [
   { category: "video", title: "Wealth Habits", desc: "Informative and engaging motivational edit tailored for social platforms.", img: film5, fallback: "https://images.unsplash.com/photo-1579621970588-a35d0e7ab9b6?auto=format&fit=crop&q=80&w=800", link: "https://youtu.be/WAbr7hQvYUU?si=t3Z-6RbWFNilH9BD", linkText: "Watch Video", isVideo: true },
 ];
 
+//gallery
 const galleryImages = [
   { alt: "Gallery Image 1", src: me1 },
   { alt: "Gallery Image 2", src: me2 },
