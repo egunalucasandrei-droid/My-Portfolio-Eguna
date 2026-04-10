@@ -369,7 +369,7 @@ export default function App() {
                   <div>
                     <h3 className={`text-[0.65rem] font-bold mb-2 uppercase tracking-wider ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>Frontend</h3>
                     <div className="flex flex-wrap gap-2">
-                      {['HTML5', 'CSS', 'JavaScript', 'React', 'Tailwind CSS', 'Vite', 'Next.js', 'Styled Components', 'Vue.js'].map(tech => (
+                      {['HTML5', 'CSS', 'JavaScript', 'React', 'Tailwind CSS', 'Vite', 'Next.js', 'Styled Components', 'Framer-motion', 'Vue.js'].map(tech => (
                         <span key={tech} className={`text-[0.65rem] font-medium px-2 py-0.5 rounded border ${theme === 'dark' ? 'bg-zinc-900 border-zinc-800 text-white' : 'bg-zinc-50 border-zinc-200 text-zinc-900'}`}>{tech}</span>
                       ))}
                     </div>
