@@ -25,7 +25,7 @@ import me3 from './images/me3.png';
 import me4 from './images/me4.png';
 
 //profile
-import profileImg from './images/profile-removebg-preview.png';
+import profileImg from './images/profile no background.png';
 import resumeDoc from './images/My Resume - Eguna.png';
 
 //certificates
@@ -35,7 +35,6 @@ const certifications = [
   { title: "AI Fundamentals IBM Skill Build", issuer: "Cisco", image: cert5 },
   { title: "HTML Developer", issuer: "W3schools", image: cert3 },
   { title: "Introduction to Data Science", issuer: "Cisco", image: cert4 },
-  { title: "AI Fundamentals IBM Skill Build", issuer: "Cisco", image: cert5 },
 ];
 
 //projects
@@ -321,7 +320,7 @@ export default function App() {
           {/* PROFILE HEADER */}
           <div className={`flex flex-col md:flex-row justify-between items-start md:items-end gap-5 mb-6 border-b pb-6 ${theme === 'dark' ? 'border-zinc-800' : 'border-zinc-200'}`}>
             <div className="flex items-center gap-5">
-              <img src={profileImg} alt="Lucas Eguna" className={`w-16 h-16 md:w-20 md:h-20 rounded-xl object-cover border ${theme === 'dark' ? 'border-zinc-800 bg-zinc-950' : 'border-zinc-200 bg-white'}`} onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400&h=400'; }} />
+              <img src={profileImg} alt="Lucas Eguna" className={`w-20 h-20 md:w-28 md:h-28 rounded-xl object-cover border ${theme === 'dark' ? 'border-zinc-800 bg-zinc-950' : 'border-zinc-200 bg-white'}`} onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400&h=400'; }} />
               <div>
                 <h1 className={`text-xl md:text-2xl font-extrabold tracking-tight leading-none mb-1.5 flex items-center gap-2 ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
                   Lucas Eguna
