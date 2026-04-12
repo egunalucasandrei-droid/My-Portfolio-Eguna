@@ -356,9 +356,9 @@ export default function App() {
               <div className={`border rounded-xl p-5 md:p-6 ${theme === 'dark' ? 'bg-zinc-950 border-zinc-800' : 'bg-white border-zinc-200'}`}>
                 <h2 className={`text-[0.9rem] font-extrabold mb-3 tracking-tight ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>About</h2>
                 <div className={`space-y-3 text-[0.75rem] leading-relaxed ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>
-                  <p>I’m a full-stack developer, UI/UX designer, and video editor currently studying BSIT specializing in Cybersecurity.</p>
-                  <p>I build modern, responsive web applications using React, Node.js, and Firebase, while also creating engaging visual content through video editing.</p>
-                  <p>I have experience in frontend development, freelance work, and social media content creation, including building projects like a Vitality Health Tracker. Currently focused on improving backend systems and building scalable applications.</p>
+                  <p>I'm a full-stack developer, UI/UX designer, and video editor currently in my third year studying BSIT with a specialization in Cybersecurity.</p>
+                  <p>I specialize in building modern, responsive, and scalable web applications, with a strong focus on the MERN stack (MongoDB, Express.js, React, and Node.js). Beyond coding, I have a strong eye for design, creating intuitive user interfaces and engaging visual content as a short-form and film editor.</p>
+                  <p>My experience spans freelance development, social media content creation, and building complete web applications like the Vitality Health Tracker. Right now, I'm highly focused on expanding my backend expertise by studying PHP, Python, and other server-side technologies, while simultaneously upgrading my visual content workflow by mastering new video editing tools.</p>
                 </div>
               </div>
 
