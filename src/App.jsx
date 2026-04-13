@@ -410,8 +410,6 @@ export default function App() {
     </div>
   );
 
-  // ----- RENDER: ALL TECH STACK VIEW -----
-  // Updated to match the specific layout requested in the image
   const renderAllTech = () => (
     <div className="w-full max-w-4xl mx-auto px-5 py-12 fade-up">
       <div className="flex items-center gap-4 mb-10">
@@ -638,7 +636,7 @@ export default function App() {
                   Metro Manila, Philippines
                 </div>
                 <p className={`text-[0.8rem] md:text-[0.85rem] font-bold tracking-tight ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
-                  UI/UX Designer \ Full Stack Developer \ Video Editor
+                   Full Stack Developer \ Video Editor \ UI/UX Designer
                 </p>
               </div>
             </div>
@@ -811,7 +809,7 @@ export default function App() {
                   ))}
                 </div>
               </div>
-              
+
               <div className={`border rounded-xl p-5 flex flex-col sm:flex-row gap-5 justify-between items-start sm:items-center ${
                 theme === 'dark' ? 'bg-zinc-950 border-zinc-800' : 'bg-white border-zinc-200'
               }`}>
