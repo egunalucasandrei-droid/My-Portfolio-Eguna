@@ -864,8 +864,19 @@ export default function App() {
                     <div className="relative pl-5 flex justify-between items-start group">
                       <div className={`absolute left-0 top-1.25 w-1.75 h-1.75 z-10 transition-transform group-hover:scale-150 ${theme === 'dark' ? 'bg-white' : 'bg-zinc-900'}`}></div>
                       <div className="pr-2">
-                        <h3 className={`text-[0.8rem] font-bold tracking-tight leading-tight ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>Frontend / Full stack developer</h3>
-                        <p className={`text-[0.7rem] mt-1 ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>Freelancer</p>
+                        <h3 className={`text-[0.8rem] font-bold tracking-tight leading-tight ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>Short-form Video Editor</h3>
+                        <p className={`text-[0.7rem] mt-1 ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>Full-time</p>
+                      </div>
+                      <span className={`text-[0.65rem] font-mono font-medium pt-0.5 shrink-0 ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>Present</span>
+                    </div>
+          
+                    <div className="relative pl-5 flex justify-between items-start group">
+                      <div className={`absolute left-0 top-1.25 w-1.75 h-1.75 border z-10 transition-transform group-hover:scale-150 ${
+                        theme === 'dark' ? 'border-zinc-600 bg-zinc-950 group-hover:border-white' : 'border-zinc-300 bg-white group-hover:border-zinc-900'
+                      }`}></div>
+                      <div className="pr-2">
+                        <h3 className={`text-[0.8rem] font-bold tracking-tight leading-tight ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>Front end / Full Stack Developer</h3>
+                        <p className={`text-[0.7rem] mt-1 leading-snug ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>Freelance</p>
                       </div>
                       <span className={`text-[0.65rem] font-mono font-medium pt-0.5 shrink-0 ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>Present</span>
                     </div>
