@@ -26,6 +26,7 @@ import me4 from './images/me4.png';
 
 //profile
 import profileImg from './images/profile no background.png';
+import profileSigma from './images/profile sigma transparent.png';
 import resumeDoc from './images/My Resume - Eguna.png';
 
 //certificates
@@ -35,6 +36,15 @@ const certifications = [
   { title: "AI Fundamentals IBM Skill Build", issuer: "Cisco", image: cert5 },
   { title: "HTML Developer", issuer: "W3schools", image: cert3 },
   { title: "Introduction to Data Science", issuer: "Cisco", image: cert4 },
+];
+
+//tech stack
+const techStack = [
+  { category: "Frontend", tools: ['HTML5', 'CSS', 'JavaScript', 'React', 'Tailwind CSS', 'Vite', 'Next.js', 'Styled Components', 'Framer Motion', 'Vue.js'] },
+  { category: "Backend", tools: ['Node.js', 'Express.js', 'MongoDB', 'REST API', 'Nest.js', 'Firebase'] },
+  { category: "Developer Tools", tools: ['Git & GitHub', 'VS Code', 'Postman', 'npm', 'Chrome DevTools', 'ESLint & Prettier', 'Vercel', 'Netlify', 'Firebase Console', 'MongoDB Compass'] },
+  { category: "Short-Form Video Editing Tools", tools: ['CapCut', 'Filmora', 'DaVinci Resolve', 'VEED', 'Alight Motion', 'Clipchamp'] },
+  { category: "Design Tools", tools: ['Figma', 'Canva'] }
 ];
 
 //projects
@@ -249,8 +259,11 @@ export default function App() {
   const [theme, setTheme] = useState(getInitialTheme);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalImg, setModalImg] = useState('');
+  
+  // Profile Hover State
+  const [isHoveringProfile, setIsHoveringProfile] = useState(false);
 
-  // 'home' | 'projects' | 'certs' | 'gallery'
+  // 'home' | 'projects' | 'certs' | 'gallery' | 'tech'
   const [activeView, setActiveView] = useState('home');
   const [activeProjectFilter, setActiveProjectFilter] = useState('all');
 
@@ -331,38 +344,41 @@ export default function App() {
             theme === 'dark' ? 'text-zinc-400 hover:text-white' : 'text-zinc-500 hover:text-zinc-900'
           }`}
         >
-          <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <line x1="19" y1="12" x2="5" y2="12"></line>
             <polyline points="12 19 5 12 12 5"></polyline>
           </svg>
           Back to Home
         </button>
-        <h1 className={`text-xl font-extrabold tracking-tight ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+        <h1 className={`text-xl md:text-2xl font-extrabold tracking-tight ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
           All Projects
         </h1>
       </div>
 
-      <div className={`flex gap-4 mb-6 border-b pb-2 flex-wrap ${theme === 'dark' ? 'border-zinc-800' : 'border-zinc-200'}`}>
-        {['all', 'uiux', 'web', 'video'].map(filter => (
-          <button
-            key={filter}
-            onClick={() => setActiveProjectFilter(filter)}
-            className={`text-xs font-bold uppercase tracking-wide pb-2 border-b-2 transition-colors ${
-              activeProjectFilter === filter
-                ? theme === 'dark'
-                  ? 'text-white border-white'
-                  : 'text-zinc-900 border-zinc-900'
-                : theme === 'dark'
-                ? 'text-zinc-400 border-transparent hover:text-white'
-                : 'text-zinc-500 border-transparent hover:text-zinc-900'
-            }`}
-          >
-            {filter === 'all' ? 'All' : filter === 'uiux' ? 'UI/UX' : filter === 'web' ? 'Websites' : 'Videos'}
-          </button>
-        ))}
+      <div className={`flex gap-6 mb-8 border-b ${theme === 'dark' ? 'border-zinc-800' : 'border-zinc-200'}`}>
+        {['all', 'uiux', 'web', 'video'].map(filter => {
+          const isActive = activeProjectFilter === filter;
+          const labels = { all: 'ALL', uiux: 'UI/UX', web: 'WEBSITES', video: 'VIDEOS' };
+          return (
+            <button
+              key={filter}
+              onClick={() => setActiveProjectFilter(filter)}
+              className={`text-sm font-bold uppercase tracking-wide pb-3 relative transition-colors ${
+                isActive
+                  ? theme === 'dark' ? 'text-white' : 'text-zinc-900'
+                  : theme === 'dark' ? 'text-zinc-400 hover:text-white' : 'text-zinc-500 hover:text-zinc-900'
+              }`}
+            >
+              {labels[filter]}
+              {isActive && (
+                <span className={`absolute bottom-0 left-0 right-0 h-0.5 ${theme === 'dark' ? 'bg-white' : 'bg-zinc-900'}`}></span>
+              )}
+            </button>
+          );
+        })}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {projects
           .filter(p => activeProjectFilter === 'all' || p.category === activeProjectFilter)
           .map((proj, idx) => (
@@ -371,25 +387,68 @@ export default function App() {
               href={proj.link}
               target="_blank"
               rel="noreferrer"
-              className={`flex flex-col p-5 rounded-lg border transition-all no-underline group ${
-                theme === 'dark' ? 'border-zinc-800 bg-zinc-950 hover:bg-zinc-900' : 'border-zinc-200 bg-white hover:bg-zinc-50'
+              className={`flex flex-col p-6 rounded-xl border transition-all no-underline group ${
+                theme === 'dark' ? 'border-zinc-800 bg-zinc-950 hover:bg-zinc-900' : 'border-zinc-200 bg-white hover:shadow-sm'
               }`}
             >
-              <h3 className={`text-base font-bold mb-1.5 tracking-tight transition-colors group-hover:opacity-80 ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+              <h3 className={`text-[1.05rem] font-extrabold mb-2 tracking-tight transition-colors ${theme === 'dark' ? 'text-white group-hover:opacity-80' : 'text-zinc-900 group-hover:opacity-80'}`}>
                 {proj.title}
               </h3>
-              <p className={`text-sm leading-relaxed mb-5 ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>
+              <p className={`text-[0.8rem] leading-relaxed mb-6 grow ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>
                 {proj.desc}
               </p>
-              <div className="mt-auto">
-                <span className={`inline-block px-2 py-0.5 font-mono text-xs font-medium rounded border ${
-                  theme === 'dark' ? 'bg-black text-white border-zinc-800' : 'bg-zinc-50 text-zinc-900 border-zinc-200'
+              <div className="mt-auto flex">
+                <span className={`inline-block px-2.5 py-1 font-mono text-[0.7rem] font-medium rounded border ${
+                  theme === 'dark' ? 'bg-zinc-900 text-zinc-300 border-zinc-800' : 'bg-zinc-50 text-zinc-600 border-zinc-200'
                 }`}>
                   {getDomainText(proj.linkText, proj.link)}
                 </span>
               </div>
             </a>
           ))}
+      </div>
+    </div>
+  );
+
+  // ----- RENDER: ALL TECH STACK VIEW -----
+  // Updated to match the specific layout requested in the image
+  const renderAllTech = () => (
+    <div className="w-full max-w-4xl mx-auto px-5 py-12 fade-up">
+      <div className="flex items-center gap-4 mb-10">
+        <button
+          onClick={() => navigateTo('home')}
+          className={`flex items-center gap-2 font-medium text-sm transition-colors ${
+            theme === 'dark' ? 'text-zinc-400 hover:text-white' : 'text-zinc-500 hover:text-zinc-900'
+          }`}
+        >
+          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          Back to Home
+        </button>
+        <h1 className={`text-2xl font-extrabold tracking-tight ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+          Tech Stack
+        </h1>
+      </div>
+
+      <div className="flex flex-col gap-10">
+        {techStack.map((section, idx) => (
+          <div key={idx} className="flex flex-col">
+            <h2 className={`text-[1.1rem] font-extrabold mb-4 tracking-tight ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+              {section.category}
+            </h2>
+            <div className="flex flex-wrap gap-2.5">
+              {section.tools.map(tech => (
+                <span key={tech} className={`text-[0.8rem] font-medium px-3 py-1.5 rounded border ${
+                  theme === 'dark' ? 'bg-zinc-900 border-zinc-800 text-zinc-300' : 'bg-white border-zinc-200 text-zinc-700 shadow-sm'
+                }`}>
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -403,7 +462,7 @@ export default function App() {
             theme === 'dark' ? 'text-zinc-400 hover:text-white' : 'text-zinc-500 hover:text-zinc-900'
           }`}
         >
-          <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <line x1="19" y1="12" x2="5" y2="12"></line>
             <polyline points="12 19 5 12 12 5"></polyline>
           </svg>
@@ -443,7 +502,7 @@ export default function App() {
             theme === 'dark' ? 'text-zinc-400 hover:text-white' : 'text-zinc-500 hover:text-zinc-900'
           }`}
         >
-          <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <line x1="19" y1="12" x2="5" y2="12"></line>
             <polyline points="12 19 5 12 12 5"></polyline>
           </svg>
@@ -535,6 +594,7 @@ export default function App() {
       {activeView === 'projects' && renderAllProjects()}
       {activeView === 'certs' && renderAllCerts()}
       {activeView === 'gallery' && renderAllGallery()}
+      {activeView === 'tech' && renderAllTech()}
 
       {/* DASHBOARD HOME VIEW */}
       {activeView === 'home' && (
@@ -545,17 +605,21 @@ export default function App() {
             theme === 'dark' ? 'border-zinc-800' : 'border-zinc-200'
           }`}>
             <div className="flex items-center gap-5">
-              <img
-                src={profileImg}
-                alt="Lucas Eguna"
-                className={`w-20 h-20 md:w-28 md:h-28 rounded-xl object-cover border ${
-                  theme === 'dark' ? 'border-zinc-800 bg-zinc-950' : 'border-zinc-200 bg-white'
-                }`}
-                onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.src = 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400&h=400';
-                }}
-              />
+              <div 
+                className={`w-20 h-20 md:w-28 md:h-28 rounded-xl overflow-hidden border shrink-0 ${theme === 'dark' ? 'border-zinc-800 bg-zinc-950' : 'border-zinc-200 bg-white'}`}
+                onMouseEnter={() => setIsHoveringProfile(true)}
+                onMouseLeave={() => setIsHoveringProfile(false)}
+              >
+                <img
+                  src={isHoveringProfile ? profileSigma : profileImg}
+                  alt="Lucas Eguna"
+                  className="w-full h-full object-cover transition-opacity duration-300"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400&h=400';
+                  }}
+                />
+              </div>
               <div>
                 <h1 className={`text-xl md:text-2xl font-extrabold tracking-tight leading-none mb-1.5 flex items-center gap-2 ${
                   theme === 'dark' ? 'text-white' : 'text-zinc-900'
@@ -632,84 +696,40 @@ export default function App() {
                 </div>
               </div>
 
-              {/* TECH STACK & EXPERTISE */}
+              {/* TECH STACK & EXPERTISE (HOME VIEW) */}
               <div className={`border rounded-xl p-5 md:p-6 ${theme === 'dark' ? 'bg-zinc-950 border-zinc-800' : 'bg-white border-zinc-200'}`}>
-                <h2 className={`text-[0.9rem] font-extrabold mb-4 tracking-tight ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
-                  Tech Stack & Tools
-                </h2>
+                <div className="flex justify-between items-center mb-4">
+                  <h2 className={`text-[0.9rem] font-extrabold tracking-tight ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                    Tech Stack & Tools
+                  </h2>
+                  <button 
+                    onClick={() => navigateTo('tech')} 
+                    className={`bg-transparent border-none text-[0.65rem] font-bold cursor-pointer inline-flex items-center gap-1 transition-colors group ${theme === 'dark' ? 'text-zinc-400 hover:text-white' : 'text-zinc-500 hover:text-zinc-900'}`}
+                  >
+                    View All
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3 h-3 mt-px transition-transform duration-300 group-hover:translate-x-1">
+                      <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                  </button>
+                </div>
                 
                 <div className="flex flex-col gap-5">
-
-                  {/* FRONTEND */}
-                  <div>
-                    <h3 className={`text-[0.65rem] font-bold mb-2 uppercase tracking-wider ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
-                      Frontend
-                    </h3>
-                    <div className="flex flex-wrap gap-2">
-                      {['HTML5', 'CSS', 'JavaScript', 'React', 'Tailwind CSS', 'Vite', 'Next.js', 'Styled Components', 'Framer Motion', 'Vue.js'].map(tech => (
-                        <span key={tech} className={`text-[0.65rem] font-medium px-2 py-0.5 rounded border ${
-                          theme === 'dark' ? 'bg-zinc-900 border-zinc-800 text-white' : 'bg-zinc-50 border-zinc-200 text-zinc-900'
-                        }`}>{tech}</span>
-                      ))}
+                  {techStack.slice(0, 3).map((section, idx) => (
+                    <div key={idx}>
+                      <h3 className={`text-[0.65rem] font-bold mb-2 uppercase tracking-wider ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                        {section.category}
+                      </h3>
+                      <div className="flex flex-wrap gap-2">
+                        {section.tools.map(tech => (
+                          <span key={tech} className={`text-[0.65rem] font-medium px-2 py-0.5 rounded border ${
+                            theme === 'dark' ? 'bg-zinc-900 border-zinc-800 text-white' : 'bg-zinc-50 border-zinc-200 text-zinc-900'
+                          }`}>
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-
-                  {/* BACKEND */}
-                  <div>
-                    <h3 className={`text-[0.65rem] font-bold mb-2 uppercase tracking-wider ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
-                      Backend
-                    </h3>
-                    <div className="flex flex-wrap gap-2">
-                      {['Node.js', 'Express.js', 'MongoDB', 'REST API', 'Nest.js', 'Firebase'].map(tech => (
-                        <span key={tech} className={`text-[0.65rem] font-medium px-2 py-0.5 rounded border ${
-                          theme === 'dark' ? 'bg-zinc-900 border-zinc-800 text-white' : 'bg-zinc-50 border-zinc-200 text-zinc-900'
-                        }`}>{tech}</span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* DEVELOPER TOOLS */}
-                  <div>
-                    <h3 className={`text-[0.65rem] font-bold mb-2 uppercase tracking-wider ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
-                      Developer Tools
-                    </h3>
-                    <div className="flex flex-wrap gap-2">
-                      {['Git & GitHub', 'VS Code', 'Postman', 'npm', 'Chrome DevTools', 'ESLint & Prettier', 'Vercel', 'Netlify', 'Firebase Console', 'MongoDB Compass'].map(tech => (
-                        <span key={tech} className={`text-[0.65rem] font-medium px-2 py-0.5 rounded border ${
-                          theme === 'dark' ? 'bg-zinc-900 border-zinc-800 text-white' : 'bg-zinc-50 border-zinc-200 text-zinc-900'
-                        }`}>{tech}</span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* VIDEO EDITING TOOLS */}
-                  <div>
-                    <h3 className={`text-[0.65rem] font-bold mb-2 uppercase tracking-wider ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
-                      Video Editing Tools
-                    </h3>
-                    <div className="flex flex-wrap gap-2">
-                      {['CapCut', 'Filmora', 'DaVinci Resolve', 'VEED', 'Alight Motion', 'Clipchamp'].map(tech => (
-                        <span key={tech} className={`text-[0.65rem] font-medium px-2 py-0.5 rounded border ${
-                          theme === 'dark' ? 'bg-zinc-900 border-zinc-800 text-white' : 'bg-zinc-50 border-zinc-200 text-zinc-900'
-                        }`}>{tech}</span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* DESIGN TOOLS */}
-                  <div>
-                    <h3 className={`text-[0.65rem] font-bold mb-2 uppercase tracking-wider ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
-                      Design Tools
-                    </h3>
-                    <div className="flex flex-wrap gap-2">
-                      {['Figma', 'Canva'].map(tech => (
-                        <span key={tech} className={`text-[0.65rem] font-medium px-2 py-0.5 rounded border ${
-                          theme === 'dark' ? 'bg-zinc-900 border-zinc-800 text-white' : 'bg-zinc-50 border-zinc-200 text-zinc-900'
-                        }`}>{tech}</span>
-                      ))}
-                    </div>
-                  </div>
-
+                  ))}
                 </div>
               </div>
 
@@ -791,8 +811,7 @@ export default function App() {
                   ))}
                 </div>
               </div>
-
-              {/* LET'S CONNECT */}
+              
               <div className={`border rounded-xl p-5 flex flex-col sm:flex-row gap-5 justify-between items-start sm:items-center ${
                 theme === 'dark' ? 'bg-zinc-950 border-zinc-800' : 'bg-white border-zinc-200'
               }`}>
