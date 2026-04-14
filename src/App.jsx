@@ -868,7 +868,7 @@ export default function App() {
                       <div className={`absolute left-0 top-1.25 w-1.75 h-1.75 z-10 transition-transform group-hover:scale-150 ${theme === 'dark' ? 'bg-white' : 'bg-zinc-900'}`}></div>
                       <div className="pr-2">
                         <h3 className={`text-[0.8rem] font-semibold tracking-tight leading-tight ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>Short-form Video Editor</h3>
-                        <p className={`text-[0.7rem] mt-1 ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>Full-time</p>
+                        <p className={`text-[0.7rem] mt-1 ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>New Beginnings Creator Network, Glendale, USA</p>
                       </div>
                       <span className={`text-[0.65rem] font-mono font-medium pt-0.5 shrink-0 ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>Present</span>
                     </div>
@@ -903,7 +903,7 @@ export default function App() {
                       }`}></div>
                       <div className="pr-2">
                         <h3 className={`text-[0.8rem] font-semibold tracking-tight leading-tight ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>Frontend developer</h3>
-                        <p className={`text-[0.7rem] mt-1 ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>Vitality Health Tracker</p>
+                        <p className={`text-[0.7rem] mt-1 ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>Vitality Health Tracker, Auckland, New Zealand</p>
                       </div>
                       <span className={`text-[0.65rem] font-mono font-medium pt-0.5 shrink-0 ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>2025</span>
                     </div>
@@ -927,7 +927,7 @@ export default function App() {
                       }`}></div>
                       <div className="pr-2">
                         <h3 className={`text-[0.8rem] font-semibold tracking-tight leading-tight ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>Social media assistant & Video Editor</h3>
-                        <p className={`text-[0.7rem] mt-1 leading-snug ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>The Royal Indian Spice Restaurant</p>
+                        <p className={`text-[0.7rem] mt-1 leading-snug ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>The Royal Indian Spice Restaurant, Quezon City, Philippines</p>
                       </div>
                       <span className={`text-[0.65rem] font-mono font-medium pt-0.5 shrink-0 ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>2024</span>
                     </div>
@@ -951,7 +951,7 @@ export default function App() {
                       }`}></div>
                       <div className="pr-2">
                         <h3 className={`text-[0.8rem] font-semibold tracking-tight leading-tight ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>Lyrical video editor</h3>
-                        <p className={`text-[0.7rem] mt-1 ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>(Facebook)</p>
+                        <p className={`text-[0.7rem] mt-1 ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>Facebook page, Playlist</p>
                       </div>
                       <span className={`text-[0.65rem] font-mono font-medium pt-0.5 shrink-0 whitespace-nowrap ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>2021-22</span>
                     </div>
