@@ -38,9 +38,9 @@ const certifications = [
 ];
 
 const techStack = [
-  { category: "Frontend", tools: ['HTML5', 'CSS', 'JavaScript', 'React', 'Tailwind CSS', 'Vite', 'Next.js', 'Styled Components', 'Framer Motion', 'Vue.js'] },
-  { category: "Backend", tools: ['Node.js', 'Express.js', 'MongoDB', 'REST API', 'Nest.js', 'Firebase'] },
-  { category: "Developer Tools", tools: ['Git & GitHub', 'VS Code', 'Postman', 'npm', 'Chrome DevTools', 'ESLint & Prettier', 'Vercel', 'Netlify', 'Firebase Console', 'MongoDB Compass'] },
+  { category: "Frontend", tools: ['HTML5', 'CSS', 'JavaScript', 'React', 'Tailwind CSS', 'Vite', 'Styled Components', 'Framer Motion'] },
+  { category: "Backend", tools: ['Node.js', 'Express.js', 'MongoDB', 'REST API','Firebase'] },
+  { category: "Developer Tools", tools: ['Git & GitHub', 'VS Code','npm', 'Chrome DevTools','Vercel', 'Netlify', 'Firebase Console', 'MongoDB Compass'] },
   { category: "Video Editing Tools", tools: ['CapCut', 'Filmora', 'DaVinci Resolve', 'VEED', 'Alight Motion', 'Clipchamp'] },
   { category: "Design Tools", tools: ['Figma', 'Canva'] }
 ];
