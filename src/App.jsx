@@ -23,6 +23,7 @@ import me1 from './images/me1.png';
 import me2 from './images/me2.png';
 import me3 from './images/me3.png';
 import me4 from './images/me4.png';
+import me5 from './images/me5.png'; // Fixed duplicate identifier here
 
 import profileImg from './images/profile no background.png';
 import profileSigma from './images/profile sigma transparent.png';
@@ -205,6 +206,7 @@ const galleryImages = [
   { alt: "Gallery Image 2", src: me2 },
   { alt: "Gallery Image 3", src: me3 },
   { alt: "Gallery Image 4", src: me4 },
+  { alt: "Gallery Image 5", src: me5 },
 ];
 
 const GlobalStyles = () => (
@@ -336,7 +338,7 @@ export default function App() {
         <button
           onClick={() => navigateTo('home')}
           className={`flex items-center gap-2 font-medium text-sm transition-colors ${
-            theme === 'dark' ? 'text-zinc-400 hover:text-white' : 'text-zinc-500 hover:text-zinc-900'
+            theme === 'dark' ? 'text-white hover:opacity-80' : 'text-black hover:opacity-80'
           }`}
         >
           <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -345,7 +347,7 @@ export default function App() {
           </svg>
           Back to Home
         </button>
-        <h1 className={`text-xl md:text-2xl font-bold tracking-tight ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+        <h1 className={`text-xl md:text-2xl font-bold tracking-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
           All Projects
         </h1>
       </div>
@@ -360,24 +362,23 @@ export default function App() {
               onClick={() => setActiveProjectFilter(filter)}
               className={`text-sm font-semibold uppercase tracking-wide pb-3 relative transition-colors ${
                 isActive
-                  ? theme === 'dark' ? 'text-white' : 'text-zinc-900'
-                  : theme === 'dark' ? 'text-zinc-400 hover:text-white' : 'text-zinc-500 hover:text-zinc-900'
+                  ? theme === 'dark' ? 'text-white' : 'text-black'
+                  : theme === 'dark' ? 'text-white hover:opacity-80' : 'text-black hover:opacity-80'
               }`}
             >
               {labels[filter]}
               {isActive && (
-                <span className={`absolute bottom-0 left-0 right-0 h-0.5 ${theme === 'dark' ? 'bg-white' : 'bg-zinc-900'}`}></span>
+                <span className={`absolute bottom-0 left-0 right-0 h-0.5 ${theme === 'dark' ? 'bg-white' : 'bg-black'}`}></span>
               )}
             </button>
           );
         })}
       </div>
 
-      {/* Conditionally render Video categories or default grids without altering the project array */}
       {activeProjectFilter === 'video' ? (
         <div className="flex flex-col gap-10">
           <div>
-            <h2 className={`text-[1.1rem] font-bold mb-4 tracking-tight ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+            <h2 className={`text-[1.1rem] font-bold mb-4 tracking-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
               Film
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -393,15 +394,15 @@ export default function App() {
                       theme === 'dark' ? 'border-zinc-800 bg-zinc-950 hover:bg-zinc-900' : 'border-zinc-200 bg-white hover:shadow-sm'
                     }`}
                   >
-                    <h3 className={`text-[1.05rem] font-bold mb-2 tracking-tight transition-colors ${theme === 'dark' ? 'text-white group-hover:opacity-80' : 'text-zinc-900 group-hover:opacity-80'}`}>
+                    <h3 className={`text-[1.05rem] font-bold mb-2 tracking-tight transition-colors ${theme === 'dark' ? 'text-white group-hover:opacity-80' : 'text-black group-hover:opacity-80'}`}>
                       {proj.title}
                     </h3>
-                    <p className={`text-[0.8rem] leading-relaxed mb-6 grow ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>
+                    <p className={`text-[0.8rem] leading-relaxed mb-6 grow ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
                       {proj.desc}
                     </p>
                     <div className="mt-auto flex">
                       <span className={`inline-block px-2.5 py-1 font-mono text-[0.7rem] font-medium rounded border ${
-                        theme === 'dark' ? 'bg-zinc-900 text-zinc-300 border-zinc-800' : 'bg-zinc-50 text-zinc-600 border-zinc-200'
+                        theme === 'dark' ? 'bg-zinc-900 text-white border-zinc-800' : 'bg-zinc-50 text-black border-zinc-200'
                       }`}>
                         {getDomainText(proj.linkText, proj.link)}
                       </span>
@@ -412,7 +413,7 @@ export default function App() {
           </div>
           
           <div>
-            <h2 className={`text-[1.1rem] font-bold mb-4 tracking-tight ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+            <h2 className={`text-[1.1rem] font-bold mb-4 tracking-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
               Short-form Edits
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -428,15 +429,15 @@ export default function App() {
                       theme === 'dark' ? 'border-zinc-800 bg-zinc-950 hover:bg-zinc-900' : 'border-zinc-200 bg-white hover:shadow-sm'
                     }`}
                   >
-                    <h3 className={`text-[1.05rem] font-bold mb-2 tracking-tight transition-colors ${theme === 'dark' ? 'text-white group-hover:opacity-80' : 'text-zinc-900 group-hover:opacity-80'}`}>
+                    <h3 className={`text-[1.05rem] font-bold mb-2 tracking-tight transition-colors ${theme === 'dark' ? 'text-white group-hover:opacity-80' : 'text-black group-hover:opacity-80'}`}>
                       {proj.title}
                     </h3>
-                    <p className={`text-[0.8rem] leading-relaxed mb-6 grow ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>
+                    <p className={`text-[0.8rem] leading-relaxed mb-6 grow ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
                       {proj.desc}
                     </p>
                     <div className="mt-auto flex">
                       <span className={`inline-block px-2.5 py-1 font-mono text-[0.7rem] font-medium rounded border ${
-                        theme === 'dark' ? 'bg-zinc-900 text-zinc-300 border-zinc-800' : 'bg-zinc-50 text-zinc-600 border-zinc-200'
+                        theme === 'dark' ? 'bg-zinc-900 text-white border-zinc-800' : 'bg-zinc-50 text-black border-zinc-200'
                       }`}>
                         {getDomainText(proj.linkText, proj.link)}
                       </span>
@@ -460,15 +461,15 @@ export default function App() {
                   theme === 'dark' ? 'border-zinc-800 bg-zinc-950 hover:bg-zinc-900' : 'border-zinc-200 bg-white hover:shadow-sm'
                 }`}
               >
-                <h3 className={`text-[1.05rem] font-bold mb-2 tracking-tight transition-colors ${theme === 'dark' ? 'text-white group-hover:opacity-80' : 'text-zinc-900 group-hover:opacity-80'}`}>
+                <h3 className={`text-[1.05rem] font-bold mb-2 tracking-tight transition-colors ${theme === 'dark' ? 'text-white group-hover:opacity-80' : 'text-black group-hover:opacity-80'}`}>
                   {proj.title}
                 </h3>
-                <p className={`text-[0.8rem] leading-relaxed mb-6 grow ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>
+                <p className={`text-[0.8rem] leading-relaxed mb-6 grow ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
                   {proj.desc}
                 </p>
                 <div className="mt-auto flex">
                   <span className={`inline-block px-2.5 py-1 font-mono text-[0.7rem] font-medium rounded border ${
-                    theme === 'dark' ? 'bg-zinc-900 text-zinc-300 border-zinc-800' : 'bg-zinc-50 text-zinc-600 border-zinc-200'
+                    theme === 'dark' ? 'bg-zinc-900 text-white border-zinc-800' : 'bg-zinc-50 text-black border-zinc-200'
                   }`}>
                     {getDomainText(proj.linkText, proj.link)}
                   </span>
@@ -486,7 +487,7 @@ export default function App() {
         <button
           onClick={() => navigateTo('home')}
           className={`flex items-center gap-2 font-medium text-sm transition-colors ${
-            theme === 'dark' ? 'text-zinc-400 hover:text-white' : 'text-zinc-500 hover:text-zinc-900'
+            theme === 'dark' ? 'text-white hover:opacity-80' : 'text-black hover:opacity-80'
           }`}
         >
           <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -495,7 +496,7 @@ export default function App() {
           </svg>
           Back to Home
         </button>
-        <h1 className={`text-2xl font-bold tracking-tight ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+        <h1 className={`text-2xl font-bold tracking-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
           Tech Stack
         </h1>
       </div>
@@ -503,13 +504,13 @@ export default function App() {
       <div className="flex flex-col gap-10">
         {techStack.map((section, idx) => (
           <div key={idx} className="flex flex-col">
-            <h2 className={`text-[1.1rem] font-bold mb-4 tracking-tight ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+            <h2 className={`text-[1.1rem] font-bold mb-4 tracking-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
               {section.category}
             </h2>
             <div className="flex flex-wrap gap-2.5">
               {section.tools.map(tech => (
                 <span key={tech} className={`text-[0.8rem] font-medium px-3 py-1.5 rounded border ${
-                  theme === 'dark' ? 'bg-zinc-900 border-zinc-800 text-zinc-300' : 'bg-white border-zinc-200 text-zinc-700 shadow-sm'
+                  theme === 'dark' ? 'bg-zinc-900 border-zinc-800 text-white' : 'bg-white border-zinc-200 text-black shadow-sm'
                 }`}>
                   {tech}
                 </span>
@@ -527,7 +528,7 @@ export default function App() {
         <button
           onClick={() => navigateTo('home')}
           className={`flex items-center gap-2 font-medium text-sm transition-colors ${
-            theme === 'dark' ? 'text-zinc-400 hover:text-white' : 'text-zinc-500 hover:text-zinc-900'
+            theme === 'dark' ? 'text-white hover:opacity-80' : 'text-black hover:opacity-80'
           }`}
         >
           <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -536,7 +537,7 @@ export default function App() {
           </svg>
           Back to Home
         </button>
-        <h1 className={`text-xl font-bold tracking-tight ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+        <h1 className={`text-xl font-bold tracking-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
           All Certifications
         </h1>
       </div>
@@ -549,10 +550,10 @@ export default function App() {
             }`}
             onClick={() => openModal(cert.image)}
           >
-            <h3 className={`text-base font-semibold mb-1 tracking-tight ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+            <h3 className={`text-base font-semibold mb-1 tracking-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
               {cert.title}
             </h3>
-            <p className={`text-sm font-medium ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>
+            <p className={`text-sm font-medium ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
               {cert.issuer}
             </p>
           </div>
@@ -567,7 +568,7 @@ export default function App() {
         <button
           onClick={() => navigateTo('home')}
           className={`flex items-center gap-2 font-medium text-sm transition-colors ${
-            theme === 'dark' ? 'text-zinc-400 hover:text-white' : 'text-zinc-500 hover:text-zinc-900'
+            theme === 'dark' ? 'text-white hover:opacity-80' : 'text-black hover:opacity-80'
           }`}
         >
           <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -576,7 +577,7 @@ export default function App() {
           </svg>
           Back to Home
         </button>
-        <h1 className={`text-xl font-bold tracking-tight ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+        <h1 className={`text-xl font-bold tracking-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
           All Photos
         </h1>
       </div>
@@ -598,7 +599,7 @@ export default function App() {
 
   return (
     <div className={`min-h-screen flex flex-col w-full transition-colors duration-500 ease-in-out font-sans ${
-      theme === 'dark' ? 'bg-black text-white selection:bg-white selection:text-black' : 'bg-zinc-50 text-zinc-900 selection:bg-zinc-900 selection:text-white'
+      theme === 'dark' ? 'bg-black text-white selection:bg-white selection:text-black' : 'bg-white text-black selection:bg-black selection:text-white'
     }`}>
       <GlobalStyles />
 
@@ -629,12 +630,12 @@ export default function App() {
       {/* HEADER / NAVBAR */}
       <header className="w-full z-40 bg-transparent pt-6 pb-2">
         <div className="w-full max-w-5xl mx-auto px-5 flex justify-between items-center">
-          <span className={`font-semibold text-base tracking-tight ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}></span>
+          <span className={`font-semibold text-base tracking-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}></span>
           <button
             onClick={toggleTheme}
             aria-label="Toggle Theme"
             className={`border rounded-full p-2 transition-colors ${
-              theme === 'dark' ? 'bg-zinc-950 border-zinc-800 text-zinc-400 hover:text-white' : 'bg-white border-zinc-200 text-zinc-500 hover:text-zinc-900'
+              theme === 'dark' ? 'bg-zinc-950 border-zinc-800 text-white hover:opacity-80' : 'bg-white border-zinc-200 text-black hover:opacity-80'
             }`}
           >
             {theme === 'dark' ? (
@@ -694,18 +695,18 @@ export default function App() {
               </div>
               <div>
                 <h1 className={`text-xl md:text-2xl font-bold tracking-tight leading-none mb-1.5 flex items-center gap-2 ${
-                  theme === 'dark' ? 'text-white' : 'text-zinc-900'
+                  theme === 'dark' ? 'text-white' : 'text-black'
                 }`}>
                   LUCAS ANDREI EGUNA
                 </h1>
-                <div className={`flex items-center gap-1.5 text-xs mb-2 font-medium ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>
+                <div className={`flex items-center gap-1.5 text-xs mb-2 font-medium ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5">
                     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                     <circle cx="12" cy="10" r="3"></circle>
                   </svg>
                   Metro Manila, Philippines
                 </div>
-                <p className={`text-[0.8rem] md:text-[0.85rem] font-semibold tracking-tight ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                <p className={`text-[0.8rem] md:text-[0.85rem] font-semibold tracking-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
                    Full Stack Developer \ Video Editor \ UI/UX Designer
                 </p>
               </div>
@@ -717,7 +718,7 @@ export default function App() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`px-4 py-2 rounded-md font-semibold text-[0.75rem] flex items-center justify-center gap-1.5 transition-opacity flex-1 md:flex-none border border-transparent ${
-                  theme === 'dark' ? 'bg-white text-zinc-900 hover:opacity-90' : 'bg-zinc-900 text-white hover:opacity-90'
+                  theme === 'dark' ? 'bg-white text-black hover:opacity-90' : 'bg-black text-white hover:opacity-90'
                 }`}
               >
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5">
@@ -734,7 +735,7 @@ export default function App() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`bg-transparent border px-4 py-2 rounded-md font-semibold text-[0.75rem] flex items-center justify-center gap-1.5 transition-colors flex-1 md:flex-none ${
-                  theme === 'dark' ? 'border-zinc-800 text-white hover:bg-zinc-900' : 'border-zinc-200 text-zinc-900 hover:bg-zinc-100'
+                  theme === 'dark' ? 'border-zinc-800 text-white hover:bg-zinc-900' : 'border-zinc-200 text-black hover:bg-zinc-100'
                 }`}
               >
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5">
@@ -746,33 +747,29 @@ export default function App() {
             </div>
           </div>
 
-          {/* 2-COLUMN GRID */}
           <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-start">
             
-            {/* LEFT COLUMN */}
             <div className="md:col-span-7 flex flex-col gap-5 w-full">
               
-              {/* ABOUT */}
               <div className={`border rounded-xl p-5 md:p-6 ${theme === 'dark' ? 'bg-zinc-950 border-zinc-800' : 'bg-white border-zinc-200'}`}>
-                <h2 className={`text-[0.9rem] font-bold mb-3 tracking-tight ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                <h2 className={`text-[0.9rem] font-bold mb-3 tracking-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
                   About
                 </h2>
-                <div className={`space-y-3 text-[0.75rem] leading-relaxed ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>
+                <div className={`space-y-3 text-[0.75rem] leading-relaxed ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
                   <p>I'm a full-stack developer, UI/UX designer, and video editor currently in my third year studying BSIT with a specialization in Cybersecurity.</p>
                   <p>I specialize in building modern, responsive, and scalable web applications, with a strong focus on the MERN stack (MongoDB, Express.js, React, and Node.js). Beyond coding, I have a strong eye for design, creating intuitive user interfaces and engaging visual content as a short-form and film editor.</p>
                   <p>My experience spans freelance development, social media content creation, and building complete web applications like the Vitality Health Tracker. Right now, I'm highly focused on expanding my backend expertise by studying PHP, Python, and other server-side technologies, while simultaneously upgrading my visual content workflow by mastering new video editing tools.</p>
                 </div>
               </div>
 
-              {/* TECH STACK & EXPERTISE (HOME VIEW) */}
               <div className={`border rounded-xl p-5 md:p-6 ${theme === 'dark' ? 'bg-zinc-950 border-zinc-800' : 'bg-white border-zinc-200'}`}>
                 <div className="flex justify-between items-center mb-4">
-                  <h2 className={`text-[0.9rem] font-bold tracking-tight ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                  <h2 className={`text-[0.9rem] font-bold tracking-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
                     Tech Stack & Tools
                   </h2>
                   <button 
                     onClick={() => navigateTo('tech')} 
-                    className={`bg-transparent border-none text-[0.65rem] font-semibold cursor-pointer inline-flex items-center gap-1 transition-colors group ${theme === 'dark' ? 'text-zinc-400 hover:text-white' : 'text-zinc-500 hover:text-zinc-900'}`}
+                    className={`bg-transparent border-none text-[0.65rem] font-semibold cursor-pointer inline-flex items-center gap-1 transition-colors group ${theme === 'dark' ? 'text-white hover:opacity-80' : 'text-black hover:opacity-80'}`}
                   >
                     View All
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3 h-3 mt-px transition-transform duration-300 group-hover:translate-x-1">
@@ -784,13 +781,13 @@ export default function App() {
                 <div className="flex flex-col gap-5">
                   {techStack.slice(0, 3).map((section, idx) => (
                     <div key={idx}>
-                      <h3 className={`text-[0.65rem] font-semibold mb-2 uppercase tracking-wider ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                      <h3 className={`text-[0.65rem] font-semibold mb-2 uppercase tracking-wider ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
                         {section.category}
                       </h3>
                       <div className="flex flex-wrap gap-2">
                         {section.tools.map(tech => (
                           <span key={tech} className={`text-[0.65rem] font-medium px-2 py-0.5 rounded border ${
-                            theme === 'dark' ? 'bg-zinc-900 border-zinc-800 text-white' : 'bg-zinc-50 border-zinc-200 text-zinc-900'
+                            theme === 'dark' ? 'bg-zinc-900 border-zinc-800 text-white' : 'bg-zinc-50 border-zinc-200 text-black'
                           }`}>
                             {tech}
                           </span>
@@ -801,14 +798,13 @@ export default function App() {
                 </div>
               </div>
 
-              {/* RECENT PROJECTS */}
               <div className={`border rounded-xl p-5 md:p-6 ${theme === 'dark' ? 'bg-zinc-950 border-zinc-800' : 'bg-white border-zinc-200'}`}>
                 <div className="flex justify-between items-center mb-4">
-                  <h2 className={`text-[0.9rem] font-bold tracking-tight ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                  <h2 className={`text-[0.9rem] font-bold tracking-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
                     Recent Projects
                   </h2>
                   <button onClick={() => navigateTo('projects')} className={`bg-transparent border-none text-[0.65rem] font-semibold cursor-pointer inline-flex items-center gap-1 transition-colors group ${
-                    theme === 'dark' ? 'text-zinc-400 hover:text-white' : 'text-zinc-500 hover:text-zinc-900'
+                    theme === 'dark' ? 'text-white hover:opacity-80' : 'text-black hover:opacity-80'
                   }`}>
                     View All
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3 h-3 mt-px transition-transform duration-300 group-hover:translate-x-1">
@@ -826,15 +822,15 @@ export default function App() {
                       }`}
                       onClick={() => window.open(proj.link, '_blank')}
                     >
-                      <h3 className={`text-[0.8rem] font-semibold mb-1 tracking-tight transition-colors line-clamp-1 ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                      <h3 className={`text-[0.8rem] font-semibold mb-1 tracking-tight transition-colors line-clamp-1 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
                         {proj.title}
                       </h3>
-                      <p className={`text-[0.7rem] leading-relaxed mb-3 line-clamp-2 ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>
+                      <p className={`text-[0.7rem] leading-relaxed mb-3 line-clamp-2 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
                         {proj.desc}
                       </p>
                       <div className="mt-auto">
                         <span className={`inline-block px-2 py-0.5 font-mono text-[0.6rem] font-medium rounded border ${
-                          theme === 'dark' ? 'bg-black text-white border-zinc-800' : 'bg-zinc-50 text-zinc-900 border-zinc-200'
+                          theme === 'dark' ? 'bg-black text-white border-zinc-800' : 'bg-zinc-50 text-black border-zinc-200'
                         }`}>
                           {getDomainText(proj.linkText, proj.link)}
                         </span>
@@ -844,14 +840,13 @@ export default function App() {
                 </div>
               </div>
 
-              {/* RECENT CERTIFICATIONS */}
               <div className={`border rounded-xl p-5 md:p-6 ${theme === 'dark' ? 'bg-zinc-950 border-zinc-800' : 'bg-white border-zinc-200'}`}>
                 <div className="flex justify-between items-center mb-4">
-                  <h2 className={`text-[0.9rem] font-bold tracking-tight ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                  <h2 className={`text-[0.9rem] font-bold tracking-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
                     Recent Certifications
                   </h2>
                   <button onClick={() => navigateTo('certs')} className={`bg-transparent border-none text-[0.65rem] font-semibold cursor-pointer inline-flex items-center gap-1 transition-colors group ${
-                    theme === 'dark' ? 'text-zinc-400 hover:text-white' : 'text-zinc-500 hover:text-zinc-900'
+                    theme === 'dark' ? 'text-white hover:opacity-80' : 'text-black hover:opacity-80'
                   }`}>
                     View All
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3 h-3 transition-transform group-hover:translate-x-1">
@@ -869,10 +864,10 @@ export default function App() {
                       }`}
                       onClick={() => openModal(cert.image)}
                     >
-                      <h3 className={`text-[0.75rem] font-semibold tracking-tight mb-0.5 ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                      <h3 className={`text-[0.75rem] font-semibold tracking-tight mb-0.5 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
                         {cert.title}
                       </h3>
-                      <p className={`text-[0.65rem] font-medium ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>
+                      <p className={`text-[0.65rem] font-medium ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
                         {cert.issuer}
                       </p>
                     </div>
@@ -884,33 +879,33 @@ export default function App() {
                 theme === 'dark' ? 'bg-zinc-950 border-zinc-800' : 'bg-white border-zinc-200'
               }`}>
                 <div>
-                  <h3 className={`text-[0.75rem] font-semibold mb-2.5 tracking-tight ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                  <h3 className={`text-[0.75rem] font-semibold mb-2.5 tracking-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
                     Let's Connect
                   </h3>
                   <div className="flex gap-3">
-                    <a href="https://github.com/egunalucasandrei-droid" target="_blank" rel="noreferrer" className={`transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:text-white' : 'text-zinc-500 hover:text-zinc-900'}`}>
+                    <a href="https://github.com/egunalucasandrei-droid" target="_blank" rel="noreferrer" className={`transition-colors ${theme === 'dark' ? 'text-white hover:opacity-80' : 'text-black hover:opacity-80'}`}>
                       <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
                     </a>
-                    <a href="https://www.linkedin.com/in/lucas-andrei-eguna-521b7530a/" target="_blank" rel="noreferrer" className={`transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:text-white' : 'text-zinc-500 hover:text-zinc-900'}`}>
+                    <a href="https://www.linkedin.com/in/lucas-andrei-eguna-521b7530a/" target="_blank" rel="noreferrer" className={`transition-colors ${theme === 'dark' ? 'text-white hover:opacity-80' : 'text-black hover:opacity-80'}`}>
                       <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
                     </a>
-                    <a href="https://www.youtube.com/@LucasAndrei-Creatives" target="_blank" rel="noreferrer" className={`transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:text-white' : 'text-zinc-500 hover:text-zinc-900'}`}>
+                    <a href="https://www.youtube.com/@LucasAndrei-Creatives" target="_blank" rel="noreferrer" className={`transition-colors ${theme === 'dark' ? 'text-white hover:opacity-80' : 'text-black hover:opacity-80'}`}>
                       <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
                     </a>
-                    <a href="https://www.instagram.com/c4znu" target="_blank" rel="noreferrer" className={`transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:text-white' : 'text-zinc-500 hover:text-zinc-900'}`}>
+                    <a href="https://www.instagram.com/c4znu" target="_blank" rel="noreferrer" className={`transition-colors ${theme === 'dark' ? 'text-white hover:opacity-80' : 'text-black hover:opacity-80'}`}>
                       <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
                     </a>
-                    <a href="https://www.facebook.com/c4znu/" target="_blank" rel="noreferrer" className={`transition-colors ${theme === 'dark' ? 'text-zinc-400 hover:text-white' : 'text-zinc-500 hover:text-zinc-900'}`}>
+                    <a href="https://www.facebook.com/c4znu/" target="_blank" rel="noreferrer" className={`transition-colors ${theme === 'dark' ? 'text-white hover:opacity-80' : 'text-black hover:opacity-80'}`}>
                       <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
                     </a>
                   </div>
                 </div>
                 <div className="flex flex-col gap-2 w-full sm:w-auto">
-                  <a href="tel:+6309465685471" className={`text-[0.75rem] font-medium flex items-center gap-1.5 transition-colors w-fit ${theme === 'dark' ? 'text-zinc-400 hover:text-white' : 'text-zinc-500 hover:text-zinc-900'}`}>
+                  <a href="tel:+6309465685471" className={`text-[0.75rem] font-medium flex items-center gap-1.5 transition-colors w-fit ${theme === 'dark' ? 'text-white hover:opacity-80' : 'text-black hover:opacity-80'}`}>
                     <svg className="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                    +63 09465685471
+                    +63 9465685471
                   </a>
-                  <a href="https://mail.google.com/mail/?view=cm&fs=1&to=egunalucasandrei@gmail.com" target="_blank" rel="noopener noreferrer" className={`text-[0.75rem] font-medium flex items-center gap-1.5 transition-colors w-fit ${theme === 'dark' ? 'text-zinc-400 hover:text-white' : 'text-zinc-500 hover:text-zinc-900'}`}>
+                  <a href="https://mail.google.com/mail/?view=cm&fs=1&to=egunalucasandrei@gmail.com" target="_blank" rel="noopener noreferrer" className={`text-[0.75rem] font-medium flex items-center gap-1.5 transition-colors w-fit ${theme === 'dark' ? 'text-white hover:opacity-80' : 'text-black hover:opacity-80'}`}>
                     <svg className="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                     egunalucasandrei@gmail.com
                   </a>
@@ -919,150 +914,138 @@ export default function App() {
 
             </div>
 
-            {/* RIGHT COLUMN */}
             <div className="md:col-span-5 flex flex-col gap-5 w-full">
               
-              {/* EXPERIENCE TIMELINE */}
               <div className={`border rounded-xl p-5 md:p-6 ${theme === 'dark' ? 'bg-zinc-950 border-zinc-800' : 'bg-white border-zinc-200'}`}>
-                <h2 className={`text-base font-bold tracking-tight mb-6 ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                <h2 className={`text-base font-bold tracking-tight mb-6 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
                   Experience
                 </h2>
                 
                 <div className="relative ml-2">
-                  {/* Vertical Line */}
                   <div className={`absolute left-0.75 top-2 bottom-2 w-px ${theme === 'dark' ? 'bg-zinc-800' : 'bg-zinc-200'}`}></div>
 
                   <div className="flex flex-col gap-6">
                     
-                    {/* Item 1 (Active) */}
                     <div className="relative pl-5 flex justify-between items-start group">
-                      <div className={`absolute left-0 top-1.25 w-1.75 h-1.75 z-10 transition-transform group-hover:scale-150 ${theme === 'dark' ? 'bg-white' : 'bg-zinc-900'}`}></div>
+                      <div className={`absolute left-0 top-1.25 w-1.75 h-1.75 z-10 transition-transform group-hover:scale-150 ${theme === 'dark' ? 'bg-white' : 'bg-black'}`}></div>
                       <div className="pr-2">
-                        <h3 className={`text-[0.8rem] font-semibold tracking-tight leading-tight ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>Short-form Video Editor</h3>
-                        <p className={`text-[0.7rem] mt-1 ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>New Beginnings Creator Network, Glendale, USA</p>
+                        <h3 className={`text-[0.8rem] font-semibold tracking-tight leading-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>Short-form Video Editor</h3>
+                        <p className={`text-[0.7rem] mt-1 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>New Beginnings Creator Network, Glendale, USA</p>
                       </div>
-                      <span className={`text-[0.65rem] font-mono font-medium pt-0.5 shrink-0 ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>Present</span>
+                      <span className={`text-[0.65rem] font-mono font-medium pt-0.5 shrink-0 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>Present</span>
                     </div>
           
                     <div className="relative pl-5 flex justify-between items-start group">
                       <div className={`absolute left-0 top-1.25 w-1.75 h-1.75 border z-10 transition-transform group-hover:scale-150 ${
-                        theme === 'dark' ? 'border-zinc-600 bg-zinc-950 group-hover:border-white' : 'border-zinc-300 bg-white group-hover:border-zinc-900'
+                        theme === 'dark' ? 'border-zinc-600 bg-zinc-950 group-hover:border-white' : 'border-zinc-300 bg-white group-hover:border-black'
                       }`}></div>
                       <div className="pr-2">
-                        <h3 className={`text-[0.8rem] font-semibold tracking-tight leading-tight ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>Front-end / Full Stack Developer</h3>
-                        <p className={`text-[0.7rem] mt-1 leading-snug ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>Freelance</p>
+                        <h3 className={`text-[0.8rem] font-semibold tracking-tight leading-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>Front-end / Full Stack Developer</h3>
+                        <p className={`text-[0.7rem] mt-1 leading-snug ${theme === 'dark' ? 'text-white' : 'text-black'}`}>Freelance</p>
                       </div>
-                      <span className={`text-[0.65rem] font-mono font-medium pt-0.5 shrink-0 ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>Present</span>
+                      <span className={`text-[0.65rem] font-mono font-medium pt-0.5 shrink-0 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>Present</span>
                     </div>
 
-                    {/* Item 2 */}
                     <div className="relative pl-5 flex justify-between items-start group">
                       <div className={`absolute left-0 top-1.25 w-1.75 h-1.75 border z-10 transition-transform group-hover:scale-150 ${
-                        theme === 'dark' ? 'border-zinc-600 bg-zinc-950 group-hover:border-white' : 'border-zinc-300 bg-white group-hover:border-zinc-900'
+                        theme === 'dark' ? 'border-zinc-600 bg-zinc-950 group-hover:border-white' : 'border-zinc-300 bg-white group-hover:border-black'
                       }`}></div>
                       <div className="pr-2">
-                        <h3 className={`text-[0.8rem] font-semibold tracking-tight leading-tight ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>UI / UX designer</h3>
-                        <p className={`text-[0.7rem] mt-1 leading-snug ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>Fit tracker, Rise Fit, Shape your body, Health Tracker</p>
+                        <h3 className={`text-[0.8rem] font-semibold tracking-tight leading-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>UI / UX designer</h3>
+                        <p className={`text-[0.7rem] mt-1 leading-snug ${theme === 'dark' ? 'text-white' : 'text-black'}`}>Fit tracker, Rise Fit, Shape your body, Health Tracker</p>
                       </div>
-                      <span className={`text-[0.65rem] font-mono font-medium pt-0.5 shrink-0 ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>2025</span>
+                      <span className={`text-[0.65rem] font-mono font-medium pt-0.5 shrink-0 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>2025</span>
                     </div>
 
-                    {/* Item 3 */}
                     <div className="relative pl-5 flex justify-between items-start group">
                       <div className={`absolute left-0 top-1.25 w-1.75 h-1.75 border z-10 transition-transform group-hover:scale-150 ${
-                        theme === 'dark' ? 'border-zinc-600 bg-zinc-950 group-hover:border-white' : 'border-zinc-300 bg-white group-hover:border-zinc-900'
+                        theme === 'dark' ? 'border-zinc-600 bg-zinc-950 group-hover:border-white' : 'border-zinc-300 bg-white group-hover:border-black'
                       }`}></div>
                       <div className="pr-2">
-                        <h3 className={`text-[0.8rem] font-semibold tracking-tight leading-tight ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>Front-end developer</h3>
-                        <p className={`text-[0.7rem] mt-1 ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>Vitality Health Tracker, Auckland, New Zealand</p>
+                        <h3 className={`text-[0.8rem] font-semibold tracking-tight leading-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>Front-end developer</h3>
+                        <p className={`text-[0.7rem] mt-1 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>Vitality Health Tracker, Auckland, New Zealand</p>
                       </div>
-                      <span className={`text-[0.65rem] font-mono font-medium pt-0.5 shrink-0 ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>2025</span>
+                      <span className={`text-[0.65rem] font-mono font-medium pt-0.5 shrink-0 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>2025</span>
                     </div>
 
-                    {/* Item 4 */}
                     <div className="relative pl-5 flex justify-between items-start group">
                       <div className={`absolute left-0 top-1.25 w-1.75 h-1.75 border z-10 transition-transform group-hover:scale-150 ${
-                        theme === 'dark' ? 'border-zinc-600 bg-zinc-950 group-hover:border-white' : 'border-zinc-300 bg-white group-hover:border-zinc-900'
+                        theme === 'dark' ? 'border-zinc-600 bg-zinc-950 group-hover:border-white' : 'border-zinc-300 bg-white group-hover:border-black'
                       }`}></div>
                       <div className="pr-2">
-                        <h3 className={`text-[0.8rem] font-semibold tracking-tight leading-tight ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>BS in Info Tech (Cybersecurity)</h3>
-                        <p className={`text-[0.7rem] mt-1 leading-snug ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>FEU Diliman graduating in 2028</p>
+                        <h3 className={`text-[0.8rem] font-semibold tracking-tight leading-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>BS in Info Tech (Cybersecurity)</h3>
+                        <p className={`text-[0.7rem] mt-1 leading-snug ${theme === 'dark' ? 'text-white' : 'text-black'}`}>FEU Diliman graduating in 2028</p>
                       </div>
-                      <span className={`text-[0.65rem] font-mono font-medium pt-0.5 shrink-0 ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>2024</span>
+                      <span className={`text-[0.65rem] font-mono font-medium pt-0.5 shrink-0 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>2024</span>
                     </div>
 
-                    {/* Item 5 */}
                     <div className="relative pl-5 flex justify-between items-start group">
                       <div className={`absolute left-0 top-1.25 w-1.75 h-1.75 border z-10 transition-transform group-hover:scale-150 ${
-                        theme === 'dark' ? 'border-zinc-600 bg-zinc-950 group-hover:border-white' : 'border-zinc-300 bg-white group-hover:border-zinc-900'
+                        theme === 'dark' ? 'border-zinc-600 bg-zinc-950 group-hover:border-white' : 'border-zinc-300 bg-white group-hover:border-black'
                       }`}></div>
                       <div className="pr-2">
-                        <h3 className={`text-[0.8rem] font-semibold tracking-tight leading-tight ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>Social media assistant & Video Editor</h3>
-                        <p className={`text-[0.7rem] mt-1 leading-snug ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>The Royal Indian Spice Restaurant, Quezon City, Philippines</p>
+                        <h3 className={`text-[0.8rem] font-semibold tracking-tight leading-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>Social media assistant & Video Editor</h3>
+                        <p className={`text-[0.7rem] mt-1 leading-snug ${theme === 'dark' ? 'text-white' : 'text-black'}`}>The Royal Indian Spice Restaurant, Quezon City, Philippines</p>
                       </div>
-                      <span className={`text-[0.65rem] font-mono font-medium pt-0.5 shrink-0 ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>2024</span>
+                      <span className={`text-[0.65rem] font-mono font-medium pt-0.5 shrink-0 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>2024</span>
                     </div>
 
-                    {/* Item 6 */}
                     <div className="relative pl-5 flex justify-between items-start group">
                       <div className={`absolute left-0 top-1.25 w-1.75 h-1.75 border z-10 transition-transform group-hover:scale-150 ${
-                        theme === 'dark' ? 'border-zinc-600 bg-zinc-950 group-hover:border-white' : 'border-zinc-300 bg-white group-hover:border-zinc-900'
+                        theme === 'dark' ? 'border-zinc-600 bg-zinc-950 group-hover:border-white' : 'border-zinc-300 bg-white group-hover:border-black'
                       }`}></div>
                       <div className="pr-2">
-                        <h3 className={`text-[0.8rem] font-semibold tracking-tight leading-tight ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>Video Editor</h3>
-                        <p className={`text-[0.7rem] mt-1 ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>Freelance</p>
+                        <h3 className={`text-[0.8rem] font-semibold tracking-tight leading-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>Video Editor</h3>
+                        <p className={`text-[0.7rem] mt-1 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>Freelance</p>
                       </div>
-                      <span className={`text-[0.65rem] font-mono font-medium pt-0.5 shrink-0 ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>2023</span>
+                      <span className={`text-[0.65rem] font-mono font-medium pt-0.5 shrink-0 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>2023</span>
                     </div>
 
-                    {/* Item 7 */}
                     <div className="relative pl-5 flex justify-between items-start group">
                       <div className={`absolute left-0 top-1.25 w-1.75 h-1.75 border z-10 transition-transform group-hover:scale-150 ${
-                        theme === 'dark' ? 'border-zinc-600 bg-zinc-950 group-hover:border-white' : 'border-zinc-300 bg-white group-hover:border-zinc-900'
+                        theme === 'dark' ? 'border-zinc-600 bg-zinc-950 group-hover:border-white' : 'border-zinc-300 bg-white group-hover:border-black'
                       }`}></div>
                       <div className="pr-2">
-                        <h3 className={`text-[0.8rem] font-semibold tracking-tight leading-tight ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>Lyrical video editor</h3>
-                        <p className={`text-[0.7rem] mt-1 ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>Facebook page, Playlist</p>
+                        <h3 className={`text-[0.8rem] font-semibold tracking-tight leading-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>Lyrical video editor</h3>
+                        <p className={`text-[0.7rem] mt-1 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>Facebook page, Playlist</p>
                       </div>
-                      <span className={`text-[0.65rem] font-mono font-medium pt-0.5 shrink-0 whitespace-nowrap ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>2021-22</span>
+                      <span className={`text-[0.65rem] font-mono font-medium pt-0.5 shrink-0 whitespace-nowrap ${theme === 'dark' ? 'text-white' : 'text-black'}`}>2021-22</span>
                     </div>
 
                   </div>
                 </div>
               </div>
 
-              {/* EDUCATION */}
               <div className={`border rounded-xl p-5 md:p-6 ${theme === 'dark' ? 'bg-zinc-950 border-zinc-800' : 'bg-white border-zinc-200'}`}>
-                <h2 className={`text-[1rem] font-bold tracking-tight mb-4 ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                <h2 className={`text-[1rem] font-bold tracking-tight mb-4 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
                   Education
                 </h2>
                 <div className="flex flex-col gap-3">
                   <div className={`pb-3 border-b ${theme === 'dark' ? 'border-zinc-800' : 'border-zinc-200'}`}>
-                    <h3 className={`text-[0.8rem] font-semibold tracking-tight ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>BS Information Technology</h3>
-                    <p className={`text-[0.7rem] mt-0.5 leading-snug ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>Far Eastern University Diliman (Cybersecurity)</p>
-                    <span className={`opacity-70 text-[0.65rem] font-mono mt-1 block ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>2024 – 2028 (Expected)</span>
+                    <h3 className={`text-[0.8rem] font-semibold tracking-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>BS Information Technology</h3>
+                    <p className={`text-[0.7rem] mt-0.5 leading-snug ${theme === 'dark' ? 'text-white' : 'text-black'}`}>Far Eastern University Diliman (Cybersecurity)</p>
+                    <span className={`opacity-70 text-[0.65rem] font-mono mt-1 block ${theme === 'dark' ? 'text-white' : 'text-black'}`}>2024 – 2028 (Expected)</span>
                   </div>
                   <div className={`pb-3 border-b ${theme === 'dark' ? 'border-zinc-800' : 'border-zinc-200'}`}>
-                    <h3 className={`text-[0.8rem] font-semibold tracking-tight ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>General Academic Strand</h3>
-                    <p className={`text-[0.7rem] mt-0.5 ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>Kings’ Montessori School</p>
-                    <span className={`opacity-70 text-[0.65rem] font-mono mt-1 block ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>2020 – 2024 (With Honors)</span>
+                    <h3 className={`text-[0.8rem] font-semibold tracking-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>General Academic Strand</h3>
+                    <p className={`text-[0.7rem] mt-0.5 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>Kings’ Montessori School</p>
+                    <span className={`opacity-70 text-[0.65rem] font-mono mt-1 block ${theme === 'dark' ? 'text-white' : 'text-black'}`}>2020 – 2024 (With Honors)</span>
                   </div>
                   <div>
-                    <h3 className={`text-[0.8rem] font-semibold tracking-tight ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>High School</h3>
-                    <p className={`text-[0.7rem] mt-0.5 ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>San Bartolome High School</p>
-                    <span className={`opacity-70 text-[0.65rem] font-mono mt-1 block ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>2016 – 2020 (With Honors)</span>
+                    <h3 className={`text-[0.8rem] font-semibold tracking-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>High School</h3>
+                    <p className={`text-[0.7rem] mt-0.5 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>San Bartolome High School</p>
+                    <span className={`opacity-70 text-[0.65rem] font-mono mt-1 block ${theme === 'dark' ? 'text-white' : 'text-black'}`}>2016 – 2020 (With Honors)</span>
                   </div>
                 </div>
               </div>
 
-              {/* GALLERY (RIGHT COLUMN) */}
               <div id="gallery" className={`border rounded-xl p-5 md:p-6 ${theme === 'dark' ? 'bg-zinc-950 border-zinc-800' : 'bg-white border-zinc-200'}`}>
                 <div className="flex justify-between items-center mb-4">
-                  <h2 className={`text-base font-bold tracking-tight ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+                  <h2 className={`text-base font-bold tracking-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
                     Gallery
                   </h2>
                   <button onClick={() => navigateTo('gallery')} className={`bg-transparent border-none text-[0.7rem] font-semibold cursor-pointer inline-flex items-center gap-1 transition-colors group ${
-                    theme === 'dark' ? 'text-zinc-400 hover:text-white' : 'text-zinc-500 hover:text-zinc-900'
+                    theme === 'dark' ? 'text-white hover:opacity-80' : 'text-black hover:opacity-80'
                   }`}>
                     View All
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-3 h-3 mt-px transition-transform duration-300 group-hover:translate-x-1">
@@ -1091,11 +1074,10 @@ export default function App() {
         </main>
       )}
 
-      {/* FOOTER */}
       <footer className={`w-full max-w-5xl mx-auto px-5 text-center pt-8 pb-6 text-[0.7rem] font-medium transition-colors mt-auto ${
-        theme === 'dark' ? 'text-zinc-500' : 'text-zinc-400'
+        theme === 'dark' ? 'text-white' : 'text-black'
       }`}>
-        © 2026 LUCAS ANDREI EGUNA. All rights reserved.
+        © 2026 Lucas Eguna. All rights reserved.
       </footer>
 
     </div>
