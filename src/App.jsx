@@ -399,8 +399,8 @@ export default function App() {
                     key={idx}
                     href={proj.link}
                     target="_blank"
-                    rel="noreferrer"
-                    className={`flex flex-col p-6 rounded-xl border transition-all no-underline group ${
+                    rel="noopener noreferrer"
+                    className={`flex flex-col p-6 rounded-xl border transition-all no-underline group cursor-pointer ${
                       theme === 'dark' ? 'border-zinc-800 bg-zinc-950 hover:bg-zinc-900' : 'border-zinc-200 bg-white hover:shadow-sm'
                     }`}
                   >
@@ -434,8 +434,8 @@ export default function App() {
                     key={idx}
                     href={proj.link}
                     target="_blank"
-                    rel="noreferrer"
-                    className={`flex flex-col p-6 rounded-xl border transition-all no-underline group ${
+                    rel="noopener noreferrer"
+                    className={`flex flex-col p-6 rounded-xl border transition-all no-underline group cursor-pointer ${
                       theme === 'dark' ? 'border-zinc-800 bg-zinc-950 hover:bg-zinc-900' : 'border-zinc-200 bg-white hover:shadow-sm'
                     }`}
                   >
@@ -466,8 +466,8 @@ export default function App() {
                 key={idx}
                 href={proj.link}
                 target="_blank"
-                rel="noreferrer"
-                className={`flex flex-col p-6 rounded-xl border transition-all no-underline group ${
+                rel="noopener noreferrer"
+                className={`flex flex-col p-6 rounded-xl border transition-all no-underline group cursor-pointer ${
                   theme === 'dark' ? 'border-zinc-800 bg-zinc-950 hover:bg-zinc-900' : 'border-zinc-200 bg-white hover:shadow-sm'
                 }`}
               >
@@ -830,12 +830,12 @@ export default function App() {
                       key={idx}
                       href={proj.link}
                       target="_blank"
-                      rel="noreferrer"
+                      rel="noopener noreferrer"
                       className={`flex flex-col p-4 rounded-md border transition-all no-underline group cursor-pointer ${
                         theme === 'dark' ? 'border-transparent hover:border-zinc-800 hover:bg-zinc-900' : 'border-transparent hover:border-zinc-200 hover:bg-zinc-50'
                       }`}
                     >
-                      <h3 className={`text-[0.8rem] font-semibold mb-1 tracking-tight transition-colors line-clamp-1 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+                      <h3 className={`text-[0.8rem] font-semibold mb-1 tracking-tight transition-colors line-clamp-1 ${theme === 'dark' ? 'text-white group-hover:opacity-80' : 'text-black group-hover:opacity-80'}`}>
                         {proj.title}
                       </h3>
                       <p className={`text-[0.7rem] leading-relaxed mb-3 line-clamp-2 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
