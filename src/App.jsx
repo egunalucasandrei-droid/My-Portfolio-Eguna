@@ -23,7 +23,7 @@ import me1 from './images/me1.png';
 import me2 from './images/me2.png';
 import me3 from './images/me3.png';
 import me4 from './images/me4.png';
-import me5 from './images/me5.png'; // Fixed duplicate identifier here
+import me5 from './images/me5.png'; 
 
 import profileImg from './images/profile no background.png';
 import profileSigma from './images/profile sigma transparent.png';
@@ -73,6 +73,16 @@ const projects = [
     fallback: "https://images.unsplash.com/photo-1616198814651-e71f960c3180?auto=format&fit=crop&q=80&w=800",
     link: "https://www.figma.com/proto/d97Fr5Pdx8UFmAHHVpwVXv/FINAL-PROJECT?node-id=52-105&starting-point-node-id=52%3A105&t=QsXVjRp6wbDnW84U-1",
     linkText: "View Design"
+  },
+  {
+    category: "video",
+    title: "Short-Form Video Edits Folder",
+    desc: "A collection of short-form video edits I created for Facebook, Instagram, and TikTok, focusing on high audience retention and creative storytelling.",
+    img: film6,
+    fallback: "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?auto=format&fit=crop&q=80&w=800",
+    link: "https://f.io/XudH6olA",
+    linkText: "Watch Video",
+    isVideo: true
   },
   {
     category: "uiux",
@@ -198,7 +208,7 @@ const projects = [
     link: "https://youtu.be/WAbr7hQvYUU?si=t3Z-6RbWFNilH9BD",
     linkText: "Watch Video",
     isVideo: true
-  },
+  }
 ];
 
 const galleryImages = [
@@ -418,7 +428,7 @@ export default function App() {
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               {projects
-                .filter(p => p.category === 'video' && ["Motivational Short Video", "Wealth Habits", "Intramurals and Scimath 2023", "The Gregorio Del Pilar", "Indian Royal Spice Restaurant"].includes(p.title))
+                .filter(p => p.category === 'video' && ["Short-Form Video Edits Folder", "Motivational Short Video", "Wealth Habits", "Intramurals and Scimath 2023", "The Gregorio Del Pilar", "Indian Royal Spice Restaurant"].includes(p.title))
                 .map((proj, idx) => (
                   <a
                     key={idx}
@@ -511,7 +521,8 @@ export default function App() {
               {section.tools.map(tech => (
                 <span key={tech} className={`text-[0.8rem] font-medium px-3 py-1.5 rounded border ${
                   theme === 'dark' ? 'bg-zinc-900 border-zinc-800 text-white' : 'bg-white border-zinc-200 text-black shadow-sm'
-                }`}>
+                }`}
+                >
                   {tech}
                 </span>
               ))}
@@ -758,7 +769,7 @@ export default function App() {
                 <div className={`space-y-3 text-[0.75rem] leading-relaxed ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
                   <p>I'm a full-stack developer, UI/UX designer, and video editor currently in my third year studying BSIT with a specialization in Cybersecurity.</p>
                   <p>I specialize in building modern, responsive, and scalable web applications, with a strong focus on the MERN stack (MongoDB, Express.js, React, and Node.js). Beyond coding, I have a strong eye for design, creating intuitive user interfaces and engaging visual content as a short-form and film editor.</p>
-                  <p>My experience spans freelance development, social media content creation, and building complete web applications like the Vitality Health Tracker. Right now, I'm highly focused on expanding my backend expertise by studying PHP, Python, and other server-side technologies, while simultaneously upgrading my visual content workflow by mastering new video editing tools.</p>
+                  <p>My experience spans freelance development, social media content creation, and building complete web applications like the Vitality Health Tracker. Right now, I'm highly focused on expanding my backend expertise by studying PHP, Python, and other server-side technologies, while simultaneously upgrading my visual content workflow by mastering other video editing tools like After Effects, Adobe Premiere Pro, and Davinci Resolve.</p>
                 </div>
               </div>
 
@@ -930,7 +941,7 @@ export default function App() {
                       <div className={`absolute left-0 top-1.25 w-1.75 h-1.75 z-10 transition-transform group-hover:scale-150 ${theme === 'dark' ? 'bg-white' : 'bg-black'}`}></div>
                       <div className="pr-2">
                         <h3 className={`text-[0.8rem] font-semibold tracking-tight leading-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>Short-form Video Editor</h3>
-                        <p className={`text-[0.7rem] mt-1 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>New Beginnings Creator Network, Glendale, USA</p>
+                        
                       </div>
                       <span className={`text-[0.65rem] font-mono font-medium pt-0.5 shrink-0 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>Present</span>
                     </div>
@@ -943,7 +954,7 @@ export default function App() {
                         <h3 className={`text-[0.8rem] font-semibold tracking-tight leading-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>Front-end / Full Stack Developer</h3>
                         <p className={`text-[0.7rem] mt-1 leading-snug ${theme === 'dark' ? 'text-white' : 'text-black'}`}>Freelance</p>
                       </div>
-                      <span className={`text-[0.65rem] font-mono font-medium pt-0.5 shrink-0 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>Present</span>
+                      <span className={`text-[0.65rem] font-mono font-medium pt-0.5 shrink-0 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>2025</span>
                     </div>
 
                     <div className="relative pl-5 flex justify-between items-start group">
