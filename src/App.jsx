@@ -826,12 +826,14 @@ export default function App() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {projects.slice(0, 4).map((proj, idx) => (
-                    <div
+                    <a
                       key={idx}
-                      className={`flex flex-col p-4 rounded-md border transition-all group cursor-pointer ${
+                      href={proj.link}
+                      target="_blank"
+                      rel="noreferrer"
+                      className={`flex flex-col p-4 rounded-md border transition-all no-underline group cursor-pointer ${
                         theme === 'dark' ? 'border-transparent hover:border-zinc-800 hover:bg-zinc-900' : 'border-transparent hover:border-zinc-200 hover:bg-zinc-50'
                       }`}
-                      onClick={() => window.open(proj.link, '_blank')}
                     >
                       <h3 className={`text-[0.8rem] font-semibold mb-1 tracking-tight transition-colors line-clamp-1 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
                         {proj.title}
@@ -846,7 +848,7 @@ export default function App() {
                           {getDomainText(proj.linkText, proj.link)}
                         </span>
                       </div>
-                    </div>
+                    </a>
                   ))}
                 </div>
               </div>
