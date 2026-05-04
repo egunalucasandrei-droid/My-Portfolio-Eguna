@@ -40,7 +40,7 @@ const certifications = [
 const techStack = [
   { category: "Frontend", tools: ['HTML5', 'CSS', 'JavaScript', 'React', 'Tailwind CSS', 'Vite', 'Styled Components', 'Framer Motion'] },
   { category: "Backend", tools: ['Node.js', 'Express.js', 'MongoDB', 'REST API','Firebase'] },
-  { category: "Developer Tools", tools: ['Git & GitHub', 'VS Code','npm', 'Chrome DevTools','Vercel', 'Netlify', 'Firebase Console', 'MongoDB Compass'] },
+  { category: "Developer Tools", tools: ['Git & GitHub', 'VS Code','npm', 'Vercel', 'Netlify', 'Firebase Console', 'MongoDB Compass'] },
   { category: "Video Editing Tools", tools: ['CapCut', 'Filmora', 'DaVinci Resolve', 'VEED', 'Alight Motion', 'Clipchamp'] },
   { category: "Design Tools", tools: ['Figma', 'Canva'] }
 ];
@@ -52,7 +52,7 @@ const projects = [
     desc: "A vitality tracking application I built to monitor and manage health data, focusing on performance, structure, and a smooth user experience across platforms.",
     img: Vitality,
     fallback: "https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?auto=format&fit=crop&q=80&w=800",
-    link: "https://egunalucasandrei-droid.github.io/Vitality-Health-Tracker/",
+    link: "https://vitalitytracker.app",
     linkText: "Visit Site"
   },
   {
@@ -373,35 +373,110 @@ export default function App() {
         })}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        {projects
-          .filter(p => activeProjectFilter === 'all' || p.category === activeProjectFilter)
-          .map((proj, idx) => (
-            <a
-              key={idx}
-              href={proj.link}
-              target="_blank"
-              rel="noreferrer"
-              className={`flex flex-col p-6 rounded-xl border transition-all no-underline group ${
-                theme === 'dark' ? 'border-zinc-800 bg-zinc-950 hover:bg-zinc-900' : 'border-zinc-200 bg-white hover:shadow-sm'
-              }`}
-            >
-              <h3 className={`text-[1.05rem] font-bold mb-2 tracking-tight transition-colors ${theme === 'dark' ? 'text-white group-hover:opacity-80' : 'text-zinc-900 group-hover:opacity-80'}`}>
-                {proj.title}
-              </h3>
-              <p className={`text-[0.8rem] leading-relaxed mb-6 grow ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>
-                {proj.desc}
-              </p>
-              <div className="mt-auto flex">
-                <span className={`inline-block px-2.5 py-1 font-mono text-[0.7rem] font-medium rounded border ${
-                  theme === 'dark' ? 'bg-zinc-900 text-zinc-300 border-zinc-800' : 'bg-zinc-50 text-zinc-600 border-zinc-200'
-                }`}>
-                  {getDomainText(proj.linkText, proj.link)}
-                </span>
-              </div>
-            </a>
-          ))}
-      </div>
+      {/* Conditionally render Video categories or default grids without altering the project array */}
+      {activeProjectFilter === 'video' ? (
+        <div className="flex flex-col gap-10">
+          <div>
+            <h2 className={`text-[1.1rem] font-bold mb-4 tracking-tight ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+              Film
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {projects
+                .filter(p => p.category === 'video' && ["She's Dating The Gangster (Trailer)", "She's Dating The Gangster (Short Film)", "New Yorker In Tondo"].includes(p.title))
+                .map((proj, idx) => (
+                  <a
+                    key={idx}
+                    href={proj.link}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={`flex flex-col p-6 rounded-xl border transition-all no-underline group ${
+                      theme === 'dark' ? 'border-zinc-800 bg-zinc-950 hover:bg-zinc-900' : 'border-zinc-200 bg-white hover:shadow-sm'
+                    }`}
+                  >
+                    <h3 className={`text-[1.05rem] font-bold mb-2 tracking-tight transition-colors ${theme === 'dark' ? 'text-white group-hover:opacity-80' : 'text-zinc-900 group-hover:opacity-80'}`}>
+                      {proj.title}
+                    </h3>
+                    <p className={`text-[0.8rem] leading-relaxed mb-6 grow ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>
+                      {proj.desc}
+                    </p>
+                    <div className="mt-auto flex">
+                      <span className={`inline-block px-2.5 py-1 font-mono text-[0.7rem] font-medium rounded border ${
+                        theme === 'dark' ? 'bg-zinc-900 text-zinc-300 border-zinc-800' : 'bg-zinc-50 text-zinc-600 border-zinc-200'
+                      }`}>
+                        {getDomainText(proj.linkText, proj.link)}
+                      </span>
+                    </div>
+                  </a>
+                ))}
+            </div>
+          </div>
+          
+          <div>
+            <h2 className={`text-[1.1rem] font-bold mb-4 tracking-tight ${theme === 'dark' ? 'text-white' : 'text-zinc-900'}`}>
+              Short-form Edits
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {projects
+                .filter(p => p.category === 'video' && ["Motivational Short Video", "Wealth Habits", "Intramurals and Scimath 2023", "The Gregorio Del Pilar", "Indian Royal Spice Restaurant"].includes(p.title))
+                .map((proj, idx) => (
+                  <a
+                    key={idx}
+                    href={proj.link}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={`flex flex-col p-6 rounded-xl border transition-all no-underline group ${
+                      theme === 'dark' ? 'border-zinc-800 bg-zinc-950 hover:bg-zinc-900' : 'border-zinc-200 bg-white hover:shadow-sm'
+                    }`}
+                  >
+                    <h3 className={`text-[1.05rem] font-bold mb-2 tracking-tight transition-colors ${theme === 'dark' ? 'text-white group-hover:opacity-80' : 'text-zinc-900 group-hover:opacity-80'}`}>
+                      {proj.title}
+                    </h3>
+                    <p className={`text-[0.8rem] leading-relaxed mb-6 grow ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>
+                      {proj.desc}
+                    </p>
+                    <div className="mt-auto flex">
+                      <span className={`inline-block px-2.5 py-1 font-mono text-[0.7rem] font-medium rounded border ${
+                        theme === 'dark' ? 'bg-zinc-900 text-zinc-300 border-zinc-800' : 'bg-zinc-50 text-zinc-600 border-zinc-200'
+                      }`}>
+                        {getDomainText(proj.linkText, proj.link)}
+                      </span>
+                    </div>
+                  </a>
+                ))}
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {projects
+            .filter(p => activeProjectFilter === 'all' || p.category === activeProjectFilter)
+            .map((proj, idx) => (
+              <a
+                key={idx}
+                href={proj.link}
+                target="_blank"
+                rel="noreferrer"
+                className={`flex flex-col p-6 rounded-xl border transition-all no-underline group ${
+                  theme === 'dark' ? 'border-zinc-800 bg-zinc-950 hover:bg-zinc-900' : 'border-zinc-200 bg-white hover:shadow-sm'
+                }`}
+              >
+                <h3 className={`text-[1.05rem] font-bold mb-2 tracking-tight transition-colors ${theme === 'dark' ? 'text-white group-hover:opacity-80' : 'text-zinc-900 group-hover:opacity-80'}`}>
+                  {proj.title}
+                </h3>
+                <p className={`text-[0.8rem] leading-relaxed mb-6 grow ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>
+                  {proj.desc}
+                </p>
+                <div className="mt-auto flex">
+                  <span className={`inline-block px-2.5 py-1 font-mono text-[0.7rem] font-medium rounded border ${
+                    theme === 'dark' ? 'bg-zinc-900 text-zinc-300 border-zinc-800' : 'bg-zinc-50 text-zinc-600 border-zinc-200'
+                  }`}>
+                    {getDomainText(proj.linkText, proj.link)}
+                  </span>
+                </div>
+              </a>
+            ))}
+        </div>
+      )}
     </div>
   );
 
@@ -608,7 +683,7 @@ export default function App() {
               >
                 <img
                   src={isHoveringProfile ? profileSigma : profileImg}
-                  alt="Lucas Eguna"
+                  alt="LUCAS ANDREI EGUNA"
                   decoding="async"
                   className="w-full h-full object-cover transition-opacity duration-300"
                   onError={(e) => {
@@ -621,11 +696,7 @@ export default function App() {
                 <h1 className={`text-xl md:text-2xl font-bold tracking-tight leading-none mb-1.5 flex items-center gap-2 ${
                   theme === 'dark' ? 'text-white' : 'text-zinc-900'
                 }`}>
-                  Lucas Eguna
-                  <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z" fill="#1d9bf0"/>
-                    <path d="M10 15.172l-3.536-3.536 1.414-1.414L10 12.344l5.656-5.656 1.414 1.414L10 15.172z" fill="#ffffff"/>
-                  </svg>
+                  LUCAS ANDREI EGUNA
                 </h1>
                 <div className={`flex items-center gap-1.5 text-xs mb-2 font-medium ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-500'}`}>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5">
@@ -659,7 +730,7 @@ export default function App() {
                 Resume
               </a>
               <a
-                href="https://mail.google.com/mail/?view=cm&fs=1&to=egunalucasandrei@gmail.com"
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=egunalucas@gmail.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`bg-transparent border px-4 py-2 rounded-md font-semibold text-[0.75rem] flex items-center justify-center gap-1.5 transition-colors flex-1 md:flex-none ${
@@ -1024,7 +1095,7 @@ export default function App() {
       <footer className={`w-full max-w-5xl mx-auto px-5 text-center pt-8 pb-6 text-[0.7rem] font-medium transition-colors mt-auto ${
         theme === 'dark' ? 'text-zinc-500' : 'text-zinc-400'
       }`}>
-        © 2026 Lucas Eguna. All rights reserved.
+        © 2026 LUCAS ANDREI EGUNA. All rights reserved.
       </footer>
 
     </div>
