@@ -12,6 +12,7 @@ import nike1 from './images/NIKE1.png';
 import aiChat from './images/AI Chat.png';
 import Vitality from './images/Vitality.png';
 import rog from './images/ROG.png';
+import apex5000 from './images/apex5000.png';
 import film1 from './images/film1.png';
 import film7 from './images/film7.jpg';
 import film6 from './images/film6.png';
@@ -127,6 +128,15 @@ const projects = [
     img: rog,
     fallback: "https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?auto=format&fit=crop&q=80&w=800",
     link: "https://egunalucasandrei-droid.github.io/ROG-WEBSITE/",
+    linkText: "Visit Site"
+  },
+  {
+    category: "web",
+    title: "apex5000",
+    desc: "Vehicle Sales and Delivery Manifest System is a school-based project for Application Development. It simulates the vehicle purchasing process by managing customer records, vehicle selection, upgrade customization, financing calculations, and delivery manifest generation in a single PHP-powered platform.",
+    img: apex5000,
+    fallback: "https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?auto=format&fit=crop&q=80&w=800",
+    link: "https://apex5000.vercel.app",
     linkText: "Visit Site"
   },
   {
@@ -260,7 +270,7 @@ export default function App() {
   const getInitialTheme = () => {
     try {
       return localStorage.getItem('theme') || 'dark';
-    } catch (e) {
+    } catch {
       return 'dark';
     }
   };
@@ -284,7 +294,9 @@ export default function App() {
         document.documentElement.classList.add('light');
         document.documentElement.classList.remove('dark');
       }
-    } catch (e) {}
+    } catch {
+      return;
+    }
   }, [theme]);
 
   const toggleTheme = () => setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
@@ -312,18 +324,30 @@ export default function App() {
   const openModal = (imgSrc) => {
     setModalImg(imgSrc);
     setIsModalOpen(true);
-    document.body.style.overflow = 'hidden';
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
-    document.body.style.overflow = '';
     setTimeout(() => setModalImg(''), 300);
   };
 
   useEffect(() => {
+    if (!isModalOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [isModalOpen]);
+
+  useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.key === 'Escape' && isModalOpen) closeModal();
+      if (e.key === 'Escape' && isModalOpen) {
+        setIsModalOpen(false);
+        setTimeout(() => setModalImg(''), 300);
+      }
     };
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
@@ -338,7 +362,9 @@ export default function App() {
       if (link && link.startsWith('http')) {
         return new URL(link).hostname.replace('www.', '');
       }
-    } catch (e) {}
+    } catch {
+      return linkText;
+    }
     return linkText;
   };
 
