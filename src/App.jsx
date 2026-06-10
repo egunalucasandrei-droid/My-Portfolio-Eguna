@@ -426,11 +426,11 @@ export default function App() {
         <div className="flex flex-col gap-10">
           <div>
             <h2 className={`text-[1.1rem] font-bold mb-4 tracking-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-              Film
+              Film/Vlog
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               {projects
-                .filter(p => p.category === 'video' && ["She's Dating The Gangster (Trailer)", "She's Dating The Gangster (Short Film)", "New Yorker In Tondo"].includes(p.title))
+                .filter(p => p.category === 'video' && ["She's Dating The Gangster (Trailer)", "She's Dating The Gangster (Short Film)", "New Yorker In Tondo", "Mini Vlog #1"].includes(p.title))
                 .map((proj, idx) => (
                   <a
                     key={idx}
