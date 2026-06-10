@@ -20,6 +20,7 @@ import film3 from './images/film3.png';
 import film2 from './images/film2.png';
 import film4 from './images/film4.png';
 import film5 from './images/Film5.png';
+import film8 from './images/thumbnail.png';
 import me1 from './images/me1.png';
 import me2 from './images/me2.png';
 import me3 from './images/me3.png';
@@ -162,10 +163,20 @@ const projects = [
   {
     category: "video",
     title: "She's Dating The Gangster (Short Film)",
-    desc: "Detailed recreation showcasing cinematography and editing skills.",
+    desc: "Just a fun little vlog with my girlfriend. Made some memories, captured a few moments, and turned them into this video. Edited with CapCut & DaVinci Resolve.",
     img: film7,
     fallback: "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?auto=format&fit=crop&q=80&w=800",
     link: "https://youtu.be/60wxaOO0sbg?si=AIzBobI2oPGjK-dw",
+    linkText: "Watch Video",
+    isVideo: true
+  },
+  {
+    category: "video",
+    title: "Mini Vlog #1",
+    desc: "Detailed recreation showcasing cinematography and editing skills.",
+    img: film8,
+    fallback: "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?auto=format&fit=crop&q=80&w=800",
+    link: "https://youtu.be/PmK_wF6q-e4?si=JiPI7Fxna7r8OAw5",
     linkText: "Watch Video",
     isVideo: true
   },
