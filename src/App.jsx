@@ -125,7 +125,7 @@ const projects = [
   {
     category: "web",
     title: "ROGSTRIX mockup",
-    desc: "A ROG Strix–inspired design project focused on creating a bold and futuristic interface. Built to explore modern UI styling, layout composition, and visually striking design elements.",
+    desc: "A ROG Strix-inspired design project focused on creating a bold and futuristic interface. Built to explore modern UI styling, layout composition, and visually striking design elements.",
     img: rog,
     fallback: "https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?auto=format&fit=crop&q=80&w=800",
     link: "https://egunalucasandrei-droid.github.io/ROG-WEBSITE/",
@@ -1074,17 +1074,17 @@ export default function App() {
                   <div className={`pb-3 border-b ${theme === 'dark' ? 'border-zinc-800' : 'border-zinc-200'}`}>
                     <h3 className={`text-[0.8rem] font-semibold tracking-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>BS Information Technology</h3>
                     <p className={`text-[0.7rem] mt-0.5 leading-snug ${theme === 'dark' ? 'text-white' : 'text-black'}`}>Far Eastern University Diliman (Cybersecurity)</p>
-                    <span className={`opacity-70 text-[0.65rem] font-mono mt-1 block ${theme === 'dark' ? 'text-white' : 'text-black'}`}>2024 – 2028 (Expected)</span>
+                    <span className={`opacity-70 text-[0.65rem] font-mono mt-1 block ${theme === 'dark' ? 'text-white' : 'text-black'}`}>2024 - 2028 (Expected)</span>
                   </div>
                   <div className={`pb-3 border-b ${theme === 'dark' ? 'border-zinc-800' : 'border-zinc-200'}`}>
                     <h3 className={`text-[0.8rem] font-semibold tracking-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>General Academic Strand</h3>
-                    <p className={`text-[0.7rem] mt-0.5 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>Kings’ Montessori School</p>
-                    <span className={`opacity-70 text-[0.65rem] font-mono mt-1 block ${theme === 'dark' ? 'text-white' : 'text-black'}`}>2020 – 2024 (With Honors)</span>
+                    <p className={`text-[0.7rem] mt-0.5 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>King's Montessori School</p>
+                    <span className={`opacity-70 text-[0.65rem] font-mono mt-1 block ${theme === 'dark' ? 'text-white' : 'text-black'}`}>2020 - 2024 (With Honors)</span>
                   </div>
                   <div>
                     <h3 className={`text-[0.8rem] font-semibold tracking-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>High School</h3>
                     <p className={`text-[0.7rem] mt-0.5 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>San Bartolome High School</p>
-                    <span className={`opacity-70 text-[0.65rem] font-mono mt-1 block ${theme === 'dark' ? 'text-white' : 'text-black'}`}>2016 – 2020 (With Honors)</span>
+                    <span className={`opacity-70 text-[0.65rem] font-mono mt-1 block ${theme === 'dark' ? 'text-white' : 'text-black'}`}>2016 - 2020 (With Honors)</span>
                   </div>
                 </div>
               </div>
@@ -1127,7 +1127,7 @@ export default function App() {
       <footer className={`w-full max-w-5xl mx-auto px-5 text-center pt-8 pb-6 text-[0.7rem] font-medium transition-colors mt-auto ${
         theme === 'dark' ? 'text-white' : 'text-black'
       }`}>
-        © 2026 Lucas Eguna. All rights reserved.
+        Copyright 2026 Lucas Eguna. All rights reserved.
       </footer>
 
     </div>
