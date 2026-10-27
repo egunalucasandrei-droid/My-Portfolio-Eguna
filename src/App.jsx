@@ -795,7 +795,7 @@ export default function App() {
                 Resume
               </a>
               <a
-                href="https://mail.google.com/mail/?view=cm&fs=1&to=egunalucas@gmail.com"
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=egunalucasandrei@gmail.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`bg-transparent border px-4 py-2 rounded-md font-semibold text-[0.75rem] flex items-center justify-center gap-1.5 transition-colors flex-1 md:flex-none ${
