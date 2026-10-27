@@ -4,14 +4,13 @@ import cert2 from './images/Introduction to Networks Certificate.png';
 import cert3 from './images/HTML certificate.png';
 import cert4 from './images/Introduction to Data Science Certificate_Eguna.png';
 import cert5 from './images/AI fundamentals IBM skillsbuild certificate_Eguna.png';
+import ccstNetworking from './images/cisco-ccst-networking.webp';
 import figma1 from './images/Figma1.png';
 import figma2 from './images/figma2.png';
 import figma3 from './images/figma3.png';
 import figma4 from './images/figma4.png';
-import nike1 from './images/NIKE1.png';
 import aiChat from './images/AI Chat.png';
 import Vitality from './images/Vitality.png';
-import rog from './images/ROG.png';
 import apex5000 from './images/apex5000.png';
 import film1 from './images/film1.png';
 import film7 from './images/film7.jpg';
@@ -29,10 +28,20 @@ import me5 from './images/me5.png';
 
 import profileImg from './images/profile no background.png';
 import profileSigma from './images/profile sigma transparent.png';
-import resumeDoc from './images/My Resume - Eguna.png';
+import resumeDoc from './images/My Resume.jpg';
 import rizzSoundFile from './sound/rizz sound effect.mp3';
 
 const certifications = [
+  {
+    title: "Cisco Certified Support Technician (CCST) Networking",
+    issuer: "Cisco",
+    issuedOn: "2026-07-15",
+    issuedLabel: "July 15, 2026",
+    validUntil: "2031-07-15",
+    validUntilLabel: "July 15, 2031",
+    verificationUrl: "https://verify.certiport.com/",
+    image: ccstNetworking,
+  },
   { title: "Introduction to Network Defense", issuer: "Cisco", image: cert1 },
   { title: "Introduction to Networks", issuer: "Cisco", image: cert2 },
   { title: "AI Fundamentals IBM Skill Build", issuer: "Cisco", image: cert5 },
@@ -41,11 +50,13 @@ const certifications = [
 ];
 
 const techStack = [
-  { category: "Frontend", tools: ['HTML5', 'CSS', 'JavaScript', 'React', 'Tailwind CSS', 'Vite', 'Styled Components', 'Framer Motion'] },
-  { category: "Backend", tools: ['Node.js', 'Express.js', 'MongoDB', 'REST API','Firebase'] },
-  { category: "Developer Tools", tools: ['Git & GitHub', 'VS Code','npm', 'Vercel', 'Netlify', 'Firebase Console', 'MongoDB Compass'] },
-  { category: "Video Editing Tools", tools: ['CapCut', 'Filmora', 'DaVinci Resolve', 'VEED', 'Alight Motion', 'Clipchamp'] },
-  { category: "Design Tools", tools: ['Figma', 'Canva'] }
+  { category: "Programming Languages", tools: ['HTML5', 'CSS3', 'JavaScript', 'TypeScript', 'PHP', 'Python (Basic)'] },
+  { category: "Front-End Development", tools: ['React.js', 'Next.js', 'Tailwind CSS', 'Responsive Web Design'] },
+  { category: "Back-End Development", tools: ['Node.js', 'Express.js', 'NestJS', 'Laravel', 'CodeIgniter', 'REST API Integration'] },
+  { category: "Databases & Authentication", tools: ['PostgreSQL', 'MySQL', 'MongoDB', 'Firebase', 'Supabase', 'Supabase Auth'] },
+  { category: "Deployment & Development Tools", tools: ['Git', 'GitHub', 'Visual Studio Code', 'Vercel', 'Hostinger'] },
+  { category: "Design & Multimedia", tools: ['Figma', 'Canva', 'Adobe Photoshop', 'CapCut', 'Short-Form Video Editing', 'AI-Assisted Video Editing'] },
+  { category: "AI Integration", tools: ['Google Gemini API', 'AI Chatbot Integration', 'API Integration', 'Google AI Studio', 'AI-Assisted Content Creation'] },
 ];
 
 const projects = [
@@ -112,24 +123,6 @@ const projects = [
     fallback: "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&q=80&w=800",
     link: "https://www.figma.com/proto/PkBZ1D9v60sZGZbBe9jpoA/HEALTH-TRACKER?node-id=60-48",
     linkText: "View Design"
-  },
-  {
-    category: "web",
-    title: "NIKE Mockup",
-    desc: "A Nike-inspired front-end project I built to explore modern UI design and responsive layouts. Focused on creating a clean, visually engaging interface while practicing component-based development using React and Tailwind CSS.",
-    img: nike1,
-    fallback: "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&q=80&w=800",
-    link: "https://egunalucasandrei-droid.github.io/NIKE-WEBSITE/",
-    linkText: "Visit Site"
-  },
-  {
-    category: "web",
-    title: "ROGSTRIX mockup",
-    desc: "A ROG Strix-inspired design project focused on creating a bold and futuristic interface. Built to explore modern UI styling, layout composition, and visually striking design elements.",
-    img: rog,
-    fallback: "https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?auto=format&fit=crop&q=80&w=800",
-    link: "https://egunalucasandrei-droid.github.io/ROG-WEBSITE/",
-    linkText: "Visit Site"
   },
   {
     category: "web",
@@ -277,6 +270,37 @@ const GlobalStyles = () => (
   />
 );
 
+const CertificationContent = ({ cert, theme, onPreview, compact = false }) => {
+  const Summary = cert.image ? 'button' : 'div';
+
+  return (
+    <>
+      <Summary
+        type={cert.image ? 'button' : undefined}
+        onClick={cert.image ? () => onPreview(cert.image) : undefined}
+        aria-label={cert.image ? `View ${cert.title}` : undefined}
+        className={`w-full text-left ${compact ? 'py-2 px-3' : 'p-5'} ${cert.image ? 'cursor-pointer' : ''}`}
+      >
+        <h3 className={`${compact ? 'text-[0.75rem] tracking-tight mb-0.5' : 'text-base mb-1 tracking-tight'} font-semibold ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+          {cert.title}
+        </h3>
+        <p className={`${compact ? 'text-[0.65rem]' : 'text-sm'} font-medium ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+          {cert.issuer}
+        </p>
+      </Summary>
+      {!compact && cert.issuedOn && (
+        <div className={`space-y-1 ${compact ? 'px-3 pb-2 text-[0.65rem]' : 'px-5 pb-5 text-sm'} ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+          <p>Issued <time dateTime={cert.issuedOn}>{cert.issuedLabel}</time></p>
+          <p>Valid for five years, until <time dateTime={cert.validUntil}>{cert.validUntilLabel}</time></p>
+          <a href={cert.verificationUrl} target="_blank" rel="noopener noreferrer" className="inline-block underline underline-offset-2 transition-opacity hover:opacity-80 focus-visible:outline focus-visible:outline-offset-2">
+            Verify on Certiport
+          </a>
+        </div>
+      )}
+    </>
+  );
+};
+
 export default function App() {
   const getInitialTheme = () => {
     try {
@@ -339,7 +363,6 @@ export default function App() {
 
   const closeModal = () => {
     setIsModalOpen(false);
-    setTimeout(() => setModalImg(''), 300);
   };
 
   useEffect(() => {
@@ -357,7 +380,6 @@ export default function App() {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape' && isModalOpen) {
         setIsModalOpen(false);
-        setTimeout(() => setModalImg(''), 300);
       }
     };
     document.addEventListener('keydown', handleKeyDown);
@@ -593,17 +615,11 @@ export default function App() {
         {certifications.map((cert, index) => (
           <div
             key={index}
-            className={`flex flex-col p-5 border rounded-lg cursor-pointer transition-all ${
+            className={`flex flex-col border rounded-lg transition-all ${
               theme === 'dark' ? 'border-zinc-800 bg-zinc-950 hover:bg-zinc-900' : 'border-zinc-200 bg-white hover:bg-zinc-50'
             }`}
-            onClick={() => openModal(cert.image)}
           >
-            <h3 className={`text-base font-semibold mb-1 tracking-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-              {cert.title}
-            </h3>
-            <p className={`text-sm font-medium ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-              {cert.issuer}
-            </p>
+            <CertificationContent cert={cert} theme={theme} onPreview={openModal} />
           </div>
         ))}
       </div>
@@ -671,7 +687,7 @@ export default function App() {
               <line x1="6" y1="6" x2="18" y2="18"></line>
             </svg>
           </button>
-          <img src={modalImg} alt="Full View" decoding="async" className="w-full max-h-[85vh] object-contain block" />
+          {modalImg && <img src={modalImg} alt="Full View" decoding="async" className="w-full max-h-[85vh] object-contain block" />}
         </div>
       </div>
 
@@ -804,9 +820,9 @@ export default function App() {
                   About
                 </h2>
                 <div className={`space-y-3 text-[0.75rem] leading-relaxed ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-                  <p>I'm a full-stack developer, UI/UX designer, and video editor currently in my third year studying BSIT with a specialization in Cybersecurity.</p>
-                  <p>I specialize in building modern, responsive, and scalable web applications, with a strong focus on the MERN stack (MongoDB, Express.js, React, and Node.js). Beyond coding, I have a strong eye for design, creating intuitive user interfaces and engaging visual content as a short-form and film editor.</p>
-                  <p>My experience spans freelance development, social media content creation, and building complete web applications like the Vitality Health Tracker. Right now, I'm highly focused on expanding my backend expertise by studying PHP, Python, and other server-side technologies, while simultaneously upgrading my visual content workflow by mastering other video editing tools like After Effects, Adobe Premiere Pro, and Davinci Resolve.</p>
+                  <p>I'm an Information Technology student specializing in Cybersecurity, with over 5 years of experience in video editing and 2 years in web development. I combine creative production and technical development to build engaging digital experiences, responsive websites, and functional web applications.</p>
+                  <p>My experience includes short-form video editing, AI-assisted content creation, UI/UX design, and full-stack development. I've worked with local and international clients, producing promotional content, developing web applications, and managing creative projects. I work with modern technologies such as React, TypeScript, PHP, Laravel, NestJS, PostgreSQL, and MySQL.</p>
+                  <p>I'm continuously expanding my expertise in cybersecurity, backend development, and emerging technologies while improving my creative workflow through AI-powered tools. My goal is to deliver practical, secure, visually appealing, and user-focused digital solutions.</p>
                 </div>
               </div>
 
@@ -909,17 +925,11 @@ export default function App() {
                   {certifications.slice(0, 3).map((cert, index) => (
                     <div
                       key={index}
-                      className={`flex flex-col py-2 px-3 border-b last:border-0 cursor-pointer transition-colors ${
+                      className={`flex flex-col border-b last:border-0 transition-colors ${
                         theme === 'dark' ? 'border-zinc-800 hover:bg-zinc-900' : 'border-zinc-200 hover:bg-zinc-100'
                       }`}
-                      onClick={() => openModal(cert.image)}
                     >
-                      <h3 className={`text-[0.75rem] font-semibold tracking-tight mb-0.5 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-                        {cert.title}
-                      </h3>
-                      <p className={`text-[0.65rem] font-medium ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-                        {cert.issuer}
-                      </p>
+                      <CertificationContent cert={cert} theme={theme} onPreview={openModal} compact />
                     </div>
                   ))}
                 </div>
@@ -980,9 +990,9 @@ export default function App() {
                       <div className={`absolute left-0 top-1.25 w-1.75 h-1.75 z-10 transition-transform group-hover:scale-150 ${theme === 'dark' ? 'bg-white' : 'bg-black'}`}></div>
                       <div className="pr-2">
                         <h3 className={`text-[0.8rem] font-semibold tracking-tight leading-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>Short-form Video Editor</h3>
-                        
+                        <p className={`text-[0.7rem] mt-1 leading-snug ${theme === 'dark' ? 'text-white' : 'text-black'}`}>New Beginnings Creator Network, Glendale, California, USA</p>
                       </div>
-                      <span className={`text-[0.65rem] font-mono font-medium pt-0.5 shrink-0 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>Present</span>
+                      <span className={`text-[0.65rem] font-mono font-medium pt-0.5 shrink-0 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>2026</span>
                     </div>
           
                     <div className="relative pl-5 flex justify-between items-start group">
