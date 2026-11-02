@@ -1,4 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import ProjectCard from './components/ProjectCard';
+import TechCategory from './components/TechCategory';
+import VideoPortfolio from './components/VideoPortfolio';
+import ImageModal from './components/ImageModal';
+import ProfessionalSections from './components/ProfessionalSections';
+import { thumbnailFor } from './media';
+import videoThumbnails from './videoThumbnails';
 import cert1 from './images/Introduction to Network Defense certificate.png';
 import cert2 from './images/Introduction to Networks Certificate.png';
 import cert3 from './images/HTML certificate.png';
@@ -12,14 +19,6 @@ import figma4 from './images/figma4.png';
 import aiChat from './images/AI Chat.png';
 import Vitality from './images/Vitality.png';
 import apex5000 from './images/apex5000.png';
-import film1 from './images/film1.png';
-import film7 from './images/film7.jpg';
-import film6 from './images/film6.png';
-import film3 from './images/film3.png';
-import film2 from './images/film2.png';
-import film4 from './images/film4.png';
-import film5 from './images/Film5.png';
-import film8 from './images/thumbnail.png';
 import me1 from './images/me1.png';
 import me2 from './images/me2.png';
 import me3 from './images/me3.png';
@@ -35,11 +34,6 @@ const certifications = [
   {
     title: "Cisco Certified Support Technician (CCST) Networking",
     issuer: "Cisco",
-    issuedOn: "2026-07-15",
-    issuedLabel: "July 15, 2026",
-    validUntil: "2031-07-15",
-    validUntilLabel: "July 15, 2031",
-    verificationUrl: "https://verify.certiport.com/",
     image: ccstNetworking,
   },
   { title: "Introduction to Network Defense", issuer: "Cisco", image: cert1 },
@@ -50,49 +44,105 @@ const certifications = [
 ];
 
 const techStack = [
-  { category: "Programming Languages", tools: ['HTML5', 'CSS3', 'JavaScript', 'TypeScript', 'PHP', 'Python (Basic)'] },
-  { category: "Front-End Development", tools: ['React.js', 'Next.js', 'Tailwind CSS', 'Responsive Web Design'] },
-  { category: "Back-End Development", tools: ['Node.js', 'Express.js', 'NestJS', 'Laravel', 'CodeIgniter', 'REST API Integration'] },
-  { category: "Databases & Authentication", tools: ['PostgreSQL', 'MySQL', 'MongoDB', 'Firebase', 'Supabase', 'Supabase Auth'] },
-  { category: "Deployment & Development Tools", tools: ['Git', 'GitHub', 'Visual Studio Code', 'Vercel', 'Hostinger'] },
-  { category: "Design & Multimedia", tools: ['Figma', 'Canva', 'Adobe Photoshop', 'CapCut', 'Short-Form Video Editing', 'AI-Assisted Video Editing'] },
-  { category: "AI Integration", tools: ['Google Gemini API', 'AI Chatbot Integration', 'API Integration', 'Google AI Studio', 'AI-Assisted Content Creation'] },
+  { category: "Programming Languages", tools: ['HTML5', 'CSS3', 'JavaScript', 'TypeScript', 'PHP', 'Python (Basic)', 'SQL'] },
+  { category: "Front-End Development", tools: ['React.js', 'Next.js', 'Tailwind CSS', 'Responsive Web Design', 'Component-Based Architecture'] },
+  { category: "Back-End Development", tools: ['Node.js', 'Express.js', 'NestJS', 'Laravel', 'CodeIgniter', 'REST API Integration', 'JWT Authentication', 'Server-Side Validation', 'WebSockets'] },
+  { category: "Databases & Authentication", tools: ['PostgreSQL', 'MySQL', 'MongoDB', 'Firebase', 'Supabase', 'Supabase Auth', 'Database Design', 'Prisma ORM'] },
+  { category: "API & Security", tools: ['RESTful API Design', 'API Testing', 'Webhooks'] },
+  {
+    category: "Cybersecurity & Application Security",
+    tools: ['OWASP Top 10', 'Web Application Security', 'Authentication & Authorization', 'Role-Based Access Control (RBAC)', 'Password Hashing', 'Input Validation', 'SQL Injection Prevention', 'Cross-Site Scripting (XSS) Prevention', 'HTTPS & TLS', 'API Security', 'Security Best Practices', 'Network Security Fundamentals'],
+  },
+  { category: "Development & Deployment", tools: ['Git', 'GitHub', 'Visual Studio Code', 'Vercel', 'Hostinger', 'Resend', 'Render', 'Cloudflare', 'Docker', 'CI/CD', 'GitHub Actions', 'VPS Hosting', 'VPS Management', 'Linux Server Administration', 'Server Deployment', 'SSH', 'Server Configuration', 'XAMPP'] },
+  { category: "Testing & Developer Tools", tools: ['Postman', 'Chrome DevTools', 'ESLint'] },
+  { category: "Design & Video Editing", tools: ['Figma', 'Canva', 'Adobe Photoshop', 'CapCut', 'Short-Form Video Editing', 'AI-Assisted Video Editing'] },
+  {
+    category: "AI Integration",
+    tools: ['Google AI Studio', 'Gemini API', 'OpenAI API', 'AI Agent Development', 'AI Chatbot Development', 'LLM Integration', 'AI API Integration', 'Prompt Engineering'],
+  },
 ];
+
+const featuredTechSelection = [
+  { category: 'Programming Languages', tools: ['JavaScript', 'TypeScript', 'PHP', 'SQL', 'Python (Basic)'] },
+  { category: 'Front-End Development', tools: ['React.js', 'Next.js', 'Tailwind CSS'] },
+  { category: 'Back-End Development', tools: ['Node.js', 'NestJS', 'Laravel', 'CodeIgniter'] },
+  { category: 'Databases & Authentication', label: 'Databases', tools: ['PostgreSQL', 'MySQL', 'Supabase'] },
+  {
+    category: 'Cybersecurity & Application Security',
+    label: 'Cybersecurity',
+    tools: ['OWASP Top 10', 'Web Application Security', 'Role-Based Access Control (RBAC)', 'API Security'],
+    toolLabels: { 'Role-Based Access Control (RBAC)': 'RBAC' },
+  },
+  { category: 'Development & Deployment', tools: ['Git', 'GitHub', 'Vercel', 'Cloudflare', 'VPS Hosting'] },
+  { category: 'AI Integration', tools: ['Gemini API', 'OpenAI API', 'AI Agent Development'] },
+  { category: 'Design & Video Editing', tools: ['Figma', 'CapCut', 'AI-Assisted Video Editing'] },
+];
+
+const featuredTechStack = featuredTechSelection.map(selection => {
+  const section = techStack.find(item => item.category === selection.category);
+  return {
+    ...section,
+    label: selection.label,
+    toolLabels: selection.toolLabels,
+    tools: selection.tools.map(tool => section.tools.find(item => item === tool)).filter(Boolean),
+  };
+});
 
 const projects = [
   {
     category: "web",
+    title: "NOLTA Court Booking Website",
+    shortName: "NOLTA",
+    type: "Full-Stack Web Application",
+    role: "Full-Stack Developer",
+    status: "In Development",
+    location: "Batasan, Quezon City, Philippines",
+    desc: "A full-stack court booking and reservation platform designed to simplify sports facility scheduling, availability management, and reservations.",
+    img: null,
+    tech: [],
+  },
+  {
+    category: "web",
     title: "Vitality Tracker",
-    desc: "A vitality tracking application I built to monitor and manage health data, focusing on performance, structure, and a smooth user experience across platforms.",
+    desc: "A responsive health tracking interface I developed to help users monitor everyday activity and health data.",
+    role: "Front-End Developer",
+    tech: ['HTML5', 'CSS3', 'JavaScript'],
+    github: "https://github.com/egunalucasandrei-droid/Vitality-Health-Tracker",
     img: Vitality,
-    fallback: "https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?auto=format&fit=crop&q=80&w=800",
     link: "https://vitalitytracker.app",
     linkText: "Visit Site"
   },
   {
     category: "web",
     title: "AI Chat",
-    desc: "An AI-powered chat application I built to deliver fast and seamless conversations. It uses a separate backend for API security and a clean, responsive frontend for a smooth user experience.",
+    desc: "An AI chat application I built with a responsive React interface and a separate Express backend for Gemini API requests.",
+    role: "Full-Stack Developer",
+    tech: ['React', 'Tailwind CSS', 'Express.js', 'Gemini API'],
+    github: "https://github.com/egunalucasandrei-droid/AI-Chat",
     img: aiChat,
-    fallback: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&q=80&w=800",
     link: "https://ai-chat-snowy-mu.vercel.app",
     linkText: "Visit Site"
   },
   {
     category: "uiux",
     title: "Fit Tracker",
+    role: "UI/UX Designer",
+    tech: ['Figma'],
     desc: "Modern Figma UI design focusing on clean user experience for fitness tracking.",
     img: figma1,
-    fallback: "https://images.unsplash.com/photo-1616198814651-e71f960c3180?auto=format&fit=crop&q=80&w=800",
     link: "https://www.figma.com/proto/d97Fr5Pdx8UFmAHHVpwVXv/FINAL-PROJECT?node-id=52-105&starting-point-node-id=52%3A105&t=QsXVjRp6wbDnW84U-1",
     linkText: "View Design"
   },
   {
     category: "video",
     title: "Short-Form Video Edits Folder",
+    shortName: "Short-Form Edits",
+    type: "Video Collection",
+    videoCategories: ['Short-Form Videos', 'Social Media Content'],
     desc: "A collection of short-form video edits I created for Facebook, Instagram, and TikTok, focusing on high audience retention and creative storytelling.",
-    img: film6,
-    fallback: "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?auto=format&fit=crop&q=80&w=800",
+    img: "/images/short-form-video-editing.png",
+    imageAlt: "Video editing workspace with a laptop editing timeline, camera, and headphones",
+    imageFit: "contain",
     link: "https://f.io/XudH6olA",
     linkText: "Watch Video",
     isVideo: true
@@ -100,45 +150,46 @@ const projects = [
   {
     category: "uiux",
     title: "Rise Fit",
+    tech: ['Figma'],
     desc: "Intuitive mobile interface designed in Figma for health enthusiasts.",
     img: figma2,
-    fallback: "https://images.unsplash.com/photo-1526506114642-54bc55e2d56a?auto=format&fit=crop&q=80&w=800",
     link: "https://www.figma.com/proto/GfaYaASRaaXXHHvDMdbAqc/final-project?node-id=1-2",
     linkText: "View Design"
   },
   {
     category: "uiux",
     title: "Shape Your Body",
+    tech: ['Figma'],
     desc: "A structured and visually appealing fitness application prototype.",
     img: figma3,
-    fallback: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=800",
     link: "https://www.figma.com/proto/UbQv3hR8SUTIilNiI2o8XW/Final-Project?node-id=21-32",
     linkText: "View Design"
   },
   {
     category: "uiux",
     title: "Health Tracker",
+    tech: ['Figma'],
     desc: "Comprehensive health monitoring dashboard UI crafted with minimalism.",
     img: figma4,
-    fallback: "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&q=80&w=800",
     link: "https://www.figma.com/proto/PkBZ1D9v60sZGZbBe9jpoA/HEALTH-TRACKER?node-id=60-48",
     linkText: "View Design"
   },
   {
     category: "web",
     title: "apex5000",
-    desc: "Vehicle Sales and Delivery Manifest System is a school-based project for Application Development. It simulates the vehicle purchasing process by managing customer records, vehicle selection, upgrade customization, financing calculations, and delivery manifest generation in a single PHP-powered platform.",
+    desc: "A PHP school project I built to simulate vehicle purchasing, upgrade selection, financing calculations, and delivery manifest generation.",
+    tech: ['PHP', 'CSS3'],
+    github: "https://github.com/egunalucasandrei-droid/Apex5000",
     img: apex5000,
-    fallback: "https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?auto=format&fit=crop&q=80&w=800",
     link: "https://apex5000.vercel.app",
     linkText: "Visit Site"
   },
   {
     category: "video",
     title: "She's Dating The Gangster (Trailer)",
+    videoCategories: ['Film & Vlogs'],
     desc: "Creative storytelling and high-impact editing for a cinematic trailer.",
-    img: film1,
-    fallback: "https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&q=80&w=800",
+    img: videoThumbnails["She's Dating The Gangster (Trailer)"],
     link: "https://youtu.be/CrDVxN9pC1A?si=R42Hjhf-Se8hM5Xc",
     linkText: "Watch Video",
     isVideo: true
@@ -146,9 +197,11 @@ const projects = [
   {
     category: "video",
     title: "Intramurals and Scimath 2023",
+    videoCategories: ['Social Media Content'],
     desc: "A short video edit highlighting the Intramurals and Scimath Activity.",
-    img: film1,
-    fallback: "https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&q=80&w=800",
+    img: "/images/intramurals-scimath-2023.png",
+    imageAlt: "Intramurals basketball scene on the left and SciMath 2023 design on the right",
+    imageFit: "contain",
     link: "https://youtu.be/Z6AojJ9b_Ho?si=L_8GBJHMmzp-v4Y3",
     linkText: "Watch Video",
     isVideo: true
@@ -156,9 +209,9 @@ const projects = [
   {
     category: "video",
     title: "She's Dating The Gangster (Short Film)",
-    desc: "Just a fun little vlog with my girlfriend. Made some memories, captured a few moments, and turned them into this video. Edited with CapCut & DaVinci Resolve.",
-    img: film7,
-    fallback: "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?auto=format&fit=crop&q=80&w=800",
+    videoCategories: ['Film & Vlogs'],
+    desc: "A short-film recreation shared as part of my film editing portfolio.",
+    img: videoThumbnails["She's Dating The Gangster (Short Film)"],
     link: "https://youtu.be/60wxaOO0sbg?si=AIzBobI2oPGjK-dw",
     linkText: "Watch Video",
     isVideo: true
@@ -166,9 +219,9 @@ const projects = [
   {
     category: "video",
     title: "Mini Vlog #1",
-    desc: "Detailed recreation showcasing cinematography and editing skills.",
-    img: film8,
-    fallback: "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?auto=format&fit=crop&q=80&w=800",
+    videoCategories: ['Film & Vlogs'],
+    desc: "A personal mini vlog, edited as part of my video portfolio.",
+    img: videoThumbnails["Mini Vlog #1"],
     link: "https://youtu.be/PmK_wF6q-e4?si=JiPI7Fxna7r8OAw5",
     linkText: "Watch Video",
     isVideo: true
@@ -176,19 +229,49 @@ const projects = [
   {
     category: "video",
     title: "Motivational Short Video",
+    shortName: "Motivational Short Video",
+    type: "Short-Form Video",
+    videoCategories: ['Short-Form Videos', 'Social Media Content'],
     desc: "Short-form vertical editing focused on high audience retention.",
-    img: film6,
-    fallback: "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?auto=format&fit=crop&q=80&w=800",
+    img: "/images/motivational-short-video.webp",
+    imageAlt: "Motivational Short Video artwork showing a person overlooking mountains and a golden sky",
+    imageFit: "contain",
     link: "https://www.tiktok.com/@thryvnova.daily/video/7619230287410531591?is_from_webapp=1&sender_device=pc&web_id=7593043247263843847",
     linkText: "Watch Video",
     isVideo: true
   },
   {
     category: "video",
+    title: "Hotel & Resort Promotions",
+    type: "Short-Form Promotional Video Collection",
+    videoCategories: ['Hotel & Resort Promotions'],
+    desc: "A collection of short-form promotional videos featuring hotels, resorts, and travel destinations, focusing on engaging visual storytelling, attention-grabbing hooks, and destination highlights.",
+    img: "/images/hotel-resort-promotions.webp",
+    imageAlt: "AI-generated illustrative cover of a tropical luxury resort with a swimming pool and palm trees in warm sunset light",
+    imageFit: "contain",
+    link: "https://drive.google.com/drive/folders/11FVASI4GkwfMv_X0yGX_Y_7MU80mYRWn?usp=sharing",
+    linkText: "View Collection",
+    isVideo: true
+  },
+  {
+    category: "video",
+    title: "AI-Assisted Video Editing",
+    type: "AI-Enhanced Video Collection",
+    videoCategories: ['AI-Assisted Video Editing'],
+    desc: "A collection of video editing projects incorporating AI-assisted tools, creative visual enhancements, and modern editing techniques to produce engaging digital content.",
+    img: "/images/ai-assisted-video-editing.webp",
+    imageAlt: "AI-generated illustrative cover of a professional editing workspace with a cinematic preview, multitrack timeline, and subtle AI-inspired node controls",
+    imageFit: "contain",
+    link: "https://drive.google.com/drive/folders/1o67deJaL_0uCSCEWG6QFs38plfIkSrUR?usp=sharing",
+    linkText: "View Collection",
+    isVideo: true
+  },
+  {
+    category: "video",
     title: "The Gregorio Del Pilar",
+    videoCategories: ['Social Media Content'],
     desc: "A compelling promotional video piece featuring smooth, modern transitions.",
-    img: film3,
-    fallback: "https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&q=80&w=800",
+    img: videoThumbnails["The Gregorio Del Pilar"],
     link: "https://youtu.be/ObcIEb3hynQ?si=c6ynr6bSnlOTqamN",
     linkText: "Watch Video",
     isVideo: true
@@ -196,9 +279,9 @@ const projects = [
   {
     category: "video",
     title: "New Yorker In Tondo",
+    videoCategories: ['Film & Vlogs'],
     desc: "Narrative-driven film editing applying professional pacing techniques.",
-    img: film2,
-    fallback: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&q=80&w=800",
+    img: videoThumbnails["New Yorker In Tondo"],
     link: "https://youtu.be/YmoOnQ50ItM?si=NTKSCkPSEhaoNgtk",
     linkText: "Watch Video",
     isVideo: true
@@ -206,9 +289,9 @@ const projects = [
   {
     category: "video",
     title: "Indian Royal Spice Restaurant",
+    videoCategories: ['Social Media Content'],
     desc: "High-energy commercial edit designed to captivate and promote.",
-    img: film4,
-    fallback: "https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&q=80&w=800",
+    img: videoThumbnails["Indian Royal Spice Restaurant"],
     link: "https://youtu.be/9BkI-9_kDJw?si=59RznqLHBsBpB0Eh",
     linkText: "Watch Video",
     isVideo: true
@@ -216,9 +299,9 @@ const projects = [
   {
     category: "video",
     title: "Wealth Habits",
+    videoCategories: ['Short-Form Videos', 'Social Media Content'],
     desc: "Informative and engaging motivational edit tailored for social platforms.",
-    img: film5,
-    fallback: "https://images.unsplash.com/photo-1579621970588-a35d0e7ab9b6?auto=format&fit=crop&q=80&w=800",
+    img: videoThumbnails["Wealth Habits"],
     link: "https://youtu.be/WAbr7hQvYUU?si=t3Z-6RbWFNilH9BD",
     linkText: "Watch Video",
     isVideo: true
@@ -233,12 +316,53 @@ const galleryImages = [
   { alt: "Gallery Image 5", src: me5 },
 ];
 
+const experience = [
+  {
+    "title": "Full-Stack Developer",
+    "company": "NOLTA Court Booking Website",
+    "location": "Batasan, Quezon City, Philippines",
+    "period": "Present",
+    "current": true
+  },
+  {
+    "title": "Short-Form Video Editor",
+    "company": "New Beginnings Creator Network",
+    "location": "Glendale, California, USA",
+    "period": "2026"
+  },
+  {
+    "title": "UI/UX Designer",
+    "company": "Fit Tracker, Rise Fit, Shape Your Body, Health Tracker",
+    "period": "2025"
+  },
+  {
+    "title": "Front-End Developer",
+    "company": "Vitality Health Tracker",
+    "location": "Auckland, New Zealand",
+    "period": "2024 – 2025"
+  },
+  {
+    "title": "Social Media Assistant & Video Editor",
+    "company": "The Royal Indian Spice Restaurant",
+    "location": "Quezon City, Philippines",
+    "period": "2024"
+  },
+  {
+    "title": "Video Editor",
+    "company": "Freelance",
+    "period": "2023"
+  },
+  {
+    "title": "Lyrical Video Editor",
+    "company": "Freelance",
+    "period": "2021 – 2022"
+  }
+];
+
 const GlobalStyles = () => (
   <style
     dangerouslySetInnerHTML={{
       __html: `
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             margin: 0;
@@ -272,31 +396,24 @@ const GlobalStyles = () => (
 
 const CertificationContent = ({ cert, theme, onPreview, compact = false }) => {
   const Summary = cert.image ? 'button' : 'div';
+  const Title = compact ? 'h3' : 'h2';
 
   return (
     <>
       <Summary
         type={cert.image ? 'button' : undefined}
-        onClick={cert.image ? () => onPreview(cert.image) : undefined}
+        onClick={cert.image ? event => onPreview(cert.image, cert.title, event.currentTarget) : undefined}
         aria-label={cert.image ? `View ${cert.title}` : undefined}
-        className={`w-full text-left ${compact ? 'py-2 px-3' : 'p-5'} ${cert.image ? 'cursor-pointer' : ''}`}
+        className={`w-full text-left ${compact ? 'py-2 px-3' : 'flex h-full min-w-0 flex-col items-start p-5'} ${cert.image ? 'cursor-pointer' : ''}`}
       >
-        <h3 className={`${compact ? 'text-[0.75rem] tracking-tight mb-0.5' : 'text-base mb-1 tracking-tight'} font-semibold ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+        {!compact && <img src={thumbnailFor(cert.image)} alt="" width="640" height="452" loading="lazy" decoding="async" className="mb-4 h-28 w-full rounded-sm bg-zinc-100 object-contain" />}
+        <Title className={`${compact ? 'text-[0.75rem] tracking-tight mb-0.5' : 'text-sm mb-2 tracking-tight break-words'} font-semibold ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
           {cert.title}
-        </h3>
-        <p className={`${compact ? 'text-[0.65rem]' : 'text-sm'} font-medium ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+        </Title>
+        <p className={`${compact ? 'text-[0.65rem]' : 'text-sm mt-auto'} font-medium ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
           {cert.issuer}
         </p>
       </Summary>
-      {!compact && cert.issuedOn && (
-        <div className={`space-y-1 ${compact ? 'px-3 pb-2 text-[0.65rem]' : 'px-5 pb-5 text-sm'} ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-          <p>Issued <time dateTime={cert.issuedOn}>{cert.issuedLabel}</time></p>
-          <p>Valid for five years, until <time dateTime={cert.validUntil}>{cert.validUntilLabel}</time></p>
-          <a href={cert.verificationUrl} target="_blank" rel="noopener noreferrer" className="inline-block underline underline-offset-2 transition-opacity hover:opacity-80 focus-visible:outline focus-visible:outline-offset-2">
-            Verify on Certiport
-          </a>
-        </div>
-      )}
     </>
   );
 };
@@ -304,7 +421,7 @@ const CertificationContent = ({ cert, theme, onPreview, compact = false }) => {
 export default function App() {
   const getInitialTheme = () => {
     try {
-      return localStorage.getItem('theme') || 'dark';
+      return localStorage.getItem('theme') === 'light' ? 'light' : 'dark';
     } catch {
       return 'dark';
     }
@@ -313,6 +430,8 @@ export default function App() {
   const [theme, setTheme] = useState(getInitialTheme);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalImg, setModalImg] = useState('');
+  const [modalAlt, setModalAlt] = useState('Image preview');
+  const modalTriggerRef = useRef(null);
   
   const [isHoveringProfile, setIsHoveringProfile] = useState(false);
 
@@ -322,15 +441,13 @@ export default function App() {
   useEffect(() => {
     try {
       localStorage.setItem('theme', theme);
-      if (theme === 'dark') {
+    } catch { /* Theme switching still works when storage is unavailable. */ }
+    if (theme === 'dark') {
         document.documentElement.classList.add('dark');
         document.documentElement.classList.remove('light');
-      } else {
+    } else {
         document.documentElement.classList.add('light');
         document.documentElement.classList.remove('dark');
-      }
-    } catch {
-      return;
     }
   }, [theme]);
 
@@ -356,8 +473,10 @@ export default function App() {
     return () => observer.disconnect();
   }, [activeView]);
 
-  const openModal = (imgSrc) => {
+  const openModal = (imgSrc, description = 'Image preview', trigger = document.activeElement) => {
+    modalTriggerRef.current = trigger;
     setModalImg(imgSrc);
+    setModalAlt(description);
     setIsModalOpen(true);
   };
 
@@ -376,246 +495,75 @@ export default function App() {
     };
   }, [isModalOpen]);
 
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === 'Escape' && isModalOpen) {
-        setIsModalOpen(false);
-      }
-    };
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [isModalOpen]);
-
   const navigateTo = (view) => {
     setActiveView(view);
+    requestAnimationFrame(() => document.querySelector('main h1')?.focus({ preventScroll: true }));
   };
 
-  const getDomainText = (linkText, link) => {
-    try {
-      if (link && link.startsWith('http')) {
-        return new URL(link).hostname.replace('www.', '');
-      }
-    } catch {
-      return linkText;
-    }
-    return linkText;
-  };
+  const renderViewHeading = (title) => (
+    <div className="mb-8 flex flex-wrap items-center gap-x-5 gap-y-3">
+      <button type="button" onClick={() => navigateTo('home')} className="inline-flex min-h-9 items-center gap-2 text-sm font-medium transition-opacity hover:opacity-75">
+        <svg aria-hidden="true" className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 12H5m7-7-7 7 7 7" /></svg>
+        Back to Home
+      </button>
+      <h1 tabIndex={-1} className="text-xl font-bold tracking-tight md:text-2xl">{title}</h1>
+    </div>
+  );
 
   const renderAllProjects = () => (
-    <div className="w-full max-w-5xl mx-auto px-5 py-12 fade-up">
-      <div className="flex items-center gap-4 mb-8">
-        <button
-          onClick={() => navigateTo('home')}
-          className={`flex items-center gap-2 font-medium text-sm transition-colors ${
-            theme === 'dark' ? 'text-white hover:opacity-80' : 'text-black hover:opacity-80'
-          }`}
-        >
-          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <line x1="19" y1="12" x2="5" y2="12"></line>
-            <polyline points="12 19 5 12 12 5"></polyline>
-          </svg>
-          Back to Home
-        </button>
-        <h1 className={`text-xl md:text-2xl font-bold tracking-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-          All Projects
-        </h1>
+    <main id="main-content" tabIndex={-1} className="fade-up mx-auto w-full max-w-5xl px-5 py-8">
+      {renderViewHeading('All Projects')}
+      <div aria-label="Project categories" className={`mb-6 flex flex-wrap gap-x-6 gap-y-3 border-b ${theme === 'dark' ? 'border-zinc-800' : 'border-zinc-200'}`}>
+        {['all', 'web', 'uiux', 'video'].map(filter => (
+          <button key={filter} type="button" aria-pressed={activeProjectFilter === filter} onClick={() => setActiveProjectFilter(filter)} className={`relative min-h-10 pb-3 text-xs font-semibold uppercase tracking-wide transition-opacity hover:opacity-75 ${activeProjectFilter === filter ? 'border-b-2 border-current' : ''}`}>
+            {{ all: 'ALL', web: 'WEBSITES', uiux: 'UI/UX', video: 'VIDEOS' }[filter]}
+          </button>
+        ))}
       </div>
-
-      <div className={`flex gap-6 mb-8 border-b ${theme === 'dark' ? 'border-zinc-800' : 'border-zinc-200'}`}>
-        {['all', 'uiux', 'web', 'video'].map(filter => {
-          const isActive = activeProjectFilter === filter;
-          const labels = { all: 'ALL', uiux: 'UI/UX', web: 'WEBSITES', video: 'VIDEOS' };
-          return (
-            <button
-              key={filter}
-              onClick={() => setActiveProjectFilter(filter)}
-              className={`text-sm font-semibold uppercase tracking-wide pb-3 relative transition-colors ${
-                isActive
-                  ? theme === 'dark' ? 'text-white' : 'text-black'
-                  : theme === 'dark' ? 'text-white hover:opacity-80' : 'text-black hover:opacity-80'
-              }`}
-            >
-              {labels[filter]}
-              {isActive && (
-                <span className={`absolute bottom-0 left-0 right-0 h-0.5 ${theme === 'dark' ? 'bg-white' : 'bg-black'}`}></span>
-              )}
-            </button>
-          );
-        })}
-      </div>
-
       {activeProjectFilter === 'video' ? (
-        <div className="flex flex-col gap-10">
-          <div>
-            <h2 className={`text-[1.1rem] font-bold mb-4 tracking-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-              Film/Vlog
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              {projects
-                .filter(p => p.category === 'video' && ["She's Dating The Gangster (Trailer)", "She's Dating The Gangster (Short Film)", "New Yorker In Tondo", "Mini Vlog #1"].includes(p.title))
-                .map((proj, idx) => (
-                  <a
-                    key={idx}
-                    href={proj.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`flex flex-col p-6 rounded-xl border transition-all no-underline group cursor-pointer ${
-                      theme === 'dark' ? 'border-zinc-800 bg-zinc-950 hover:bg-zinc-900' : 'border-zinc-200 bg-white hover:shadow-sm'
-                    }`}
-                  >
-                    <h3 className={`text-[1.05rem] font-bold mb-2 tracking-tight transition-colors ${theme === 'dark' ? 'text-white group-hover:opacity-80' : 'text-black group-hover:opacity-80'}`}>
-                      {proj.title}
-                    </h3>
-                    <p className={`text-[0.8rem] leading-relaxed mb-6 grow ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-                      {proj.desc}
-                    </p>
-                    <div className="mt-auto flex">
-                      <span className={`inline-block px-2.5 py-1 font-mono text-[0.7rem] font-medium rounded border ${
-                        theme === 'dark' ? 'bg-zinc-900 text-white border-zinc-800' : 'bg-zinc-50 text-black border-zinc-200'
-                      }`}>
-                        {getDomainText(proj.linkText, proj.link)}
-                      </span>
-                    </div>
-                  </a>
-                ))}
-            </div>
-          </div>
-          
-          <div>
-            <h2 className={`text-[1.1rem] font-bold mb-4 tracking-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-              Short-form Edits
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              {projects
-                .filter(p => p.category === 'video' && ["Short-Form Video Edits Folder", "Motivational Short Video", "Wealth Habits", "Intramurals and Scimath 2023", "The Gregorio Del Pilar", "Indian Royal Spice Restaurant"].includes(p.title))
-                .map((proj, idx) => (
-                  <a
-                    key={idx}
-                    href={proj.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`flex flex-col p-6 rounded-xl border transition-all no-underline group cursor-pointer ${
-                      theme === 'dark' ? 'border-zinc-800 bg-zinc-950 hover:bg-zinc-900' : 'border-zinc-200 bg-white hover:shadow-sm'
-                    }`}
-                  >
-                    <h3 className={`text-[1.05rem] font-bold mb-2 tracking-tight transition-colors ${theme === 'dark' ? 'text-white group-hover:opacity-80' : 'text-black group-hover:opacity-80'}`}>
-                      {proj.title}
-                    </h3>
-                    <p className={`text-[0.8rem] leading-relaxed mb-6 grow ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-                      {proj.desc}
-                    </p>
-                    <div className="mt-auto flex">
-                      <span className={`inline-block px-2.5 py-1 font-mono text-[0.7rem] font-medium rounded border ${
-                        theme === 'dark' ? 'bg-zinc-900 text-white border-zinc-800' : 'bg-zinc-50 text-black border-zinc-200'
-                      }`}>
-                        {getDomainText(proj.linkText, proj.link)}
-                      </span>
-                    </div>
-                  </a>
-                ))}
-            </div>
-          </div>
+        <div className="space-y-8">
+          {['Film & Vlogs', 'Short-form Edits'].map(group => (
+            <section key={group} aria-label={group}>
+              <h2 className="mb-4 text-base font-semibold tracking-tight">{group === 'Film & Vlogs' ? 'Film/Vlog' : group}</h2>
+              <div className="grid auto-rows-fr grid-cols-1 gap-5 sm:grid-cols-2">
+                {projects.filter(project => project.category === 'video' && (group === 'Film & Vlogs') === project.videoCategories?.includes('Film & Vlogs')).map(project => <ProjectCard key={project.title} project={project} theme={theme} />)}
+              </div>
+            </section>
+          ))}
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {projects
-            .filter(p => activeProjectFilter === 'all' || p.category === activeProjectFilter)
-            .map((proj, idx) => (
-              <a
-                key={idx}
-                href={proj.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`flex flex-col p-6 rounded-xl border transition-all no-underline group cursor-pointer ${
-                  theme === 'dark' ? 'border-zinc-800 bg-zinc-950 hover:bg-zinc-900' : 'border-zinc-200 bg-white hover:shadow-sm'
-                }`}
-              >
-                <h3 className={`text-[1.05rem] font-bold mb-2 tracking-tight transition-colors ${theme === 'dark' ? 'text-white group-hover:opacity-80' : 'text-black group-hover:opacity-80'}`}>
-                  {proj.title}
-                </h3>
-                <p className={`text-[0.8rem] leading-relaxed mb-6 grow ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-                  {proj.desc}
-                </p>
-                <div className="mt-auto flex">
-                  <span className={`inline-block px-2.5 py-1 font-mono text-[0.7rem] font-medium rounded border ${
-                    theme === 'dark' ? 'bg-zinc-900 text-white border-zinc-800' : 'bg-zinc-50 text-black border-zinc-200'
-                  }`}>
-                    {getDomainText(proj.linkText, proj.link)}
-                  </span>
-                </div>
-              </a>
-            ))}
+        <div className="grid auto-rows-fr grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {projects.filter(project => activeProjectFilter === 'all' || project.category === activeProjectFilter).map(project => <ProjectCard key={project.title} project={project} theme={theme} headingLevel="h2" />)}
         </div>
       )}
-    </div>
+    </main>
+  );
+
+  const renderAllVideos = () => (
+    <main id="main-content" tabIndex={-1} className="fade-up mx-auto w-full max-w-5xl px-5 py-8">
+      {renderViewHeading('Video Editing Portfolio')}
+      <p className="mb-6 max-w-2xl text-sm leading-relaxed">Short-form edits, storytelling, and promotional content. Browse my existing work by category.</p>
+      <VideoPortfolio projects={projects} theme={theme} />
+    </main>
   );
 
   const renderAllTech = () => (
-    <div className="w-full max-w-4xl mx-auto px-5 py-12 fade-up">
-      <div className="flex items-center gap-4 mb-10">
-        <button
-          onClick={() => navigateTo('home')}
-          className={`flex items-center gap-2 font-medium text-sm transition-colors ${
-            theme === 'dark' ? 'text-white hover:opacity-80' : 'text-black hover:opacity-80'
-          }`}
-        >
-          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <line x1="19" y1="12" x2="5" y2="12"></line>
-            <polyline points="12 19 5 12 12 5"></polyline>
-          </svg>
-          Back to Home
-        </button>
-        <h1 className={`text-2xl font-bold tracking-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-          Tech Stack
-        </h1>
+    <main id="main-content" tabIndex={-1} className="fade-up mx-auto w-full max-w-4xl px-5 py-8">
+      {renderViewHeading('Tech Stack')}
+      <div className="flex flex-col gap-8">
+        {techStack.map(section => <TechCategory key={section.category} section={section} theme={theme} />)}
       </div>
-
-      <div className="flex flex-col gap-10">
-        {techStack.map((section, idx) => (
-          <div key={idx} className="flex flex-col">
-            <h2 className={`text-[1.1rem] font-bold mb-4 tracking-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-              {section.category}
-            </h2>
-            <div className="flex flex-wrap gap-2.5">
-              {section.tools.map(tech => (
-                <span key={tech} className={`text-[0.8rem] font-medium px-3 py-1.5 rounded border ${
-                  theme === 'dark' ? 'bg-zinc-900 border-zinc-800 text-white' : 'bg-white border-zinc-200 text-black shadow-sm'
-                }`}
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
+    </main>
   );
 
   const renderAllCerts = () => (
-    <div className="w-full max-w-5xl mx-auto px-5 py-12 fade-up">
-      <div className="flex items-center gap-4 mb-8">
-        <button
-          onClick={() => navigateTo('home')}
-          className={`flex items-center gap-2 font-medium text-sm transition-colors ${
-            theme === 'dark' ? 'text-white hover:opacity-80' : 'text-black hover:opacity-80'
-          }`}
-        >
-          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <line x1="19" y1="12" x2="5" y2="12"></line>
-            <polyline points="12 19 5 12 12 5"></polyline>
-          </svg>
-          Back to Home
-        </button>
-        <h1 className={`text-xl font-bold tracking-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-          All Certifications
-        </h1>
-      </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <main id="main-content" tabIndex={-1} className="fade-up mx-auto w-full max-w-5xl px-5 py-8">
+      {renderViewHeading('All Certifications')}
+      <div className="grid auto-rows-fr grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {certifications.map((cert, index) => (
           <div
             key={index}
-            className={`flex flex-col border rounded-lg transition-all ${
+            className={`flex min-h-32 min-w-0 flex-col border rounded-lg transition-all ${
               theme === 'dark' ? 'border-zinc-800 bg-zinc-950 hover:bg-zinc-900' : 'border-zinc-200 bg-white hover:bg-zinc-50'
             }`}
           >
@@ -623,42 +571,28 @@ export default function App() {
           </div>
         ))}
       </div>
-    </div>
+    </main>
   );
 
   const renderAllGallery = () => (
-    <div className="w-full max-w-5xl mx-auto px-5 py-12 fade-up">
-      <div className="flex items-center gap-4 mb-8">
-        <button
-          onClick={() => navigateTo('home')}
-          className={`flex items-center gap-2 font-medium text-sm transition-colors ${
-            theme === 'dark' ? 'text-white hover:opacity-80' : 'text-black hover:opacity-80'
-          }`}
-        >
-          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <line x1="19" y1="12" x2="5" y2="12"></line>
-            <polyline points="12 19 5 12 12 5"></polyline>
-          </svg>
-          Back to Home
-        </button>
-        <h1 className={`text-xl font-bold tracking-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-          All Photos
-        </h1>
-      </div>
+    <main id="main-content" tabIndex={-1} className="fade-up mx-auto w-full max-w-5xl px-5 py-8">
+      {renderViewHeading('All Photos')}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {galleryImages.map((image, idx) => (
-          <div
+          <button
+            type="button"
+            aria-label={`View ${image.alt}`}
             key={idx}
             className={`flex aspect-square rounded-lg overflow-hidden hover:opacity-80 transition-opacity cursor-pointer border ${
               theme === 'dark' ? 'border-zinc-800 bg-zinc-950' : 'border-zinc-200 bg-white'
             }`}
-            onClick={() => openModal(image.src)}
+            onClick={event => openModal(image.src, image.alt, event.currentTarget)}
           >
-            <img src={image.src} alt={image.alt} loading="lazy" decoding="async" className="w-full h-full object-cover" />
-          </div>
+            <img src={thumbnailFor(image.src)} alt={image.alt} loading="lazy" decoding="async" width="320" height="320" className="w-full h-full object-cover" />
+          </button>
         ))}
       </div>
-    </div>
+    </main>
   );
 
   return (
@@ -666,30 +600,9 @@ export default function App() {
       theme === 'dark' ? 'bg-black text-white selection:bg-white selection:text-black' : 'bg-white text-black selection:bg-black selection:text-white'
     }`}>
       <GlobalStyles />
+      <a href="#main-content" className="skip-link">Skip to content</a>
 
-      {/* MODAL */}
-      <div
-        className={`fixed inset-0 w-full h-full backdrop-blur-md z-50 flex justify-center items-center transition-all duration-300 ${
-          isModalOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-        } ${theme === 'dark' ? 'bg-black/90' : 'bg-black/70'}`}
-        onClick={(e) => e.target === e.currentTarget && closeModal()}
-      >
-        <div className={`relative w-11/12 max-w-5xl max-h-[90vh] rounded-lg overflow-hidden shadow-2xl transition-transform duration-300 ${
-          isModalOpen ? 'scale-100' : 'scale-95'
-        }`}>
-          <button
-            onClick={closeModal}
-            className="absolute top-4 right-4 bg-black/60 text-white border border-white/10 w-8 h-8 rounded-full flex justify-center items-center cursor-pointer transition-colors duration-300 hover:bg-black z-10"
-            aria-label="Close modal"
-          >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
-              <line x1="18" y1="6" x2="6" y2="18"></line>
-              <line x1="6" y1="6" x2="18" y2="18"></line>
-            </svg>
-          </button>
-          {modalImg && <img src={modalImg} alt="Full View" decoding="async" className="w-full max-h-[85vh] object-contain block" />}
-        </div>
-      </div>
+      <ImageModal open={isModalOpen} source={modalImg} alt={modalAlt} theme={theme} onClose={closeModal} triggerRef={modalTriggerRef} />
 
       {/* HEADER / NAVBAR */}
       <header className="w-full z-40 bg-transparent pt-6 pb-2">
@@ -697,13 +610,13 @@ export default function App() {
           <span className={`font-semibold text-base tracking-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}></span>
           <button
             onClick={toggleTheme}
-            aria-label="Toggle Theme"
+            aria-label="Toggle Theme" aria-pressed={theme === 'light'} title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
             className={`border rounded-full p-2 transition-colors ${
               theme === 'dark' ? 'bg-zinc-950 border-zinc-800 text-white hover:opacity-80' : 'bg-white border-zinc-200 text-black hover:opacity-80'
             }`}
           >
             {theme === 'dark' ? (
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
+              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
                 <circle cx="12" cy="12" r="5"></circle>
                 <line x1="12" y1="1" x2="12" y2="3"></line>
                 <line x1="12" y1="21" x2="12" y2="23"></line>
@@ -715,7 +628,7 @@ export default function App() {
                 <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
               </svg>
             ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
+              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
                 <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
               </svg>
             )}
@@ -728,16 +641,17 @@ export default function App() {
       {activeView === 'certs' && renderAllCerts()}
       {activeView === 'gallery' && renderAllGallery()}
       {activeView === 'tech' && renderAllTech()}
+      {activeView === 'videos' && renderAllVideos()}
 
       {/* DASHBOARD HOME VIEW */}
       {activeView === 'home' && (
-        <main className="w-full max-w-5xl mx-auto px-5 fade-up">
+        <main id="main-content" tabIndex={-1} className="w-full max-w-5xl mx-auto px-5 fade-up">
           
           {/* PROFILE HEADER */}
-          <div className={`flex flex-col md:flex-row justify-between items-start md:items-end gap-5 mb-6 border-b pb-6 ${
+          <div className={`flex flex-col lg:flex-row justify-between items-start lg:items-end gap-5 mb-6 border-b pb-6 ${
             theme === 'dark' ? 'border-zinc-800' : 'border-zinc-200'
           }`}>
-            <div className="flex items-center gap-5">
+            <div className="flex min-w-0 items-center gap-4 md:gap-5">
               <div 
                 className={`w-20 h-20 md:w-28 md:h-28 rounded-xl overflow-hidden border shrink-0 ${theme === 'dark' ? 'border-zinc-800 bg-zinc-950' : 'border-zinc-200 bg-white'}`}
                 onMouseEnter={() => {
@@ -747,45 +661,46 @@ export default function App() {
                 onMouseLeave={() => setIsHoveringProfile(false)}
               >
                 <img
-                  src={isHoveringProfile ? profileSigma : profileImg}
+                  src={thumbnailFor(isHoveringProfile ? profileSigma : profileImg)}
                   alt="LUCAS ANDREI EGUNA"
+                  width="112" height="112" fetchPriority="high"
                   decoding="async"
                   className="w-full h-full object-cover transition-opacity duration-300"
                   onError={(e) => {
                     e.target.onerror = null;
-                    e.target.src = 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400&h=400';
+                    e.target.src = profileImg;
                   }}
                 />
               </div>
               <div>
-                <h1 className={`text-xl md:text-2xl font-bold tracking-tight leading-none mb-1.5 flex items-center gap-2 ${
+                <h1 tabIndex={-1} className={`text-xl md:text-2xl font-bold tracking-tight leading-tight mb-1.5 ${
                   theme === 'dark' ? 'text-white' : 'text-black'
                 }`}>
                   LUCAS ANDREI EGUNA
                 </h1>
                 <div className={`flex items-center gap-1.5 text-xs mb-2 font-medium ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5">
+                  <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5">
                     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                     <circle cx="12" cy="10" r="3"></circle>
                   </svg>
                   Metro Manila, Philippines
                 </div>
                 <p className={`text-[0.8rem] md:text-[0.85rem] font-semibold tracking-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-                   Full Stack Developer \ Video Editor \ UI/UX Designer
+                   Full-Stack Developer | Video Editor
                 </p>
               </div>
             </div>
             
-            <div className="flex gap-3 w-full md:w-auto mt-2 md:mt-0">
+            <div className="flex gap-3 w-full lg:w-auto mt-2 lg:mt-0">
               <a
                 href={resumeDoc}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`px-4 py-2 rounded-md font-semibold text-[0.75rem] flex items-center justify-center gap-1.5 transition-opacity flex-1 md:flex-none border border-transparent ${
+                className={`px-4 py-2 rounded-md font-semibold text-[0.75rem] flex items-center justify-center gap-1.5 transition-opacity flex-1 lg:flex-none border border-transparent ${
                   theme === 'dark' ? 'bg-white text-black hover:opacity-90' : 'bg-black text-white hover:opacity-90'
                 }`}
               >
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5">
+                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5">
                   <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
                   <polyline points="14 2 14 8 20 8"></polyline>
                   <line x1="16" y1="13" x2="8" y2="13"></line>
@@ -798,11 +713,11 @@ export default function App() {
                 href="https://mail.google.com/mail/?view=cm&fs=1&to=egunalucasandrei@gmail.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`bg-transparent border px-4 py-2 rounded-md font-semibold text-[0.75rem] flex items-center justify-center gap-1.5 transition-colors flex-1 md:flex-none ${
+                className={`bg-transparent border px-4 py-2 rounded-md font-semibold text-[0.75rem] flex items-center justify-center gap-1.5 transition-colors flex-1 lg:flex-none ${
                   theme === 'dark' ? 'border-zinc-800 text-white hover:bg-zinc-900' : 'border-zinc-200 text-black hover:bg-zinc-100'
                 }`}
               >
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5">
+                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5">
                   <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                   <polyline points="22,6 12,13 2,6"></polyline>
                 </svg>
@@ -811,22 +726,21 @@ export default function App() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
             
-            <div className="md:col-span-7 flex flex-col gap-5 w-full">
+            <div className="lg:col-span-7 flex flex-col gap-5 w-full">
               
               <div className={`border rounded-xl p-5 md:p-6 ${theme === 'dark' ? 'bg-zinc-950 border-zinc-800' : 'bg-white border-zinc-200'}`}>
                 <h2 className={`text-[0.9rem] font-bold mb-3 tracking-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
                   About
                 </h2>
                 <div className={`space-y-3 text-[0.75rem] leading-relaxed ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-                  <p>I'm an Information Technology student specializing in Cybersecurity, with over 5 years of experience in video editing and 2 years in web development. I combine creative production and technical development to build engaging digital experiences, responsive websites, and functional web applications.</p>
-                  <p>My experience includes short-form video editing, AI-assisted content creation, UI/UX design, and full-stack development. I've worked with local and international clients, producing promotional content, developing web applications, and managing creative projects. I work with modern technologies such as React, TypeScript, PHP, Laravel, NestJS, PostgreSQL, and MySQL.</p>
-                  <p>I'm continuously expanding my expertise in cybersecurity, backend development, and emerging technologies while improving my creative workflow through AI-powered tools. My goal is to deliver practical, secure, visually appealing, and user-focused digital solutions.</p>
+                  <p>I'm an Information Technology student specializing in Cybersecurity, with over 5 years of experience in video editing and 2 years in web development. I build responsive, functional web applications and create engaging digital content for local and international clients.</p>
+                  <p>My expertise includes full-stack development, database management, API integration, UI/UX design, and AI-assisted video production. I'm passionate about developing practical, secure, and user-focused digital solutions while continuously expanding my technical and creative skills.</p>
                 </div>
               </div>
 
-              <div className={`border rounded-xl p-5 md:p-6 ${theme === 'dark' ? 'bg-zinc-950 border-zinc-800' : 'bg-white border-zinc-200'}`}>
+              <div className={`border rounded-xl p-4 md:p-5 ${theme === 'dark' ? 'bg-zinc-950 border-zinc-800' : 'bg-white border-zinc-200'}`}>
                 <div className="flex justify-between items-center mb-4">
                   <h2 className={`text-[0.9rem] font-bold tracking-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
                     Tech Stack & Tools
@@ -836,28 +750,15 @@ export default function App() {
                     className={`bg-transparent border-none text-[0.65rem] font-semibold cursor-pointer inline-flex items-center gap-1 transition-colors group ${theme === 'dark' ? 'text-white hover:opacity-80' : 'text-black hover:opacity-80'}`}
                   >
                     View All
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3 h-3 mt-px transition-transform duration-300 group-hover:translate-x-1">
+                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3 h-3 mt-px transition-transform duration-300 group-hover:translate-x-1">
                       <polyline points="9 18 15 12 9 6"></polyline>
                     </svg>
                   </button>
                 </div>
                 
-                <div className="flex flex-col gap-5">
-                  {techStack.slice(0, 3).map((section, idx) => (
-                    <div key={idx}>
-                      <h3 className={`text-[0.65rem] font-semibold mb-2 uppercase tracking-wider ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-                        {section.category}
-                      </h3>
-                      <div className="flex flex-wrap gap-2">
-                        {section.tools.map(tech => (
-                          <span key={tech} className={`text-[0.65rem] font-medium px-2 py-0.5 rounded border ${
-                            theme === 'dark' ? 'bg-zinc-900 border-zinc-800 text-white' : 'bg-zinc-50 border-zinc-200 text-black'
-                          }`}>
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-4">
+                  {featuredTechStack.map(section => (
+                    <TechCategory key={section.category} section={section} theme={theme} compact />
                   ))}
                 </div>
               </div>
@@ -871,40 +772,26 @@ export default function App() {
                     theme === 'dark' ? 'text-white hover:opacity-80' : 'text-black hover:opacity-80'
                   }`}>
                     View All
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3 h-3 mt-px transition-transform duration-300 group-hover:translate-x-1">
+                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3 h-3 mt-px transition-transform duration-300 group-hover:translate-x-1">
                       <polyline points="9 18 15 12 9 6"></polyline>
                     </svg>
                   </button>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {projects.slice(0, 4).map((proj, idx) => (
-                    <a
-                      key={idx}
-                      href={proj.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`flex flex-col p-4 rounded-md border transition-all no-underline group cursor-pointer ${
-                        theme === 'dark' ? 'border-transparent hover:border-zinc-800 hover:bg-zinc-900' : 'border-transparent hover:border-zinc-200 hover:bg-zinc-50'
-                      }`}
-                    >
-                      <h3 className={`text-[0.8rem] font-semibold mb-1 tracking-tight transition-colors line-clamp-1 ${theme === 'dark' ? 'text-white group-hover:opacity-80' : 'text-black group-hover:opacity-80'}`}>
-                        {proj.title}
-                      </h3>
-                      <p className={`text-[0.7rem] leading-relaxed mb-3 line-clamp-2 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-                        {proj.desc}
-                      </p>
-                      <div className="mt-auto">
-                        <span className={`inline-block px-2 py-0.5 font-mono text-[0.6rem] font-medium rounded border ${
-                          theme === 'dark' ? 'bg-black text-white border-zinc-800' : 'bg-zinc-50 text-black border-zinc-200'
-                        }`}>
-                          {getDomainText(proj.linkText, proj.link)}
-                        </span>
-                      </div>
-                    </a>
+                <div className="grid auto-rows-fr grid-cols-1 sm:grid-cols-2 gap-3">
+                  {projects.filter(project => ['NOLTA Court Booking Website', 'Vitality Tracker', 'AI Chat', 'Fit Tracker'].includes(project.title)).map(project => (
+                    <ProjectCard key={project.title} project={project} theme={theme} compact />
                   ))}
                 </div>
               </div>
+
+              <section aria-labelledby="video-portfolio-heading" className={`rounded-xl border p-5 md:p-6 ${theme === 'dark' ? 'border-zinc-800 bg-zinc-950' : 'border-zinc-200 bg-white'}`}>
+                <div className="mb-4 flex items-center justify-between gap-3">
+                  <h2 id="video-portfolio-heading" className="text-[0.9rem] font-bold tracking-tight">Video Editing Portfolio</h2>
+                  <button type="button" onClick={() => navigateTo('videos')} className="inline-flex min-h-9 shrink-0 items-center gap-1 text-[0.65rem] font-semibold transition-opacity hover:opacity-75" aria-label="View all video projects">View All <span aria-hidden="true">→</span></button>
+                </div>
+                <VideoPortfolio projects={projects} theme={theme} compact />
+              </section>
 
               <div className={`border rounded-xl p-5 md:p-6 ${theme === 'dark' ? 'bg-zinc-950 border-zinc-800' : 'bg-white border-zinc-200'}`}>
                 <div className="flex justify-between items-center mb-4">
@@ -915,7 +802,7 @@ export default function App() {
                     theme === 'dark' ? 'text-white hover:opacity-80' : 'text-black hover:opacity-80'
                   }`}>
                     View All
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3 h-3 transition-transform group-hover:translate-x-1">
+                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3 h-3 transition-transform group-hover:translate-x-1">
                       <polyline points="9 18 15 12 9 6"></polyline>
                     </svg>
                   </button>
@@ -943,30 +830,30 @@ export default function App() {
                     Let's Connect
                   </h3>
                   <div className="flex gap-3">
-                    <a href="https://github.com/egunalucasandrei-droid" target="_blank" rel="noreferrer" className={`transition-colors ${theme === 'dark' ? 'text-white hover:opacity-80' : 'text-black hover:opacity-80'}`}>
-                      <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                    <a aria-label="GitHub (opens in a new tab)" href="https://github.com/egunalucasandrei-droid" target="_blank" rel="noreferrer" className={`transition-colors ${theme === 'dark' ? 'text-white hover:opacity-80' : 'text-black hover:opacity-80'}`}>
+                      <svg aria-hidden="true" className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
                     </a>
-                    <a href="https://www.linkedin.com/in/lucas-andrei-eguna-521b7530a/" target="_blank" rel="noreferrer" className={`transition-colors ${theme === 'dark' ? 'text-white hover:opacity-80' : 'text-black hover:opacity-80'}`}>
-                      <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                    <a aria-label="LinkedIn (opens in a new tab)" href="https://www.linkedin.com/in/lucas-andrei-eguna-521b7530a/" target="_blank" rel="noreferrer" className={`transition-colors ${theme === 'dark' ? 'text-white hover:opacity-80' : 'text-black hover:opacity-80'}`}>
+                      <svg aria-hidden="true" className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
                     </a>
-                    <a href="https://www.youtube.com/@LucasAndrei-Creatives" target="_blank" rel="noreferrer" className={`transition-colors ${theme === 'dark' ? 'text-white hover:opacity-80' : 'text-black hover:opacity-80'}`}>
-                      <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
+                    <a aria-label="YouTube (opens in a new tab)" href="https://www.youtube.com/@LucasAndrei-Creatives" target="_blank" rel="noreferrer" className={`transition-colors ${theme === 'dark' ? 'text-white hover:opacity-80' : 'text-black hover:opacity-80'}`}>
+                      <svg aria-hidden="true" className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
                     </a>
-                    <a href="https://www.instagram.com/c4znu" target="_blank" rel="noreferrer" className={`transition-colors ${theme === 'dark' ? 'text-white hover:opacity-80' : 'text-black hover:opacity-80'}`}>
-                      <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                    <a aria-label="Instagram (opens in a new tab)" href="https://www.instagram.com/c4znu" target="_blank" rel="noreferrer" className={`transition-colors ${theme === 'dark' ? 'text-white hover:opacity-80' : 'text-black hover:opacity-80'}`}>
+                      <svg aria-hidden="true" className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
                     </a>
-                    <a href="https://www.facebook.com/c4znu/" target="_blank" rel="noreferrer" className={`transition-colors ${theme === 'dark' ? 'text-white hover:opacity-80' : 'text-black hover:opacity-80'}`}>
-                      <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                    <a aria-label="Facebook (opens in a new tab)" href="https://www.facebook.com/c4znu/" target="_blank" rel="noreferrer" className={`transition-colors ${theme === 'dark' ? 'text-white hover:opacity-80' : 'text-black hover:opacity-80'}`}>
+                      <svg aria-hidden="true" className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
                     </a>
                   </div>
                 </div>
                 <div className="flex flex-col gap-2 w-full sm:w-auto">
-                  <a href="tel:+6309465685471" className={`text-[0.75rem] font-medium flex items-center gap-1.5 transition-colors w-fit ${theme === 'dark' ? 'text-white hover:opacity-80' : 'text-black hover:opacity-80'}`}>
-                    <svg className="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                  <a href="tel:+639465685471" className={`text-[0.75rem] font-medium flex items-center gap-1.5 transition-colors w-fit ${theme === 'dark' ? 'text-white hover:opacity-80' : 'text-black hover:opacity-80'}`}>
+                    <svg aria-hidden="true" className="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
                     +63 9465685471
                   </a>
                   <a href="https://mail.google.com/mail/?view=cm&fs=1&to=egunalucasandrei@gmail.com" target="_blank" rel="noopener noreferrer" className={`text-[0.75rem] font-medium flex items-center gap-1.5 transition-colors w-fit ${theme === 'dark' ? 'text-white hover:opacity-80' : 'text-black hover:opacity-80'}`}>
-                    <svg className="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                    <svg aria-hidden="true" className="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                     egunalucasandrei@gmail.com
                   </a>
                 </div>
@@ -974,7 +861,7 @@ export default function App() {
 
             </div>
 
-            <div className="md:col-span-5 flex flex-col gap-5 w-full">
+            <div className="lg:col-span-5 flex flex-col gap-5 w-full">
               
               <div className={`border rounded-xl p-5 md:p-6 ${theme === 'dark' ? 'bg-zinc-950 border-zinc-800' : 'bg-white border-zinc-200'}`}>
                 <h2 className={`text-base font-bold tracking-tight mb-6 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
@@ -984,95 +871,18 @@ export default function App() {
                 <div className="relative ml-2">
                   <div className={`absolute left-0.75 top-2 bottom-2 w-px ${theme === 'dark' ? 'bg-zinc-800' : 'bg-zinc-200'}`}></div>
 
-                  <div className="flex flex-col gap-6">
-                    
-                    <div className="relative pl-5 flex justify-between items-start group">
-                      <div className={`absolute left-0 top-1.25 w-1.75 h-1.75 z-10 transition-transform group-hover:scale-150 ${theme === 'dark' ? 'bg-white' : 'bg-black'}`}></div>
-                      <div className="pr-2">
-                        <h3 className={`text-[0.8rem] font-semibold tracking-tight leading-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>Short-form Video Editor</h3>
-                        <p className={`text-[0.7rem] mt-1 leading-snug ${theme === 'dark' ? 'text-white' : 'text-black'}`}>New Beginnings Creator Network, Glendale, California, USA</p>
-                      </div>
-                      <span className={`text-[0.65rem] font-mono font-medium pt-0.5 shrink-0 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>2026</span>
-                    </div>
-          
-                    <div className="relative pl-5 flex justify-between items-start group">
-                      <div className={`absolute left-0 top-1.25 w-1.75 h-1.75 border z-10 transition-transform group-hover:scale-150 ${
-                        theme === 'dark' ? 'border-zinc-600 bg-zinc-950 group-hover:border-white' : 'border-zinc-300 bg-white group-hover:border-black'
-                      }`}></div>
-                      <div className="pr-2">
-                        <h3 className={`text-[0.8rem] font-semibold tracking-tight leading-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>Front-end / Full Stack Developer</h3>
-                        <p className={`text-[0.7rem] mt-1 leading-snug ${theme === 'dark' ? 'text-white' : 'text-black'}`}>Freelance</p>
-                      </div>
-                      <span className={`text-[0.65rem] font-mono font-medium pt-0.5 shrink-0 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>2025</span>
-                    </div>
-
-                    <div className="relative pl-5 flex justify-between items-start group">
-                      <div className={`absolute left-0 top-1.25 w-1.75 h-1.75 border z-10 transition-transform group-hover:scale-150 ${
-                        theme === 'dark' ? 'border-zinc-600 bg-zinc-950 group-hover:border-white' : 'border-zinc-300 bg-white group-hover:border-black'
-                      }`}></div>
-                      <div className="pr-2">
-                        <h3 className={`text-[0.8rem] font-semibold tracking-tight leading-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>UI / UX designer</h3>
-                        <p className={`text-[0.7rem] mt-1 leading-snug ${theme === 'dark' ? 'text-white' : 'text-black'}`}>Fit tracker, Rise Fit, Shape your body, Health Tracker</p>
-                      </div>
-                      <span className={`text-[0.65rem] font-mono font-medium pt-0.5 shrink-0 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>2025</span>
-                    </div>
-
-                    <div className="relative pl-5 flex justify-between items-start group">
-                      <div className={`absolute left-0 top-1.25 w-1.75 h-1.75 border z-10 transition-transform group-hover:scale-150 ${
-                        theme === 'dark' ? 'border-zinc-600 bg-zinc-950 group-hover:border-white' : 'border-zinc-300 bg-white group-hover:border-black'
-                      }`}></div>
-                      <div className="pr-2">
-                        <h3 className={`text-[0.8rem] font-semibold tracking-tight leading-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>Front-end developer</h3>
-                        <p className={`text-[0.7rem] mt-1 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>Vitality Health Tracker, Auckland, New Zealand</p>
-                      </div>
-                      <span className={`text-[0.65rem] font-mono font-medium pt-0.5 shrink-0 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>2025</span>
-                    </div>
-
-                    <div className="relative pl-5 flex justify-between items-start group">
-                      <div className={`absolute left-0 top-1.25 w-1.75 h-1.75 border z-10 transition-transform group-hover:scale-150 ${
-                        theme === 'dark' ? 'border-zinc-600 bg-zinc-950 group-hover:border-white' : 'border-zinc-300 bg-white group-hover:border-black'
-                      }`}></div>
-                      <div className="pr-2">
-                        <h3 className={`text-[0.8rem] font-semibold tracking-tight leading-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>BS in Info Tech (Cybersecurity)</h3>
-                        <p className={`text-[0.7rem] mt-1 leading-snug ${theme === 'dark' ? 'text-white' : 'text-black'}`}>FEU Diliman graduating in 2028</p>
-                      </div>
-                      <span className={`text-[0.65rem] font-mono font-medium pt-0.5 shrink-0 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>2024</span>
-                    </div>
-
-                    <div className="relative pl-5 flex justify-between items-start group">
-                      <div className={`absolute left-0 top-1.25 w-1.75 h-1.75 border z-10 transition-transform group-hover:scale-150 ${
-                        theme === 'dark' ? 'border-zinc-600 bg-zinc-950 group-hover:border-white' : 'border-zinc-300 bg-white group-hover:border-black'
-                      }`}></div>
-                      <div className="pr-2">
-                        <h3 className={`text-[0.8rem] font-semibold tracking-tight leading-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>Social media assistant & Video Editor</h3>
-                        <p className={`text-[0.7rem] mt-1 leading-snug ${theme === 'dark' ? 'text-white' : 'text-black'}`}>The Royal Indian Spice Restaurant, Quezon City, Philippines</p>
-                      </div>
-                      <span className={`text-[0.65rem] font-mono font-medium pt-0.5 shrink-0 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>2024</span>
-                    </div>
-
-                    <div className="relative pl-5 flex justify-between items-start group">
-                      <div className={`absolute left-0 top-1.25 w-1.75 h-1.75 border z-10 transition-transform group-hover:scale-150 ${
-                        theme === 'dark' ? 'border-zinc-600 bg-zinc-950 group-hover:border-white' : 'border-zinc-300 bg-white group-hover:border-black'
-                      }`}></div>
-                      <div className="pr-2">
-                        <h3 className={`text-[0.8rem] font-semibold tracking-tight leading-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>Video Editor</h3>
-                        <p className={`text-[0.7rem] mt-1 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>Freelance</p>
-                      </div>
-                      <span className={`text-[0.65rem] font-mono font-medium pt-0.5 shrink-0 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>2023</span>
-                    </div>
-
-                    <div className="relative pl-5 flex justify-between items-start group">
-                      <div className={`absolute left-0 top-1.25 w-1.75 h-1.75 border z-10 transition-transform group-hover:scale-150 ${
-                        theme === 'dark' ? 'border-zinc-600 bg-zinc-950 group-hover:border-white' : 'border-zinc-300 bg-white group-hover:border-black'
-                      }`}></div>
-                      <div className="pr-2">
-                        <h3 className={`text-[0.8rem] font-semibold tracking-tight leading-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>Lyrical video editor</h3>
-                        <p className={`text-[0.7rem] mt-1 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>Facebook page, Playlist</p>
-                      </div>
-                      <span className={`text-[0.65rem] font-mono font-medium pt-0.5 shrink-0 whitespace-nowrap ${theme === 'dark' ? 'text-white' : 'text-black'}`}>2021-22</span>
-                    </div>
-
-                  </div>
+                  <ol className="flex flex-col gap-6">
+                    {experience.map(entry => (
+                      <li key={entry.title} className="group relative min-w-0 pl-5">
+                        <span aria-hidden="true" className={`absolute left-0 top-1.25 h-1.75 w-1.75 transition-transform motion-safe:group-hover:scale-150 ${entry.current ? theme === 'dark' ? 'bg-white' : 'bg-black' : theme === 'dark' ? 'border border-zinc-600 bg-zinc-950 group-hover:border-white' : 'border border-zinc-300 bg-white group-hover:border-black'}`} />
+                        <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+                          <h3 className="text-[0.8rem] font-semibold leading-snug tracking-tight">{entry.title}</h3>
+                          <span className="shrink-0 text-[0.6rem] font-mono font-medium">{entry.period}</span>
+                        </div>
+                        <p className="mt-1 text-[0.7rem] leading-snug">{entry.company}{entry.location && <><br />{entry.location}</>}</p>
+                      </li>
+                    ))}
+                  </ol>
                 </div>
               </div>
 
@@ -1082,9 +892,10 @@ export default function App() {
                 </h2>
                 <div className="flex flex-col gap-3">
                   <div className={`pb-3 border-b ${theme === 'dark' ? 'border-zinc-800' : 'border-zinc-200'}`}>
-                    <h3 className={`text-[0.8rem] font-semibold tracking-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>BS Information Technology</h3>
-                    <p className={`text-[0.7rem] mt-0.5 leading-snug ${theme === 'dark' ? 'text-white' : 'text-black'}`}>Far Eastern University Diliman (Cybersecurity)</p>
-                    <span className={`opacity-70 text-[0.65rem] font-mono mt-1 block ${theme === 'dark' ? 'text-white' : 'text-black'}`}>2024 - 2028 (Expected)</span>
+                    <h3 className={`text-[0.8rem] font-semibold leading-snug tracking-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>Bachelor of Science in Information Technology</h3>
+                    <p className={`text-[0.7rem] mt-1 leading-snug ${theme === 'dark' ? 'text-white' : 'text-black'}`}>Specialization in Cybersecurity</p>
+                    <p className={`text-[0.7rem] mt-1 leading-snug ${theme === 'dark' ? 'text-white' : 'text-black'}`}>Far Eastern University Diliman</p>
+                    <span className={`opacity-70 text-[0.65rem] font-mono mt-1 block ${theme === 'dark' ? 'text-white' : 'text-black'}`}>2024 – 2028 (Expected)</span>
                   </div>
                   <div className={`pb-3 border-b ${theme === 'dark' ? 'border-zinc-800' : 'border-zinc-200'}`}>
                     <h3 className={`text-[0.8rem] font-semibold tracking-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>General Academic Strand</h3>
@@ -1099,6 +910,8 @@ export default function App() {
                 </div>
               </div>
 
+              <ProfessionalSections theme={theme} experience={experience} noltaStatus={projects.find(project => project.title === 'NOLTA Court Booking Website')?.status} />
+
               <div id="gallery" className={`border rounded-xl p-5 md:p-6 ${theme === 'dark' ? 'bg-zinc-950 border-zinc-800' : 'bg-white border-zinc-200'}`}>
                 <div className="flex justify-between items-center mb-4">
                   <h2 className={`text-base font-bold tracking-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
@@ -1108,22 +921,24 @@ export default function App() {
                     theme === 'dark' ? 'text-white hover:opacity-80' : 'text-black hover:opacity-80'
                   }`}>
                     View All
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-3 h-3 mt-px transition-transform duration-300 group-hover:translate-x-1">
+                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-3 h-3 mt-px transition-transform duration-300 group-hover:translate-x-1">
                       <polyline points="9 18 15 12 9 6"></polyline>
                     </svg>
                   </button>
                 </div>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                   {galleryImages.slice(0, 6).map((image, idx) => (
-                    <div
+                    <button
+                      type="button"
+                      aria-label={`View ${image.alt}`}
                       key={idx}
                       className={`flex aspect-square rounded-md overflow-hidden hover:opacity-80 transition-opacity cursor-pointer border ${
                         theme === 'dark' ? 'border-zinc-800' : 'border-zinc-200'
                       }`}
-                      onClick={() => openModal(image.src)}
+                      onClick={event => openModal(image.src, image.alt, event.currentTarget)}
                     >
-                      <img src={image.src} alt={image.alt} loading="lazy" decoding="async" className="w-full h-full object-cover" />
-                    </div>
+                      <img src={thumbnailFor(image.src)} alt={image.alt} loading="lazy" decoding="async" width="240" height="240" className="w-full h-full object-cover" />
+                    </button>
                   ))}
                 </div>
               </div>
@@ -1134,7 +949,7 @@ export default function App() {
         </main>
       )}
 
-      <footer className={`w-full max-w-5xl mx-auto px-5 text-center pt-8 pb-6 text-[0.7rem] font-medium transition-colors mt-auto ${
+      <footer className={`w-full max-w-5xl mx-auto px-5 text-center pt-6 pb-6 text-[0.7rem] font-medium transition-colors ${
         theme === 'dark' ? 'text-white' : 'text-black'
       }`}>
         Copyright 2026 Lucas Eguna. All rights reserved.

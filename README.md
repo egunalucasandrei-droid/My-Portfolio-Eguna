@@ -24,6 +24,17 @@ npm run preview
 
 The original architecture and restoration checks are documented in [RESTORATION.md](RESTORATION.md).
 
+## Portfolio content and media
+
+- `src/App.jsx` retains the portfolio data and state-based views. Shared project, video, technology and image-preview components are in `src/components/`.
+- NOLTA is intentionally a text-only **In Development** project with no demo, repository or technology claims. Add those only when the owner supplies verified assets and links.
+- `src/images/previews/` contains smaller WebP derivatives for cards. Original certificates and personal gallery images are retained for enlarged viewing; the Resume button still opens the supplied JPG.
+- `src/videoThumbnails.js` maps existing YouTube projects to authentic thumbnails retrieved from their linked videos. Categories without supplied hotel/resort or AI-assisted samples use an honest empty state.
+- The email recipient is `egunalucasandrei@gmail.com`. Existing social destinations remain unchanged.
+- Local comparison screenshots and verification artifacts are in the ignored `restoration.local/professional/` directory.
+
+The professional improvements are local review work on `portfolio-professional-improvements`. Publishing requires the owner's approval.
+
 ## Publish updates
 
 Vercel deploys automatically whenever a commit is pushed to `main`.
