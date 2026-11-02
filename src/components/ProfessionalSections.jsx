@@ -25,7 +25,7 @@ const featuredWork = [
   {
     company: 'NOLTA Court Booking Website',
     icon: 'code',
-    description: 'Developing a court booking and reservation platform focused on simplifying sports facility scheduling, availability management, and reservations.',
+    description: 'Developed and released a full-stack court booking platform focused on simplifying sports facility scheduling, court availability, and online reservations.',
   },
   {
     company: 'New Beginnings Creator Network',
@@ -54,11 +54,11 @@ function SectionCard({ id, title, theme, children }) {
   );
 }
 
-export default function ProfessionalSections({ theme, experience, noltaStatus }) {
+export default function ProfessionalSections({ theme, experience, noltaProject }) {
   // Reuse employment details so featured dates stay consistent with the timeline.
   const workEntries = featuredWork.flatMap(work => {
     const role = experience.find(entry => entry.company === work.company);
-    return role ? [{ ...role, ...work }] : [];
+    return role ? [{ ...role, ...work, project: work.company === noltaProject?.title ? noltaProject : undefined }] : [];
   });
 
   return (
@@ -81,11 +81,11 @@ export default function ProfessionalSections({ theme, experience, noltaStatus })
             <article key={work.company} className="flex min-w-0 items-start gap-3 py-4 first:pt-0 last:pb-0">
               <div className="pt-0.5"><CapabilityIcon name={work.icon} /></div>
               <div className="min-w-0">
-                <h3 className="text-[0.8rem] font-semibold leading-snug tracking-tight">{work.company}</h3>
+                <h3 className="text-[0.8rem] font-semibold leading-snug tracking-tight">{work.project?.link ? <a href={work.project.link} target="_blank" rel="noopener noreferrer" aria-label={`Live Website: ${work.company} (opens in a new tab)`} className="underline-offset-4 hover:underline">{work.company}</a> : work.company}</h3>
                 <p className="mt-1 text-[0.7rem] font-medium">{work.title}</p>
                 <div className="mt-2 flex flex-wrap items-center gap-2">
                   <span className="text-[0.6rem] font-mono">{work.period}</span>
-                  {work.current && noltaStatus && <span className={`rounded border px-1.5 py-0.5 text-[0.6rem] font-medium ${theme === 'dark' ? 'border-zinc-700' : 'border-zinc-300'}`}>{noltaStatus}</span>}
+                  {work.project?.status && <span className={`rounded border px-1.5 py-0.5 text-[0.6rem] font-medium ${theme === 'dark' ? 'border-zinc-700' : 'border-zinc-300'}`}>{work.project.status}</span>}
                 </div>
                 <p className="mt-2 text-[0.65rem] leading-relaxed opacity-75">{work.location}</p>
                 <p className="mt-2 text-[0.7rem] leading-relaxed">{work.description}</p>

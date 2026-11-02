@@ -27,7 +27,7 @@ The original architecture and restoration checks are documented in [RESTORATION.
 ## Portfolio content and media
 
 - `src/App.jsx` retains the portfolio data and state-based views. Shared project, video, technology and image-preview components are in `src/components/`.
-- NOLTA is intentionally a text-only **In Development** project with no demo, repository or technology claims. Add those only when the owner supplies verified assets and links.
+- NOLTA Court Booking Website is **Live** at https://nolta-web.onrender.com/. Its supplied screenshot is imported from `src/images/nolta.png`, with an optimized WebP card preview in `src/images/previews/`. The React, NestJS, Prisma ORM, and Supabase badges are verified from the local NOLTA source; no source repository link is published.
 - `src/images/previews/` contains smaller WebP derivatives for cards. Original certificates and personal gallery images are retained for enlarged viewing; the Resume button still opens the supplied JPG.
 - `src/videoThumbnails.js` maps existing YouTube projects to authentic thumbnails retrieved from their linked videos. Categories without supplied hotel/resort or AI-assisted samples use an honest empty state.
 - The email recipient is `egunalucasandrei@gmail.com`. Existing social destinations remain unchanged.

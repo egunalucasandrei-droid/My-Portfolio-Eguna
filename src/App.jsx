@@ -19,6 +19,7 @@ import figma4 from './images/figma4.png';
 import aiChat from './images/AI Chat.png';
 import Vitality from './images/Vitality.png';
 import apex5000 from './images/apex5000.png';
+import noltaImage from './images/nolta.png';
 import me1 from './images/me1.png';
 import me2 from './images/me2.png';
 import me3 from './images/me3.png';
@@ -95,11 +96,16 @@ const projects = [
     shortName: "NOLTA",
     type: "Full-Stack Web Application",
     role: "Full-Stack Developer",
-    status: "In Development",
+    status: "Live",
     location: "Batasan, Quezon City, Philippines",
-    desc: "A full-stack court booking and reservation platform designed to simplify sports facility scheduling, availability management, and reservations.",
-    img: null,
-    tech: [],
+    period: "2026 – Present",
+    desc: "NOLTA is a full-stack court booking and reservation platform designed to simplify sports facility scheduling, court availability, and online reservations through a responsive and user-friendly web application.",
+    img: noltaImage,
+    imageAlt: "NOLTA Court Booking Website homepage preview",
+    imageFit: "contain",
+    tech: ['React', 'NestJS', 'Prisma ORM', 'Supabase'],
+    link: "https://nolta-web.onrender.com/",
+    actionLabel: "Live Website",
   },
   {
     category: "web",
@@ -308,6 +314,8 @@ const projects = [
   }
 ];
 
+const noltaProject = projects.find(project => project.title === 'NOLTA Court Booking Website');
+
 const galleryImages = [
   { alt: "Gallery Image 1", src: me1 },
   { alt: "Gallery Image 2", src: me2 },
@@ -321,7 +329,7 @@ const experience = [
     "title": "Full-Stack Developer",
     "company": "NOLTA Court Booking Website",
     "location": "Batasan, Quezon City, Philippines",
-    "period": "Present",
+    "period": noltaProject.period,
     "current": true
   },
   {
@@ -910,7 +918,7 @@ export default function App() {
                 </div>
               </div>
 
-              <ProfessionalSections theme={theme} experience={experience} noltaStatus={projects.find(project => project.title === 'NOLTA Court Booking Website')?.status} />
+              <ProfessionalSections theme={theme} experience={experience} noltaProject={noltaProject} />
 
               <div id="gallery" className={`border rounded-xl p-5 md:p-6 ${theme === 'dark' ? 'bg-zinc-950 border-zinc-800' : 'bg-white border-zinc-200'}`}>
                 <div className="flex justify-between items-center mb-4">

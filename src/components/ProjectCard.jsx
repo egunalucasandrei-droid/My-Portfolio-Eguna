@@ -2,7 +2,7 @@ import { thumbnailFor } from '../media';
 
 export default function ProjectCard({ project, theme, compact = false, headingLevel = 'h3' }) {
   const Heading = headingLevel;
-  const action = project.category === 'web' ? 'Live Demo' : project.category === 'uiux' ? 'View Design' : (project.linkText || 'Watch Video');
+  const action = project.actionLabel || (project.category === 'web' ? 'Live Demo' : project.category === 'uiux' ? 'View Design' : (project.linkText || 'Watch Video'));
 
   return (
     <article data-project={project.title} className={`group flex h-full min-w-0 flex-col overflow-hidden rounded-lg border transition-colors ${theme === 'dark' ? 'border-zinc-800 bg-zinc-950 hover:border-zinc-600' : 'border-zinc-200 bg-white hover:border-zinc-400'}`}>
@@ -20,6 +20,7 @@ export default function ProjectCard({ project, theme, compact = false, headingLe
         <Heading className={`${compact ? 'text-[0.8rem]' : 'text-base'} font-semibold leading-snug tracking-tight`}>{project.title}</Heading>
         {project.videoCategories && <p className="mt-1 text-[0.6rem] font-medium opacity-75">{project.videoCategories.join(' · ')}</p>}
         {project.role && <p className="mt-1 text-[0.65rem] font-medium opacity-75">{project.role}</p>}
+        {project.status && project.link && <span className={`mt-2 self-start rounded border px-1.5 py-0.5 text-[0.6rem] font-medium ${theme === 'dark' ? 'border-zinc-700' : 'border-zinc-300'}`}>{project.status}</span>}
         <p className={`mt-2 leading-relaxed ${compact ? 'text-[0.7rem] line-clamp-3' : 'text-[0.8rem]'}`}>{project.desc}</p>
         {!!project.tech?.length && (
           <ul aria-label={`${project.title} technologies`} className="mt-3 flex flex-wrap gap-1.5">
