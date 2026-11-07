@@ -98,7 +98,7 @@ const projects = [
     role: "Full-Stack Developer",
     status: "Live",
     location: "Batasan, Quezon City, Philippines",
-    period: "2026 – Present",
+    period: "2026",
     desc: "NOLTA is a full-stack court booking and reservation platform designed to simplify sports facility scheduling, court availability, and online reservations through a responsive and user-friendly web application.",
     img: noltaImage,
     imageAlt: "NOLTA Court Booking Website homepage preview",
