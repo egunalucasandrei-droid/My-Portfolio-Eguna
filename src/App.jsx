@@ -113,7 +113,6 @@ const projects = [
     desc: "A responsive health tracking interface I developed to help users monitor everyday activity and health data.",
     role: "Front-End Developer",
     tech: ['HTML5', 'CSS3', 'JavaScript'],
-    github: "https://github.com/egunalucasandrei-droid/Vitality-Health-Tracker",
     img: Vitality,
     link: "https://vitalitytracker.app",
     linkText: "Visit Site"
