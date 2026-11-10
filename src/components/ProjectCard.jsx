@@ -3,13 +3,20 @@ import { thumbnailFor } from '../media';
 export default function ProjectCard({ project, theme, compact = false, headingLevel = 'h3' }) {
   const Heading = headingLevel;
   const action = project.actionLabel || (project.category === 'web' ? 'Live Demo' : project.category === 'uiux' ? 'View Design' : (project.linkText || 'Watch Video'));
+  const hasVideoPreview = Boolean(project.videoPreview && project.isVideo && project.img && project.link);
+  const Preview = hasVideoPreview ? 'a' : 'div';
 
   return (
     <article data-project={project.title} className={`group flex h-full min-w-0 flex-col overflow-hidden rounded-lg border transition-colors ${theme === 'dark' ? 'border-zinc-800 bg-zinc-950 hover:border-zinc-600' : 'border-zinc-200 bg-white hover:border-zinc-400'}`}>
       {project.img ? (
-        <div className={`aspect-video overflow-hidden border-b ${theme === 'dark' ? 'border-zinc-800 bg-zinc-900' : 'border-zinc-200 bg-zinc-50'}`}>
+        <Preview {...(hasVideoPreview ? { href: project.link, target: '_blank', rel: 'noopener noreferrer', 'aria-label': `Play ${project.title} on Google Drive (opens in a new tab)` } : {})} className={`aspect-video overflow-hidden border-b ${hasVideoPreview ? 'group/video-preview relative block focus-visible:outline-2 focus-visible:outline-white focus-visible:-outline-offset-4' : ''} ${theme === 'dark' ? 'border-zinc-800 bg-zinc-900' : 'border-zinc-200 bg-zinc-50'}`}>
           <img src={thumbnailFor(project.img)} alt={project.imageAlt || `${project.title} ${project.isVideo ? 'video thumbnail' : 'project screenshot'}`} width="640" height="360" loading="lazy" decoding="async" className={`h-full w-full object-center transition-transform duration-300 ${project.imageFit === 'contain' ? 'object-contain' : `${project.isVideo ? 'object-cover' : 'object-contain'} motion-safe:group-hover:scale-[1.025]`}`} />
-        </div>
+          {hasVideoPreview && <span aria-hidden="true" className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/15 transition-colors duration-300 group-hover/video-preview:bg-black/25 group-focus-visible/video-preview:bg-black/25">
+            <span className="flex h-12 w-12 items-center justify-center rounded-full border border-white/70 bg-black/55 text-white transition-transform duration-300 motion-safe:group-hover/video-preview:scale-105">
+              <svg viewBox="0 0 24 24" fill="currentColor" className="ml-0.5 h-5 w-5"><path d="m9 5 11 7-11 7V5Z" /></svg>
+            </span>
+          </span>}
+        </Preview>
       ) : (
         <div className={`flex aspect-video flex-col justify-center gap-2 border-b p-4 ${theme === 'dark' ? 'border-zinc-800 bg-zinc-900/40' : 'border-zinc-200 bg-zinc-50'}`}>
           <span className="text-[0.65rem] font-mono uppercase tracking-wider">{project.type}</span>

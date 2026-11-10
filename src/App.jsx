@@ -317,6 +317,10 @@ const projects = [
     shortName: "UniShelf Infomercial",
     type: "Google Drive · MOV",
     desc: "Infomercial video in MOV format. Opens in Google Drive.",
+    img: "/images/unishelf-infomercial.webp",
+    imageAlt: "Frame from UniShelf Infomercial showing a tablet and payment card",
+    imageFit: "contain",
+    videoPreview: true,
     link: "https://drive.google.com/file/d/1NFcjpOvzVdpB8VYIEXFssB9ju759q4Dz/view?usp=sharing",
     linkText: "Watch Video",
     isVideo: true
@@ -327,6 +331,10 @@ const projects = [
     shortName: "GED0031 DC21",
     type: "Google Drive · MP4",
     desc: "MP4 video file. Opens in Google Drive.",
+    img: "/images/ged0031-group-tech-culture.webp",
+    imageAlt: "Frame from Group Tech Culture showing a presenter and a digital communication backdrop",
+    imageFit: "contain",
+    videoPreview: true,
     link: "https://drive.google.com/file/d/1nrU1ejdO03WkkebPqxI-G4iUvZ-awwmI/view?usp=sharing",
     linkText: "Watch Video",
     isVideo: true
