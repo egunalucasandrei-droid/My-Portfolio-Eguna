@@ -310,6 +310,26 @@ const projects = [
     link: "https://youtu.be/WAbr7hQvYUU?si=t3Z-6RbWFNilH9BD",
     linkText: "Watch Video",
     isVideo: true
+  },
+  {
+    category: "video",
+    title: "UniShelf Infomercial.mov",
+    shortName: "UniShelf Infomercial",
+    type: "Google Drive · MOV",
+    desc: "Infomercial video in MOV format. Opens in Google Drive.",
+    link: "https://drive.google.com/file/d/1NFcjpOvzVdpB8VYIEXFssB9ju759q4Dz/view?usp=sharing",
+    linkText: "Watch Video",
+    isVideo: true
+  },
+  {
+    category: "video",
+    title: "GED0031_DC21_GroupTechCulture_Finals.mp4",
+    shortName: "GED0031 DC21",
+    type: "Google Drive · MP4",
+    desc: "MP4 video file. Opens in Google Drive.",
+    link: "https://drive.google.com/file/d/1nrU1ejdO03WkkebPqxI-G4iUvZ-awwmI/view?usp=sharing",
+    linkText: "Watch Video",
+    isVideo: true
   }
 ];
 

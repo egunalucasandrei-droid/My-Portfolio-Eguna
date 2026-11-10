@@ -17,7 +17,7 @@ export default function ProjectCard({ project, theme, compact = false, headingLe
         </div>
       )}
       <div className={`flex grow flex-col ${compact ? 'p-3.5' : 'p-5'}`}>
-        <Heading className={`${compact ? 'text-[0.8rem]' : 'text-base'} font-semibold leading-snug tracking-tight`}>{project.title}</Heading>
+        <Heading className={`${compact ? 'text-[0.8rem]' : 'text-base'} break-words font-semibold leading-snug tracking-tight`}>{project.title}</Heading>
         {project.videoCategories && <p className="mt-1 text-[0.6rem] font-medium opacity-75">{project.videoCategories.join(' · ')}</p>}
         {project.role && <p className="mt-1 text-[0.65rem] font-medium opacity-75">{project.role}</p>}
         {project.status && project.link && <span className={`mt-2 self-start rounded border px-1.5 py-0.5 text-[0.6rem] font-medium ${theme === 'dark' ? 'border-zinc-700' : 'border-zinc-300'}`}>{project.status}</span>}
