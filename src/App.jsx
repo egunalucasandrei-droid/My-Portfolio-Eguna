@@ -56,7 +56,7 @@ const techStack = [
   },
   { category: "Development & Deployment", tools: ['Git', 'GitHub', 'Visual Studio Code', 'Vercel', 'Hostinger', 'Resend', 'Render', 'Cloudflare', 'CI/CD', 'GitHub Actions', 'VPS Hosting', 'VPS Management', 'XAMPP'] },
   { category: "Testing & Developer Tools", tools: ['Postman', 'Chrome DevTools', 'ESLint'] },
-  { category: "Design & Video Editing", tools: ['Figma', 'Canva', 'Adobe Photoshop', 'CapCut', 'Short-Form Video Editing', 'AI-Assisted Video Editing'] },
+  { category: "Design & Video Editing", tools: ['Figma', 'Canva', 'Adobe Photoshop', 'Adobe Premiere Pro', 'CapCut', 'Short-Form Video Editing', 'AI-Assisted Video Editing'] },
   {
     category: "AI Integration",
     tools: ['Google AI Studio', 'Gemini API', 'OpenAI API', 'AI Agent Development', 'AI Chatbot Development', 'LLM Integration', 'AI API Integration', 'Prompt Engineering'],
