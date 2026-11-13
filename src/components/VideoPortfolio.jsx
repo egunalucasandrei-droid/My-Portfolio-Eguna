@@ -2,7 +2,7 @@ import { useState } from 'react';
 import ProjectCard from './ProjectCard';
 
 const categories = ['All Videos', 'Short-Form Videos', 'Hotel & Resort Promotions', 'AI-Assisted Video Editing', 'Social Media Content', 'Film & Vlogs'];
-const featuredTitles = ['Short-Form Video Edits Folder', 'Motivational Short Video', 'Hotel & Resort Promotions', 'AI-Assisted Video Editing'];
+const featuredTitles = ['Short-Form Video Edits Folder', 'eBay-to-Amazon Business Story', 'Hotel & Resort Promotions', 'AI-Assisted Video Editing'];
 
 export default function VideoPortfolio({ projects, theme, compact = false }) {
   const [category, setCategory] = useState('All Videos');

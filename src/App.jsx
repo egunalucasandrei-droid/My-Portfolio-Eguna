@@ -338,6 +338,34 @@ const projects = [
     link: "https://drive.google.com/file/d/1nrU1ejdO03WkkebPqxI-G4iUvZ-awwmI/view?usp=sharing",
     linkText: "Watch Video",
     isVideo: true
+  },
+  {
+    category: "video",
+    title: "The Robot Who Waited",
+    type: "Animated Short",
+    videoCategories: ['Short-Form Videos', 'Social Media Content'],
+    desc: "A caption-led animated short following a robot’s long wait and an unexpected reunion, with a shift from rainy city scenes to warm light.",
+    img: "/images/the-robot-who-waited.webp",
+    imageAlt: "Generated illustrative cover of the robot and a child in a teal coat reunited in a rain-soaked courtyard at sunrise",
+    imageFit: "contain",
+    videoPreview: true,
+    link: "https://drive.google.com/file/d/1vS1MbVbn_YLQLx6FRGeSS-Oamgct8Kd-/view?usp=drive_link",
+    linkText: "Watch Video",
+    isVideo: true
+  },
+  {
+    category: "video",
+    title: "eBay-to-Amazon Business Story",
+    type: "Short-Form Business Interview",
+    videoCategories: ['Short-Form Videos', 'Social Media Content'],
+    desc: "A short-form business interview edit combining a speaker-led story with bold captions, calendar graphics, and animated delivery visuals.",
+    img: "/images/ebay-to-amazon-business-story.webp",
+    imageAlt: "Generated illustrative cover of the business story’s speaker at a podcast microphone beside parcel and delivery graphics",
+    imageFit: "contain",
+    videoPreview: true,
+    link: "https://drive.google.com/file/d/1EXO6zAq2Tf6I6o43Fln-Rjp_EtMSP29L/view?usp=drive_link",
+    linkText: "Watch Video",
+    isVideo: true
   }
 ];
 
