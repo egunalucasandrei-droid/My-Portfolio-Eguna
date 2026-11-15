@@ -343,8 +343,9 @@ const projects = [
     category: "video",
     title: "The Robot Who Waited",
     type: "Animated Short",
-    videoCategories: ['Short-Form Videos', 'Social Media Content'],
+    videoCategories: ['2D Animation', 'Short-Form Videos', 'Social Media Content'],
     desc: "A caption-led animated short following a robot’s long wait and an unexpected reunion, with a shift from rainy city scenes to warm light.",
+    featuredDesc: "A caption-led animated short following a robot's long wait and an unexpected reunion.",
     img: "/images/the-robot-who-waited.webp",
     imageAlt: "Generated illustrative cover of the robot and a child in a teal coat reunited in a rain-soaked courtyard at sunrise",
     imageFit: "contain",
@@ -365,6 +366,20 @@ const projects = [
     videoPreview: true,
     link: "https://drive.google.com/file/d/1EXO6zAq2Tf6I6o43Fln-Rjp_EtMSP29L/view?usp=drive_link",
     linkText: "Watch Video",
+    isVideo: true
+  },
+  {
+    category: "video",
+    title: "Mindrop Clips",
+    type: "Short-Form Promotional Content",
+    videoCategories: ['Brand Promotions', 'Short-Form Videos', 'Social Media Content'],
+    desc: "Short-form promotional content for Mindrop Clips, a TikTok account focused on podcasts, mindset, and business.",
+    featuredDesc: "Short-form promotional content focused on creative storytelling, engaging hooks, and social media-ready video production.",
+    img: "/images/mindrop-clips.webp",
+    imageAlt: "Mindrop Clips short-form brand promotional content thumbnail",
+    imageFit: "contain",
+    link: "https://www.tiktok.com/@mindrop.clips",
+    linkText: "View TikTok",
     isVideo: true
   }
 ];
