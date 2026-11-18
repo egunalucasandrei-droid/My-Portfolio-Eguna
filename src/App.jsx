@@ -388,7 +388,7 @@ const projects = [
     type: "Animated Storytelling Series",
     videoCategories: ['2D Animation', 'Short-Form Videos', 'Social Media Content'],
     desc: "An animated storytelling series featuring Nico, an ordinary kid navigating extraordinary situations through creative visuals, character-driven stories, and engaging short-form animation.",
-    img: "/images/nico-animated-series.webp",
+    img: "/images/nico-animated-series-thumbnail.webp",
     imageBackground: "dark",
     imageAlt: "Nico: The Animated Series official banner featuring animated characters.",
     imageFit: "contain",

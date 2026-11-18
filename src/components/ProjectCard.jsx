@@ -38,7 +38,7 @@ export default function ProjectCard({ project, theme, compact = false, headingLe
             {project.tech.map(tech => <li key={tech} className={`rounded border px-2 py-0.5 text-[0.6rem] font-medium ${theme === 'dark' ? 'border-zinc-800 bg-zinc-900' : 'border-zinc-200 bg-zinc-50'}`}>{tech}</li>)}
           </ul>
         )}
-        <div className="mt-auto flex flex-wrap gap-x-4 gap-y-1 pt-4 text-[0.7rem] font-semibold">
+        <div className={`mt-auto flex flex-wrap gap-y-1 pt-4 text-[0.7rem] font-semibold ${project.links ? 'gap-x-2' : 'gap-x-4'}`}>
           {links.map(link => <a key={link.url} href={link.url} target="_blank" rel="noopener noreferrer" aria-label={`${link.label}: ${project.title} (opens in a new tab)`} className="inline-flex min-h-9 items-center gap-1 underline-offset-4 hover:underline">{link.label}<svg aria-hidden="true" className="h-3 w-3" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4 12 12 4M4 4h8v8" /></svg></a>)}
           {!links.length && <span className="inline-flex min-h-9 items-center text-[0.65rem] font-medium opacity-75">{project.status || 'No public link available'}</span>}
         </div>
