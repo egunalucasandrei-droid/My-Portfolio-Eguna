@@ -381,6 +381,22 @@ const projects = [
     link: "https://www.tiktok.com/@mindrop.clips",
     linkText: "View TikTok",
     isVideo: true
+  },
+  {
+    category: "video",
+    title: "Nico: The Animated Series",
+    type: "Animated Storytelling Series",
+    videoCategories: ['2D Animation', 'Short-Form Videos', 'Social Media Content'],
+    desc: "An animated storytelling series featuring Nico, an ordinary kid navigating extraordinary situations through creative visuals, character-driven stories, and engaging short-form animation.",
+    img: "/images/nico-animated-series.webp",
+    imageBackground: "dark",
+    imageAlt: "Nico: The Animated Series official banner featuring animated characters.",
+    imageFit: "contain",
+    links: [
+      { label: "Watch on YouTube", url: "https://www.youtube.com/@ItsNicoAnimated" },
+      { label: "Watch on TikTok", url: "https://www.tiktok.com/@itsnico.animated" },
+    ],
+    isVideo: true
   }
 ];
 

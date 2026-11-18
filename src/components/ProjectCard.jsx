@@ -3,13 +3,17 @@ import { thumbnailFor } from '../media';
 export default function ProjectCard({ project, theme, compact = false, headingLevel = 'h3' }) {
   const Heading = headingLevel;
   const action = project.actionLabel || (project.category === 'web' ? 'Live Demo' : project.category === 'uiux' ? 'View Design' : (project.linkText || 'Watch Video'));
+  const links = project.links ?? [
+    ...(project.link ? [{ label: action, url: project.link }] : []),
+    ...(project.github ? [{ label: 'GitHub', url: project.github }] : []),
+  ];
   const hasVideoPreview = Boolean(project.videoPreview && project.isVideo && project.img && project.link);
   const Preview = hasVideoPreview ? 'a' : 'div';
 
   return (
     <article data-project={project.title} className={`group flex h-full min-w-0 flex-col overflow-hidden rounded-lg border transition-colors ${theme === 'dark' ? 'border-zinc-800 bg-zinc-950 hover:border-zinc-600' : 'border-zinc-200 bg-white hover:border-zinc-400'}`}>
       {project.img ? (
-        <Preview {...(hasVideoPreview ? { href: project.link, target: '_blank', rel: 'noopener noreferrer', 'aria-label': `Play ${project.title} on Google Drive (opens in a new tab)` } : {})} className={`aspect-video overflow-hidden border-b ${hasVideoPreview ? 'group/video-preview relative block focus-visible:outline-2 focus-visible:outline-white focus-visible:-outline-offset-4' : ''} ${theme === 'dark' ? 'border-zinc-800 bg-zinc-900' : 'border-zinc-200 bg-zinc-50'}`}>
+        <Preview {...(hasVideoPreview ? { href: project.link, target: '_blank', rel: 'noopener noreferrer', 'aria-label': `Play ${project.title} on Google Drive (opens in a new tab)` } : {})} className={`aspect-video overflow-hidden border-b ${hasVideoPreview ? 'group/video-preview relative block focus-visible:outline-2 focus-visible:outline-white focus-visible:-outline-offset-4' : ''} ${theme === 'dark' ? 'border-zinc-800 bg-zinc-900' : `border-zinc-200 ${project.imageBackground === 'dark' ? 'bg-zinc-900' : 'bg-zinc-50'}`}`}>
           <img src={thumbnailFor(project.img)} alt={project.imageAlt || `${project.title} ${project.isVideo ? 'video thumbnail' : 'project screenshot'}`} width="640" height="360" loading="lazy" decoding="async" className={`h-full w-full object-center transition-transform duration-300 ${project.imageFit === 'contain' ? 'object-contain' : `${project.isVideo ? 'object-cover' : 'object-contain'} motion-safe:group-hover:scale-[1.025]`}`} />
           {hasVideoPreview && <span aria-hidden="true" className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/15 transition-colors duration-300 group-hover/video-preview:bg-black/25 group-focus-visible/video-preview:bg-black/25">
             <span className="flex h-12 w-12 items-center justify-center rounded-full border border-white/70 bg-black/55 text-white transition-transform duration-300 motion-safe:group-hover/video-preview:scale-105">
@@ -35,9 +39,8 @@ export default function ProjectCard({ project, theme, compact = false, headingLe
           </ul>
         )}
         <div className="mt-auto flex flex-wrap gap-x-4 gap-y-1 pt-4 text-[0.7rem] font-semibold">
-          {project.link && <a href={project.link} target="_blank" rel="noopener noreferrer" aria-label={`${action}: ${project.title} (opens in a new tab)`} className="inline-flex min-h-9 items-center gap-1 underline-offset-4 hover:underline">{action}<svg aria-hidden="true" className="h-3 w-3" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4 12 12 4M4 4h8v8" /></svg></a>}
-          {project.github && <a href={project.github} target="_blank" rel="noopener noreferrer" aria-label={`GitHub: ${project.title} (opens in a new tab)`} className="inline-flex min-h-9 items-center gap-1 underline-offset-4 hover:underline">GitHub<svg aria-hidden="true" className="h-3 w-3" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4 12 12 4M4 4h8v8" /></svg></a>}
-          {!project.link && !project.github && <span className="inline-flex min-h-9 items-center text-[0.65rem] font-medium opacity-75">{project.status || 'No public link available'}</span>}
+          {links.map(link => <a key={link.url} href={link.url} target="_blank" rel="noopener noreferrer" aria-label={`${link.label}: ${project.title} (opens in a new tab)`} className="inline-flex min-h-9 items-center gap-1 underline-offset-4 hover:underline">{link.label}<svg aria-hidden="true" className="h-3 w-3" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4 12 12 4M4 4h8v8" /></svg></a>)}
+          {!links.length && <span className="inline-flex min-h-9 items-center text-[0.65rem] font-medium opacity-75">{project.status || 'No public link available'}</span>}
         </div>
       </div>
     </article>
