@@ -405,7 +405,7 @@ const projects = [
     videoCategories: ['Brand Promotions', 'Short-Form Videos', 'Social Media Content'],
     desc: "A collection of short-form promotional edits spanning Linjer jewelry, fashion, lifestyle, and real estate, using product close-ups, on-screen captions, and social media-focused storytelling.",
     img: "/images/brand-promotional-video-edits.webp",
-    imageAlt: "Collage of actual collection frames showing jewelry, fashion, perfume, and a residential interior.",
+    imageAlt: "Brand promotion editing studio with a camera, video editing timeline, and product showcase.",
     imageFit: "contain",
     link: "https://drive.google.com/drive/folders/1VhJAHyQsGUlE909L8yr9ot7Fj-bNKjRv?usp=sharing",
     linkText: "View Collection",
@@ -1039,6 +1039,9 @@ export default function App() {
                 </a>
                 <a aria-label="Facebook (opens in a new tab)" href="https://www.facebook.com/lucasandrei.eguna.7" target="_blank" rel="noreferrer" className={`transition-colors ${theme === 'dark' ? 'text-white hover:opacity-80' : 'text-black hover:opacity-80'}`}>
                   <svg aria-hidden="true" className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                </a>
+                <a aria-label="WhatsApp (opens in a new tab)" href="https://wa.me/639465685471" target="_blank" rel="noopener noreferrer" className={`transition-colors ${theme === 'dark' ? 'text-white hover:opacity-80' : 'text-black hover:opacity-80'}`}>
+                  <svg aria-hidden="true" className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7A8.4 8.4 0 0 1 4 11.5a8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8v.5Z" /><path d="m9 7-1 1c-1 1 0 3 2 5s4 3 5 2l1-1-2-2-1 1c-1-.4-2.6-2-3-3l1-1-2-2Z" /></svg>
                 </a>
               </div>
             </div>
