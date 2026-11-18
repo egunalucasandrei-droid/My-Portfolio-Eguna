@@ -2,7 +2,7 @@ import { useState } from 'react';
 import ProjectCard from './ProjectCard';
 
 const categories = ['All Videos', 'Short-Form Videos', 'Hotel & Resort Promotions', 'AI-Assisted Video Editing', 'Social Media Content', 'Film & Vlogs', '2D Animation', 'Brand Promotions'];
-const featuredTitles = ['Mindrop Clips', 'Hotel & Resort Promotions', 'AI-Assisted Video Editing', 'Nico: The Animated Series'];
+const featuredTitles = ['Mindrop Clips', 'Hotel & Resort Promotions', 'AI-Assisted Video Editing', 'Nico: The Animated Series', 'Short-Form Video Edits Folder', 'Brand Promotional Video Edits'];
 
 export default function VideoPortfolio({ projects, theme, compact = false }) {
   const [category, setCategory] = useState('All Videos');
@@ -19,7 +19,7 @@ export default function VideoPortfolio({ projects, theme, compact = false }) {
         </div>
       )}
       {visibleVideos.length ? (
-        <div className={`grid auto-rows-fr grid-cols-1 gap-4 ${compact ? 'sm:grid-cols-2' : 'sm:grid-cols-2 lg:grid-cols-3'}`}>
+        <div className={`grid grid-cols-1 gap-4 ${compact ? 'sm:grid-cols-2' : 'auto-rows-fr sm:grid-cols-2 lg:grid-cols-3'}`}>
           {visibleVideos.map(project => <ProjectCard key={project.title} project={project} theme={theme} compact={compact} headingLevel={compact ? 'h3' : 'h2'} />)}
         </div>
       ) : (

@@ -404,6 +404,7 @@ const projects = [
     type: "Short-Form Promotional Collection",
     videoCategories: ['Brand Promotions', 'Short-Form Videos', 'Social Media Content'],
     desc: "A collection of short-form promotional edits spanning Linjer jewelry, fashion, lifestyle, and real estate, using product close-ups, on-screen captions, and social media-focused storytelling.",
+    featuredDesc: "A collection of short-form promotional edits spanning jewelry, fashion, lifestyle, and real estate, using product close-ups, on-screen captions, and social media-focused storytelling.",
     img: "/images/brand-promotional-video-edits.webp",
     imageAlt: "Brand promotion editing studio with a camera, video editing timeline, and product showcase.",
     imageFit: "contain",
@@ -713,7 +714,7 @@ export default function App() {
 
       {/* HEADER / NAVBAR */}
       <header className="w-full z-40 bg-transparent pt-6 pb-2">
-        <div className="w-full max-w-5xl mx-auto px-5 flex justify-between items-center">
+        <div className={`w-full mx-auto px-5 flex justify-between items-center ${activeView === 'home' ? 'max-w-6xl' : 'max-w-5xl'}`}>
           <span className={`font-semibold text-base tracking-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}></span>
           <button
             onClick={toggleTheme}
@@ -752,7 +753,7 @@ export default function App() {
 
       {/* DASHBOARD HOME VIEW */}
       {activeView === 'home' && (
-        <main id="main-content" tabIndex={-1} className="w-full max-w-5xl mx-auto px-5 fade-up">
+        <main id="main-content" tabIndex={-1} className="w-full max-w-6xl mx-auto px-5 fade-up">
           
           {/* PROFILE HEADER */}
           <div className={`flex flex-col lg:flex-row justify-between items-start lg:items-end gap-5 mb-6 border-b pb-6 ${
@@ -833,21 +834,19 @@ export default function App() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
-            
-            <div className="lg:col-span-7 flex flex-col gap-5 w-full">
-              
-              <div className={`border rounded-xl p-5 md:p-6 ${theme === 'dark' ? 'bg-zinc-950 border-zinc-800' : 'bg-white border-zinc-200'}`}>
-                <h2 className={`text-[0.9rem] font-bold mb-3 tracking-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-                  About
-                </h2>
-                <div className={`space-y-3 text-[0.75rem] leading-relaxed ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-                  <p>I'm an Information Technology student specializing in Cybersecurity, with over 5 years of experience in video editing and 2 years in web development. I specialize in short-form video editing, talking-head videos, 2D animation, promotional content, and social media storytelling, while also developing responsive and functional web applications.</p>
-                  <p>My experience includes full-stack development, database management, API integration, UI/UX design, and digital content creation. I've worked with local and international clients, producing hotel and resort promotions, creating attention-grabbing hooks, and transforming raw footage into engaging visual stories.</p>
-                  <p>I'm passionate about combining creativity and technology to deliver high-quality digital experiences while continuously improving my technical skills, animation techniques, AI-assisted workflows, and creative approach.</p>
-                </div>
-              </div>
+          <div className={`mb-5 border rounded-xl p-5 md:p-6 ${theme === 'dark' ? 'bg-zinc-950 border-zinc-800' : 'bg-white border-zinc-200'}`}>
+            <h2 className={`text-[0.9rem] font-bold mb-3 tracking-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+              About
+            </h2>
+            <div className={`space-y-3 text-[0.75rem] leading-relaxed ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+              <p>I'm an Information Technology student specializing in Cybersecurity, with over 5 years of experience in video editing and 2 years in web development. I specialize in short-form video editing, talking-head videos, 2D animation, promotional content, and social media storytelling, while also developing responsive and functional web applications.</p>
+              <p>My experience includes full-stack development, database management, API integration, UI/UX design, and digital content creation. I've worked with local and international clients, producing hotel and resort promotions, creating attention-grabbing hooks, and transforming raw footage into engaging visual stories.</p>
+              <p>I'm passionate about combining creativity and technology to deliver high-quality digital experiences while continuously improving my technical skills, animation techniques, AI-assisted workflows, and creative approach.</p>
+            </div>
+          </div>
 
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+            <div className="lg:col-span-7 flex min-w-0 flex-col gap-5 w-full">
               <div className={`border rounded-xl p-4 md:p-5 ${theme === 'dark' ? 'bg-zinc-950 border-zinc-800' : 'bg-white border-zinc-200'}`}>
                 <div className="flex justify-between items-center mb-4">
                   <h2 className={`text-[0.9rem] font-bold tracking-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
@@ -903,7 +902,7 @@ export default function App() {
 
             </div>
 
-            <div className="lg:col-span-5 flex flex-col gap-5 w-full">
+            <div className="lg:col-span-5 flex min-w-0 flex-col gap-5 w-full">
               
               <div className={`border rounded-xl p-5 md:p-6 ${theme === 'dark' ? 'bg-zinc-950 border-zinc-800' : 'bg-white border-zinc-200'}`}>
                 <h2 className={`text-base font-bold tracking-tight mb-6 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
@@ -1060,7 +1059,7 @@ export default function App() {
         </main>
       )}
 
-      <footer className={`w-full max-w-5xl mx-auto px-5 text-center pt-6 pb-6 text-[0.7rem] font-medium transition-colors ${
+      <footer className={`w-full ${activeView === 'home' ? 'max-w-6xl' : 'max-w-5xl'} mx-auto px-5 text-center pt-6 pb-6 text-[0.7rem] font-medium transition-colors ${
         theme === 'dark' ? 'text-white' : 'text-black'
       }`}>
         Copyright 2026 Lucas Eguna. All rights reserved.
