@@ -372,7 +372,7 @@ const projects = [
     category: "video",
     title: "Mindrop Clips",
     type: "Short-Form Promotional Content",
-    videoCategories: ['Brand Promotions', 'Short-Form Videos', 'Social Media Content'],
+    videoCategories: ['Short-Form Videos', 'Social Media Content'],
     desc: "Short-form promotional content for Mindrop Clips, a TikTok account focused on podcasts, mindset, and business.",
     featuredDesc: "Short-form promotional content focused on creative storytelling, engaging hooks, and social media-ready video production.",
     img: "/images/mindrop-clips.webp",
@@ -396,6 +396,19 @@ const projects = [
       { label: "Watch on YouTube", url: "https://www.youtube.com/@ItsNicoAnimated" },
       { label: "Watch on TikTok", url: "https://www.tiktok.com/@itsnico.animated" },
     ],
+    isVideo: true
+  },
+  {
+    category: "video",
+    title: "Brand Promotional Video Edits",
+    type: "Short-Form Promotional Collection",
+    videoCategories: ['Brand Promotions', 'Short-Form Videos', 'Social Media Content'],
+    desc: "A collection of short-form promotional edits spanning Linjer jewelry, fashion, lifestyle, and real estate, using product close-ups, on-screen captions, and social media-focused storytelling.",
+    img: "/images/brand-promotional-video-edits.webp",
+    imageAlt: "Collage of actual collection frames showing jewelry, fashion, perfume, and a residential interior.",
+    imageFit: "contain",
+    link: "https://drive.google.com/drive/folders/1VhJAHyQsGUlE909L8yr9ot7Fj-bNKjRv?usp=sharing",
+    linkText: "View Collection",
     isVideo: true
   }
 ];
