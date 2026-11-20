@@ -33,6 +33,10 @@ export default function ProjectCard({ project, theme, compact = false, headingLe
         {project.role && <p className="mt-1 text-[0.65rem] font-medium opacity-75">{project.role}</p>}
         {project.status && project.link && <span className={`mt-2 self-start rounded border px-1.5 py-0.5 text-[0.6rem] font-medium ${theme === 'dark' ? 'border-zinc-700' : 'border-zinc-300'}`}>{project.status}</span>}
         <p className={`mt-2 leading-relaxed ${compact ? 'text-[0.7rem] line-clamp-3' : 'text-[0.8rem]'}`}>{compact ? project.featuredDesc || project.desc : project.desc}</p>
+        {project.achievement && <div className="mt-3 text-[0.7rem] leading-relaxed">
+          <p className={`${compact ? 'text-sm' : 'text-base'} font-bold tracking-tight`}>{project.achievement.metric}</p>
+          <p className="mt-1 opacity-80">{project.achievement.context}</p>
+        </div>}
         {!!project.tech?.length && (
           <ul aria-label={`${project.title} technologies`} className="mt-3 flex flex-wrap gap-1.5">
             {project.tech.map(tech => <li key={tech} className={`rounded border px-2 py-0.5 text-[0.6rem] font-medium ${theme === 'dark' ? 'border-zinc-800 bg-zinc-900' : 'border-zinc-200 bg-zinc-50'}`}>{tech}</li>)}

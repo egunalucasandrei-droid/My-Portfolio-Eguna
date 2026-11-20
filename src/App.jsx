@@ -260,6 +260,14 @@ const projects = [
     imageFit: "contain",
     link: "https://drive.google.com/drive/folders/11FVASI4GkwfMv_X0yGX_Y_7MU80mYRWn?usp=sharing",
     linkText: "View Collection",
+    achievement: {
+      metric: "7M+ VIEWS ON TIKTOK",
+      context: "Highest-performing TikTok video during my time with New Beginnings Creator Network.",
+    },
+    links: [
+      { label: "View Collection", url: "https://drive.google.com/drive/folders/11FVASI4GkwfMv_X0yGX_Y_7MU80mYRWn?usp=sharing" },
+      { label: "Watch on TikTok", url: "https://www.tiktok.com/@oceanfront.stays/video/7641301716104678670" },
+    ],
     isVideo: true
   },
   {
