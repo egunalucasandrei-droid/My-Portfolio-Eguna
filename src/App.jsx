@@ -8,7 +8,6 @@ import { thumbnailFor } from './media';
 import videoThumbnails from './videoThumbnails';
 import usePortfolioMotion from './usePortfolioMotion';
 import MotionDebug from './components/MotionDebug';
-import RotatingTitle from './components/RotatingTitle';
 import { GearPage, GearPreview } from './components/Gear';
 import cert1 from './images/Introduction to Network Defense certificate.png';
 import cert2 from './images/Introduction to Networks Certificate.png';
@@ -789,7 +788,7 @@ export default function App() {
                   Metro Manila, Philippines
                 </div>
                 <p data-hero="title" data-delay="500" className={`text-[0.8rem] md:text-[0.85rem] font-semibold tracking-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-                   <RotatingTitle />
+                   <span className="whitespace-nowrap">Full-Stack Developer</span> | <span className="whitespace-nowrap">Video Editor</span>
                 </p>
               </div>
             </div>
