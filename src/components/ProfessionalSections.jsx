@@ -19,6 +19,21 @@ const services = [
     icon: 'workflow',
     description: 'Integrating AI-powered services into applications and creative workflows to improve functionality and productivity.',
   },
+  {
+    title: 'Brand & Promotional Video Editing',
+    icon: 'megaphone',
+    description: 'Creating engaging promotional videos, product advertisements, and branded content that highlight key features and capture audience attention.',
+  },
+  {
+    title: 'Long-Form Video & Podcast Editing',
+    icon: 'video',
+    description: 'Editing podcasts, interviews, and YouTube videos with smooth pacing, clean transitions, captions, and engaging storytelling.',
+  },
+  {
+    title: '2D Animation & Animated Storytelling',
+    icon: 'film',
+    description: 'Producing character-driven 2D animated videos, creative stories, and engaging visual content for YouTube and social media.',
+  },
 ];
 
 const featuredWork = [
@@ -39,6 +54,8 @@ const iconPaths = {
   database: 'M20 6c0 2-4 3-8 3S4 8 4 6s4-3 8-3 8 1 8 3Zm0 0v12c0 2-4 3-8 3s-8-1-8-3V6m0 6c0 2 4 3 8 3s8-1 8-3',
   video: 'M3 7h18v14H3zM3 7l3-5h15v5M9 2l-3 5m9-5-3 5m-2 4 6 3-6 3z',
   workflow: 'M3 3h6v6H3zm12 12h6v6h-6zM6 9v6a3 3 0 0 0 3 3h6m3-9V3m-3 3h6',
+  megaphone: 'M3 10v4h4l12 5V5L7 10H3Zm4 4 2 7h3l-2-6M22 9v6',
+  film: 'M4 3h16v18H4zM8 3v18M16 3v18M4 7h4m-4 5h4m-4 5h4M16 7h4m-4 5h4m-4 5h4',
 };
 
 function CapabilityIcon({ name }) {
@@ -66,7 +83,7 @@ export default function ProfessionalSections({ theme, experience, noltaProject }
       <SectionCard id="what-i-do-heading" title="What I Do" theme={theme}>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           {services.map(service => (
-            <article key={service.title} className={`min-w-0 rounded-lg border p-3 transition-colors ${theme === 'dark' ? 'border-zinc-800 hover:border-zinc-600' : 'border-zinc-200 hover:border-zinc-400'}`}>
+            <article key={service.title} className={`min-w-0 rounded-lg border p-3 transition-colors last:sm:col-span-2 ${theme === 'dark' ? 'border-zinc-800 hover:border-zinc-600' : 'border-zinc-200 hover:border-zinc-400'}`}>
               <CapabilityIcon name={service.icon} />
               <h3 className="mt-2 text-[0.8rem] font-semibold leading-snug tracking-tight">{service.title}</h3>
               <p className="mt-1.5 text-[0.7rem] leading-relaxed opacity-85">{service.description}</p>
