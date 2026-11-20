@@ -8,6 +8,7 @@ const paths = {
   mouse: 'M6 9a6 6 0 0 1 12 0v6a6 6 0 0 1-12 0V9Zm6-6v6M6 10h12',
   iem: 'M8 4a4 4 0 1 0 0 8h1V7H8m8-3a4 4 0 1 1 0 8h-1V7h1M9 12v4a3 3 0 0 0 6 0v-4m-3 7v3',
   headset: 'M4 14v-3a8 8 0 0 1 16 0v3M4 12H2v7h4v-7H4Zm16 0h2v7h-4v-7h2Zm0 7c0 2-3 3-6 3h-2',
+  microphone: 'M9 5a3 3 0 0 1 6 0v7a3 3 0 0 1-6 0V5Zm-3 6v1a6 6 0 0 0 12 0v-1m-6 7v4m-4 0h8',
   phone: 'M7 2h10a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1Zm3 3h4m-2 14h.01',
 };
 
