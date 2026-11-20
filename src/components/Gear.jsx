@@ -19,7 +19,6 @@ function GearImage({ item, theme, compact = false }) {
       <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" className={compact ? 'h-6 w-6' : 'h-14 w-14'}><path d={paths[item.icon]} /></svg>
       {!compact && <span className="text-[0.65rem]">Photo pending</span>}
     </div>}
-    {!compact && item.image && !failed && item.imageCaption && <span className="absolute bottom-1 left-2 rounded bg-black/75 px-1.5 py-0.5 text-[0.6rem] leading-snug text-white">{item.imageCaption}</span>}
   </div>;
 }
 
