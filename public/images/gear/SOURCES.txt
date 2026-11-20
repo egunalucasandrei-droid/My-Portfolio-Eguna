@@ -1,0 +1,35 @@
+Gear image references
+
+custom-desktop-illustration.webp and keyboard-illustration.webp
+AI-generated using OpenAI image generation. Generic illustrative hardware,
+not photographs or verified renders of the owner's actual equipment.
+The cards explicitly label these illustrations.
+
+dell-latitude-5430.webp
+Product reference: Dell Latitude 5430, FirstShop product photography.
+https://www.firstshop.co.za/products/dell-latitude-5430-14-inch-fhd-laptop-intel-core-i7-1255u-512gb-ssd-16gb-ram-win-11-pro-326546
+
+pulsar-x2-rotobox.webp
+Manufacturer reference: Pulsar X2 v1 Mini Rotobox Edition.
+https://www.pulsar.gg/products/rotobox-edition-x2-mini-gaming-mouse
+The image caption identifies the Mini reference; the owner's size is unconfirmed.
+
+zero-2-iem.webp
+Manufacturer/distributor reference: 7HZ x Crinacle Zero:2, silver finish.
+https://www.linsoul.com/products/7hz-x-crinacle-zero-2
+The image caption identifies the reference model; the owner's exact finish/model is unconfirmed.
+
+attack-shark-x6.webp
+Manufacturer reference: Attack Shark X6, White.
+https://attackshark.com/products/x6-49g-wireless-gaming-mouse-charging-dock
+
+attack-shark-headset.webp
+Manufacturer reference: Attack Shark L80 Pro, Black.
+https://attackshark.com/products/attack-shark-l80pro-wireless-gaming-headset
+
+iphone-12-black.webp
+Manufacturer reference: Apple iPhone 12, Black.
+https://support.apple.com/en-us/111876
+
+Product-photo copyrights remain with their respective owners.
+Images were resized/converted to WebP with their aspect ratios preserved.

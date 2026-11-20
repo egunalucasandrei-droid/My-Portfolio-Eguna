@@ -6,6 +6,10 @@ import ImageModal from './components/ImageModal';
 import ProfessionalSections from './components/ProfessionalSections';
 import { thumbnailFor } from './media';
 import videoThumbnails from './videoThumbnails';
+import usePortfolioMotion from './usePortfolioMotion';
+import MotionDebug from './components/MotionDebug';
+import RotatingTitle from './components/RotatingTitle';
+import { GearPage, GearPreview } from './components/Gear';
 import cert1 from './images/Introduction to Network Defense certificate.png';
 import cert2 from './images/Introduction to Networks Certificate.png';
 import cert3 from './images/HTML certificate.png';
@@ -479,18 +483,6 @@ const GlobalStyles = () => (
             text-rendering: optimizeLegibility;
         }
 
-        .fade-up {
-            opacity: 0;
-            transform: translateY(15px);
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-            will-change: opacity, transform;
-        }
-
-        .fade-up.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 4px; }
@@ -545,6 +537,7 @@ export default function App() {
 
   const [activeView, setActiveView] = useState('home');
   const [activeProjectFilter, setActiveProjectFilter] = useState('all');
+  usePortfolioMotion(activeView, activeProjectFilter);
 
   useEffect(() => {
     try {
@@ -562,23 +555,7 @@ export default function App() {
   const toggleTheme = () => setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
 
   useEffect(() => {
-    document.documentElement.classList.add('scroll-smooth');
-    const observerOptions = { root: null, rootMargin: '0px', threshold: 0.05 };
-    const observer = new IntersectionObserver((entries, obs) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          obs.unobserve(entry.target);
-        }
-      });
-    }, observerOptions);
-
-    const elements = document.querySelectorAll('.fade-up');
-    elements.forEach(element => observer.observe(element));
-
     window.scrollTo({ top: 0, behavior: 'instant' });
-
-    return () => observer.disconnect();
   }, [activeView]);
 
   const openModal = (imgSrc, description = 'Image preview', trigger = document.activeElement) => {
@@ -664,6 +641,14 @@ export default function App() {
     </main>
   );
 
+  const renderGear = () => (
+    <main id="main-content" tabIndex={-1} className="mx-auto w-full max-w-5xl px-5 py-8">
+      {renderViewHeading('My Gear & Setup')}
+      <p className="mb-8 max-w-2xl text-sm leading-relaxed opacity-80">The tools behind my development, editing, and everyday creative workflow.</p>
+      <GearPage theme={theme} />
+    </main>
+  );
+
   const renderAllCerts = () => (
     <main id="main-content" tabIndex={-1} className="fade-up mx-auto w-full max-w-5xl px-5 py-8">
       {renderViewHeading('All Certifications')}
@@ -691,7 +676,7 @@ export default function App() {
             type="button"
             aria-label={`View ${image.alt}`}
             key={idx}
-            className={`flex aspect-square rounded-lg overflow-hidden hover:opacity-80 transition-opacity cursor-pointer border ${
+            className={`gallery-thumb flex aspect-square rounded-lg overflow-hidden hover:opacity-80 transition-opacity cursor-pointer border ${
               theme === 'dark' ? 'border-zinc-800 bg-zinc-950' : 'border-zinc-200 bg-white'
             }`}
             onClick={event => openModal(image.src, image.alt, event.currentTarget)}
@@ -708,6 +693,7 @@ export default function App() {
       theme === 'dark' ? 'bg-black text-white selection:bg-white selection:text-black' : 'bg-white text-black selection:bg-black selection:text-white'
     }`}>
       <GlobalStyles />
+      {import.meta.env.DEV && <MotionDebug />}
       <a href="#main-content" className="skip-link">Skip to content</a>
 
       <ImageModal open={isModalOpen} source={modalImg} alt={modalAlt} theme={theme} onClose={closeModal} triggerRef={modalTriggerRef} />
@@ -749,6 +735,7 @@ export default function App() {
       {activeView === 'certs' && renderAllCerts()}
       {activeView === 'gallery' && renderAllGallery()}
       {activeView === 'tech' && renderAllTech()}
+      {activeView === 'gear' && renderGear()}
       {activeView === 'videos' && renderAllVideos()}
 
       {/* DASHBOARD HOME VIEW */}
@@ -760,7 +747,7 @@ export default function App() {
             theme === 'dark' ? 'border-zinc-800' : 'border-zinc-200'
           }`}>
             <div className="flex min-w-0 items-center gap-4 md:gap-5">
-              <div 
+              <div data-hero="portrait"
                 className={`w-20 h-20 md:w-28 md:h-28 rounded-xl overflow-hidden border shrink-0 ${theme === 'dark' ? 'border-zinc-800 bg-zinc-950' : 'border-zinc-200 bg-white'}`}
                 onMouseEnter={() => {
                   setIsHoveringProfile(true);
@@ -781,25 +768,25 @@ export default function App() {
                 />
               </div>
               <div>
-                <h1 tabIndex={-1} className={`text-xl md:text-2xl font-bold tracking-tight leading-tight mb-1.5 ${
+                <h1 data-hero="name" data-delay="200" tabIndex={-1} className={`text-xl md:text-2xl font-bold tracking-tight leading-tight mb-1.5 ${
                   theme === 'dark' ? 'text-white' : 'text-black'
                 }`}>
                   LUCAS ANDREI EGUNA
                 </h1>
-                <div className={`flex items-center gap-1.5 text-xs mb-2 font-medium ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+                <div data-hero="location" data-delay="350" className={`flex items-center gap-1.5 text-xs mb-2 font-medium ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
                   <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5">
                     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                     <circle cx="12" cy="10" r="3"></circle>
                   </svg>
                   Metro Manila, Philippines
                 </div>
-                <p className={`text-[0.8rem] md:text-[0.85rem] font-semibold tracking-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-                   Full-Stack Developer | Video Editor
+                <p data-hero="title" data-delay="500" className={`text-[0.8rem] md:text-[0.85rem] font-semibold tracking-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+                   <RotatingTitle />
                 </p>
               </div>
             </div>
             
-            <div className="flex gap-3 w-full lg:w-auto mt-2 lg:mt-0">
+            <div data-hero="actions" data-delay="650" className="flex gap-3 w-full lg:w-auto mt-2 lg:mt-0">
               <a
                 href={resumeDoc}
                 target="_blank"
@@ -834,7 +821,7 @@ export default function App() {
             </div>
           </div>
 
-          <div className={`mb-5 border rounded-xl p-5 md:p-6 ${theme === 'dark' ? 'bg-zinc-950 border-zinc-800' : 'bg-white border-zinc-200'}`}>
+          <div data-about className={`mb-5 border rounded-xl p-5 md:p-6 ${theme === 'dark' ? 'bg-zinc-950 border-zinc-800' : 'bg-white border-zinc-200'}`}>
             <h2 className={`text-[0.9rem] font-bold mb-3 tracking-tight ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
               About
             </h2>
@@ -900,6 +887,8 @@ export default function App() {
                 <VideoPortfolio projects={projects} theme={theme} compact />
               </section>
 
+              <GearPreview theme={theme} onViewAll={() => navigateTo('gear')} />
+
             </div>
 
             <div className="lg:col-span-5 flex min-w-0 flex-col gap-5 w-full">
@@ -910,12 +899,12 @@ export default function App() {
                 </h2>
                 
                 <div className="relative ml-2">
-                  <div className={`absolute left-0.75 top-2 bottom-2 w-px ${theme === 'dark' ? 'bg-zinc-800' : 'bg-zinc-200'}`}></div>
+                  <div data-timeline-line className={`origin-top absolute left-0.75 top-2 bottom-2 w-px ${theme === 'dark' ? 'bg-zinc-800' : 'bg-zinc-200'}`}></div>
 
                   <ol className="flex flex-col gap-6">
                     {experience.map(entry => (
-                      <li key={entry.title} className="group relative min-w-0 pl-5">
-                        <span aria-hidden="true" className={`absolute left-0 top-1.25 h-1.75 w-1.75 transition-transform motion-safe:group-hover:scale-150 ${entry.current ? theme === 'dark' ? 'bg-white' : 'bg-black' : theme === 'dark' ? 'border border-zinc-600 bg-zinc-950 group-hover:border-white' : 'border border-zinc-300 bg-white group-hover:border-black'}`} />
+                      <li data-timeline-entry key={entry.title} className="group relative min-w-0 pl-5">
+                        <span data-timeline-marker aria-hidden="true" className={`absolute left-0 top-1.25 h-1.75 w-1.75 transition-transform motion-safe:group-hover:scale-150 ${entry.current ? theme === 'dark' ? 'bg-white' : 'bg-black' : theme === 'dark' ? 'border border-zinc-600 bg-zinc-950 group-hover:border-white' : 'border border-zinc-300 bg-white group-hover:border-black'}`} />
                         <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
                           <h3 className="text-[0.8rem] font-semibold leading-snug tracking-tight">{entry.title}</h3>
                           <span className="shrink-0 text-[0.6rem] font-mono font-medium">{entry.period}</span>
@@ -973,7 +962,7 @@ export default function App() {
                       type="button"
                       aria-label={`View ${image.alt}`}
                       key={idx}
-                      className={`flex aspect-square rounded-md overflow-hidden hover:opacity-80 transition-opacity cursor-pointer border ${
+                      className={`gallery-thumb flex aspect-square rounded-md overflow-hidden hover:opacity-80 transition-opacity cursor-pointer border ${
                         theme === 'dark' ? 'border-zinc-800' : 'border-zinc-200'
                       }`}
                       onClick={event => openModal(image.src, image.alt, event.currentTarget)}
@@ -1016,7 +1005,7 @@ export default function App() {
             </div>
           </div>
 
-          <div className={`mt-5 border rounded-xl p-5 flex flex-col sm:flex-row gap-5 justify-between items-start sm:items-center ${
+          <div data-reveal className={`contact-section mt-5 border rounded-xl p-5 flex flex-col sm:flex-row gap-5 justify-between items-start sm:items-center ${
             theme === 'dark' ? 'bg-zinc-950 border-zinc-800' : 'bg-white border-zinc-200'
           }`}>
             <div>

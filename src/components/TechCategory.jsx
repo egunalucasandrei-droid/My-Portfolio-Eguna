@@ -14,7 +14,7 @@ const paths = {
 export default function TechCategory({ section, theme, compact = false }) {
   const Heading = compact ? 'h3' : 'h2';
   return (
-    <div className="min-w-0">
+    <div className="tech-category min-w-0">
       <Heading className={`flex items-center gap-2 font-semibold tracking-tight ${compact ? 'mb-2 text-[0.65rem] leading-4 uppercase tracking-wider' : 'mb-3 text-base'}`}>
         <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5 shrink-0 opacity-70"><path d={paths[section.category]} /></svg>
         {section.label ?? section.category}

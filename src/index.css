@@ -32,16 +32,90 @@ button:not(:disabled) { cursor: pointer; }
 }
 .image-modal::backdrop { background: transparent; }
 @keyframes preview-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from { opacity: 0; transform: scale(0.985); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.project-card, .tech-category li, .featured-work-item,
+main button, header button, main a, main a svg, header button svg {
+  transition-property: transform, opacity, border-color, background-color, color, box-shadow;
+  transition-duration: 240ms;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+.video-play-overlay { opacity: 0; transition: opacity 240ms ease; }
+.project-card:focus-within .video-play-overlay { opacity: 1; }
+.gallery-thumb img { transition: transform 300ms ease, opacity 240ms ease; }
+.gear-card, .gear-preview-item { transition: transform 240ms ease, border-color 240ms ease; }
+.gear-image img { transition: transform 300ms ease; }
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .project-card:hover { transform: translateY(-5px); box-shadow: 0 9px 22px rgb(0 0 0 / 0.12); }
+  .project-card:hover .project-image { transform: scale(1.04); }
+  .project-card:hover .video-play-overlay { opacity: 1; }
+  .project-card:hover a { text-decoration: underline; text-underline-offset: 4px; }
+  .tech-category li:hover { transform: translateY(-3px); background-color: #e4e4e7; border-color: #71717a; }
+  html.dark .tech-category li:hover { background-color: #27272a; border-color: #a1a1aa; }
+  .featured-work-item:hover { transform: translateY(-2px); }
+  main button:not(.gallery-thumb):hover, header button:hover { transform: translateY(-1px); }
+  main a:hover > svg, header button:hover > svg { transform: translateY(-1px); }
+  .gallery-thumb:hover img { transform: scale(1.035); }
+  .gear-card:hover, .gear-preview-item:hover { transform: translateY(-3px); }
+  .gear-card:hover .gear-image img, .gear-preview-item:hover .gear-image img { transform: scale(1.03); }
+}
+
+.rotating-title { display: grid; }
+.rotating-title > span { grid-area: 1 / 1; opacity: 0; animation: title-cycle 12s var(--title-delay) infinite; }
+.rotating-title > span:first-child { opacity: 1; }
+@keyframes title-cycle {
+  0%, 28% { opacity: 1; transform: translateY(0); }
+  33.333%, 95% { opacity: 0; transform: translateY(-8px); }
+  96% { opacity: 0; transform: translateY(8px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.rotating-title:hover > span { animation-play-state: paused; }
+
+.motion-debug-panel { position: fixed; right: 12px; bottom: 12px; z-index: 60; max-width: min(310px, calc(100vw - 24px)); max-height: 50dvh; overflow: auto; border: 1px solid #71717a; border-radius: 10px; padding: 12px; background: #09090b; color: white; font: 12px/1.5 system-ui; box-shadow: 0 8px 24px #0004; }
+.motion-debug-panel summary { cursor: pointer; font-weight: 600; }
+.motion-debug-panel p { margin-top: 8px; }
+.motion-debug-panel button { display: block; margin-top: 8px; padding: 5px 8px; border: 1px solid #71717a; border-radius: 4px; }
+.motion-debug-panel button[aria-pressed="true"] { background: white; color: black; }
+.motion-debug-outlines [data-motion-target], .motion-debug-outlines [data-hero], .motion-debug-outlines [data-about] { outline: 1px dashed currentColor; outline-offset: 3px; }
+@media (prefers-reduced-motion: no-preference) {
+  .motion-debug-cards .project-card { transform: translateY(-5px); box-shadow: 0 9px 22px #0002; }
+  .motion-debug-cards .project-image { transform: scale(1.04); }
+}
+.motion-debug-cards .video-play-overlay { opacity: 1; }
+
+@media (hover: none) {
+  .video-play-overlay { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  main button:active, header button:active, main a:active { transform: scale(0.98); }
 }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     scroll-behavior: auto !important;
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    animation: none !important;
+    transition: none !important;
   }
   .fade-up { opacity: 1 !important; transform: none !important; }
+  .rotating-title > span { opacity: 0; transform: none; }
+  .rotating-title > span:first-child { opacity: 1; }
+}
+
+/* Explicit, development-only opt-in from MotionDebug; never enabled automatically. */
+html[data-motion-preview="enabled"] .rotating-title > span {
+  animation: title-cycle 12s var(--title-delay) infinite !important;
+}
+html[data-motion-preview="enabled"] :is(.project-card, .project-image, .video-play-overlay, .tech-category li) {
+  transition: transform 240ms ease, opacity 240ms ease, border-color 240ms ease, background-color 240ms ease, box-shadow 240ms ease !important;
+}
+@media (hover: hover) and (pointer: fine) {
+  html[data-motion-preview="enabled"] .project-card:hover { transform: translateY(-5px); box-shadow: 0 9px 22px #0002; }
+  html[data-motion-preview="enabled"] .project-card:hover .project-image { transform: scale(1.04); }
+  html[data-motion-preview="enabled"] .project-card:hover .video-play-overlay { opacity: 1; }
+  html[data-motion-preview="enabled"] .tech-category li:hover { transform: translateY(-3px); border-color: #71717a; background: #e4e4e7; }
+  html.dark[data-motion-preview="enabled"] .tech-category li:hover { border-color: #a1a1aa; background: #27272a; }
 }

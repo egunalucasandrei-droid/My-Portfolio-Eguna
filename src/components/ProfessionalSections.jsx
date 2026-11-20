@@ -95,7 +95,7 @@ export default function ProfessionalSections({ theme, experience, noltaProject }
       <SectionCard id="featured-work-heading" title="Featured Work" theme={theme}>
         <div className={`divide-y ${theme === 'dark' ? 'divide-zinc-800' : 'divide-zinc-200'}`}>
           {workEntries.map(work => (
-            <article key={work.company} className="flex min-w-0 items-start gap-3 py-4 first:pt-0 last:pb-0">
+            <article key={work.company} className="featured-work-item flex min-w-0 items-start gap-3 py-4 first:pt-0 last:pb-0">
               <div className="pt-0.5"><CapabilityIcon name={work.icon} /></div>
               <div className="min-w-0">
                 <h3 className="text-[0.8rem] font-semibold leading-snug tracking-tight">{work.project?.link ? <a href={work.project.link} target="_blank" rel="noopener noreferrer" aria-label={`Live Website: ${work.company} (opens in a new tab)`} className="underline-offset-4 hover:underline">{work.company}</a> : work.company}</h3>
