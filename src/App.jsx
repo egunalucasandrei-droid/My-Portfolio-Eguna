@@ -391,6 +391,10 @@ const projects = [
     imageFit: "contain",
     link: "https://www.tiktok.com/@mindrop.clips",
     linkText: "View TikTok",
+    links: [
+      { label: "Watch on TikTok", url: "https://www.tiktok.com/@mindrop.clips" },
+      { label: "Watch on YouTube", url: "https://www.youtube.com/@mindropdaily/shorts" },
+    ],
     isVideo: true
   },
   {
