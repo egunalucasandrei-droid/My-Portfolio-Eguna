@@ -842,7 +842,7 @@ export default function App() {
             <div className={`space-y-3 text-[0.75rem] leading-relaxed ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
               <p>I'm an Information Technology student specializing in Cybersecurity, with over 5 years of experience in video editing and 2 years in web development. I specialize in short-form video editing, talking-head videos, 2D animation, promotional content, and social media storytelling, while also developing responsive and functional web applications.</p>
               <p>My experience includes full-stack development, database management, API integration, UI/UX design, and digital content creation. I've worked with local and international clients, producing hotel and resort promotions, creating attention-grabbing hooks, and transforming raw footage into engaging visual stories.</p>
-              <p>I'm passionate about combining creativity and technology to deliver high-quality digital experiences while continuously improving my technical skills, animation techniques, AI-assisted workflows, and creative approach.</p>
+              <p>I'm passionate about combining creativity and technology to deliver high-quality digital experiences. I'm continuously developing my technical and creative skills, exploring new animation techniques, and learning how to integrate AI tools into my workflows to improve efficiency, streamline production, and enhance the quality of my work.</p>
             </div>
           </div>
 
