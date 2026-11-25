@@ -2,7 +2,7 @@ import { thumbnailFor } from '../media';
 
 export default function ProjectCard({ project, theme, compact = false, headingLevel = 'h3' }) {
   const Heading = headingLevel;
-  const action = project.actionLabel || (project.category === 'web' ? 'Live Demo' : project.category === 'uiux' ? 'View Design' : (project.linkText || 'Watch Video'));
+  const action = project.category === 'web' ? 'Live Website' : project.actionLabel || (project.category === 'uiux' ? 'View Design' : (project.linkText || 'Watch Video'));
   const links = project.links ?? [
     ...(project.link ? [{ label: action, url: project.link }] : []),
     ...(project.github ? [{ label: 'GitHub', url: project.github }] : []),

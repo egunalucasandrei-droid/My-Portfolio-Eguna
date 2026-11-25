@@ -126,7 +126,6 @@ const projects = [
     desc: "An AI chat application I built with a responsive React interface and a separate Express backend for Gemini API requests.",
     role: "Full-Stack Developer",
     tech: ['React', 'Tailwind CSS', 'Express.js', 'Gemini API'],
-    github: "https://github.com/egunalucasandrei-droid/AI-Chat",
     img: aiChat,
     link: "https://ai-chat-snowy-mu.vercel.app",
     linkText: "Visit Site"
@@ -187,7 +186,6 @@ const projects = [
     title: "apex5000",
     desc: "A PHP school project I built to simulate vehicle purchasing, upgrade selection, financing calculations, and delivery manifest generation.",
     tech: ['PHP', 'CSS3'],
-    github: "https://github.com/egunalucasandrei-droid/Apex5000",
     img: apex5000,
     link: "https://apex5000.vercel.app",
     linkText: "Visit Site"
@@ -481,6 +479,11 @@ const experience = [
     "period": "2021 – 2022"
   }
 ];
+
+// Keep employment data available to Featured Work; this timeline shows UI/UX projects only.
+const projectTimeline = experience
+  .filter(entry => entry.title === 'UI/UX Designer')
+  .map(entry => ({ ...entry, company: 'School Project & Freelance' }));
 
 const GlobalStyles = () => (
   <style
@@ -906,14 +909,14 @@ export default function App() {
               
               <div className={`border rounded-xl p-5 md:p-6 ${theme === 'dark' ? 'bg-zinc-950 border-zinc-800' : 'bg-white border-zinc-200'}`}>
                 <h2 className={`text-base font-bold tracking-tight mb-6 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-                  Experience
+                  Projects
                 </h2>
                 
                 <div className="relative ml-2">
-                  <div data-timeline-line className={`origin-top absolute left-0.75 top-2 bottom-2 w-px ${theme === 'dark' ? 'bg-zinc-800' : 'bg-zinc-200'}`}></div>
+                  {projectTimeline.length > 1 && <div data-timeline-line className={`origin-top absolute left-0.75 top-2 bottom-2 w-px ${theme === 'dark' ? 'bg-zinc-800' : 'bg-zinc-200'}`}></div>}
 
                   <ol className="flex flex-col gap-6">
-                    {experience.map(entry => (
+                    {projectTimeline.map(entry => (
                       <li data-timeline-entry key={entry.title} className="group relative min-w-0 pl-5">
                         <span data-timeline-marker aria-hidden="true" className={`absolute left-0 top-1.25 h-1.75 w-1.75 transition-transform motion-safe:group-hover:scale-150 ${entry.current ? theme === 'dark' ? 'bg-white' : 'bg-black' : theme === 'dark' ? 'border border-zinc-600 bg-zinc-950 group-hover:border-white' : 'border border-zinc-300 bg-white group-hover:border-black'}`} />
                         <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
