@@ -453,7 +453,7 @@ const experience = [
   },
   {
     "title": "UI/UX Designer",
-    "company": "Fit Tracker, Rise Fit, Shape Your Body, Health Tracker",
+    "company": "School Project & Freelance",
     "period": "2025"
   },
   {
@@ -479,11 +479,6 @@ const experience = [
     "period": "2021 – 2022"
   }
 ];
-
-// Keep employment data available to Featured Work; this timeline shows UI/UX projects only.
-const projectTimeline = experience
-  .filter(entry => entry.title === 'UI/UX Designer')
-  .map(entry => ({ ...entry, company: 'School Project & Freelance' }));
 
 const GlobalStyles = () => (
   <style
@@ -909,14 +904,14 @@ export default function App() {
               
               <div className={`border rounded-xl p-5 md:p-6 ${theme === 'dark' ? 'bg-zinc-950 border-zinc-800' : 'bg-white border-zinc-200'}`}>
                 <h2 className={`text-base font-bold tracking-tight mb-6 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
-                  Projects
+                  Experience
                 </h2>
                 
                 <div className="relative ml-2">
-                  {projectTimeline.length > 1 && <div data-timeline-line className={`origin-top absolute left-0.75 top-2 bottom-2 w-px ${theme === 'dark' ? 'bg-zinc-800' : 'bg-zinc-200'}`}></div>}
+                  <div data-timeline-line className={`origin-top absolute left-0.75 top-2 bottom-2 w-px ${theme === 'dark' ? 'bg-zinc-800' : 'bg-zinc-200'}`}></div>
 
                   <ol className="flex flex-col gap-6">
-                    {projectTimeline.map(entry => (
+                    {experience.map(entry => (
                       <li data-timeline-entry key={entry.title} className="group relative min-w-0 pl-5">
                         <span data-timeline-marker aria-hidden="true" className={`absolute left-0 top-1.25 h-1.75 w-1.75 transition-transform motion-safe:group-hover:scale-150 ${entry.current ? theme === 'dark' ? 'bg-white' : 'bg-black' : theme === 'dark' ? 'border border-zinc-600 bg-zinc-950 group-hover:border-white' : 'border border-zinc-300 bg-white group-hover:border-black'}`} />
                         <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
