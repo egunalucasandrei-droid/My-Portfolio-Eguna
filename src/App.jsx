@@ -47,6 +47,16 @@ const certifications = [
   { title: "Introduction to Data Science", issuer: "Cisco", image: cert4 },
 ];
 
+const creativeToolGroups = [
+  { label: 'Video Editing', tools: ['CapCut', 'Adobe Premiere Pro', 'DaVinci Resolve', 'Short-Form Video Editing', 'AI-Assisted Video Editing'] },
+  { label: 'Motion Graphics & 3D', tools: ['Blender', 'Remotion'] },
+  { label: 'Graphic Design & UI/UX', tools: ['Figma', 'Canva', 'Adobe Photoshop'] },
+  { label: 'AI Video Generation', tools: ['Higgsfield', 'Runway', 'OpenArt', 'MiniMax', 'Jimeng AI'] },
+  { label: 'AI Image Generation', tools: ['Nano Banana (Google Gemini)'] },
+  { label: 'AI Creative Workflow', tools: ['Claude', 'ChatGPT', 'Claude Code'] },
+  { label: 'Automation & Production', tools: ['MCP Integrations', 'GitHub Skills', 'FFmpeg'] },
+];
+
 const techStack = [
   { category: "Programming Languages", tools: ['HTML5', 'CSS3', 'JavaScript', 'TypeScript', 'PHP', 'Python (Basic)', 'SQL'] },
   { category: "Front-End Development", tools: ['React.js', 'Next.js', 'Tailwind CSS', 'Responsive Web Design', 'Component-Based Architecture'] },
@@ -59,7 +69,7 @@ const techStack = [
   },
   { category: "Development & Deployment", tools: ['Git', 'GitHub', 'Visual Studio Code', 'Vercel', 'Hostinger', 'Resend', 'Render', 'Cloudflare', 'CI/CD', 'GitHub Actions', 'VPS Hosting', 'VPS Management', 'XAMPP'] },
   { category: "Testing & Developer Tools", tools: ['Postman', 'Chrome DevTools', 'ESLint'] },
-  { category: "Design & Video Editing", tools: ['Figma', 'Canva', 'Adobe Photoshop', 'Adobe Premiere Pro', 'CapCut', 'Short-Form Video Editing', 'AI-Assisted Video Editing'] },
+  { category: "Design & Video Editing Tools", groups: creativeToolGroups, tools: creativeToolGroups.flatMap(group => group.tools) },
   {
     category: "AI Integration",
     tools: ['Google AI Studio', 'Gemini API', 'OpenAI API', 'AI Agent Development', 'AI Chatbot Development', 'LLM Integration', 'AI API Integration', 'Prompt Engineering'],
@@ -79,7 +89,11 @@ const featuredTechSelection = [
   },
   { category: 'Development & Deployment', tools: ['Git', 'GitHub', 'Vercel', 'Cloudflare', 'VPS Hosting'] },
   { category: 'AI Integration', tools: ['Gemini API', 'OpenAI API', 'AI Agent Development'] },
-  { category: 'Design & Video Editing', tools: ['Figma', 'CapCut', 'AI-Assisted Video Editing'] },
+  {
+    category: 'Design & Video Editing Tools',
+    tools: ['CapCut', 'Adobe Premiere Pro', 'DaVinci Resolve', 'Blender', 'Higgsfield', 'Runway', 'OpenArt', 'Nano Banana (Google Gemini)', 'MiniMax', 'Jimeng AI'],
+    toolLabels: { 'Nano Banana (Google Gemini)': 'Nano Banana' },
+  },
 ];
 
 const featuredTechStack = featuredTechSelection.map(selection => {
